@@ -27,6 +27,13 @@ namespace MapRenderer
                     // get the current tile number
                     int tileNumber = tiles[i, j];
 
+                    int specialFlags = tileNumber / 10000;
+
+                    if (specialFlags > 0)
+                    {
+                        tileNumber = tileNumber - ( specialFlags * 10000 );
+                    }
+
                     // find its position in the tileset texture
                     long tu = tileNumber % (tileset.Size.X / tileSize.X);
                     long tv = tileNumber / (tileset.Size.X / tileSize.X);
@@ -45,11 +52,35 @@ namespace MapRenderer
                     quad2.Position = new Vector2f((i + 1) * tileSize.X, (j + 1) * tileSize.Y);
                     quad3.Position = new Vector2f(i * tileSize.X, (j + 1) * tileSize.Y);
 
-                    // define its 4 texture coordinates
-                    quad0.TexCoords = new Vector2f(tu * tileSize.X, tv * tileSize.Y);
-                    quad1.TexCoords = new Vector2f((tu + 1) * tileSize.X, tv * tileSize.Y);
-                    quad2.TexCoords = new Vector2f((tu + 1) * tileSize.X, (tv + 1) * tileSize.Y);
-                    quad3.TexCoords = new Vector2f(tu * tileSize.X, (tv + 1) * tileSize.Y);
+                    if (specialFlags == 1)
+                    {
+                        quad0.TexCoords = new Vector2f((tu + 1)*tileSize.X, tv*tileSize.Y);
+                        quad1.TexCoords = new Vector2f((tu + 1)*tileSize.X, (tv + 1)*tileSize.Y);
+                        quad2.TexCoords = new Vector2f(tu*tileSize.X, (tv + 1)*tileSize.Y);
+                        quad3.TexCoords = new Vector2f(tu*tileSize.X, tv*tileSize.Y);
+                    }
+                    else if (specialFlags == 2)
+                    {
+                        quad3.TexCoords = new Vector2f((tu + 1)*tileSize.X, tv*tileSize.Y);
+                        quad0.TexCoords = new Vector2f((tu + 1)*tileSize.X, (tv + 1)*tileSize.Y);
+                        quad1.TexCoords = new Vector2f(tu*tileSize.X, (tv + 1)*tileSize.Y);
+                        quad2.TexCoords = new Vector2f(tu*tileSize.X, tv*tileSize.Y);
+                    }
+                    else if (specialFlags == 3)
+                    {
+                        quad2.TexCoords = new Vector2f((tu + 1)*tileSize.X, tv*tileSize.Y);
+                        quad3.TexCoords = new Vector2f((tu + 1)*tileSize.X, (tv + 1)*tileSize.Y);
+                        quad0.TexCoords = new Vector2f(tu*tileSize.X, (tv + 1)*tileSize.Y);
+                        quad1.TexCoords = new Vector2f(tu*tileSize.X, tv*tileSize.Y);
+                    }
+                    else
+                    {
+                        // define its 4 texture coordinates
+                        quad0.TexCoords = new Vector2f(tu * tileSize.X, tv * tileSize.Y);
+                        quad1.TexCoords = new Vector2f((tu + 1) * tileSize.X, tv * tileSize.Y);
+                        quad2.TexCoords = new Vector2f((tu + 1) * tileSize.X, (tv + 1) * tileSize.Y);
+                        quad3.TexCoords = new Vector2f(tu * tileSize.X, (tv + 1) * tileSize.Y);
+                    }
 
                     vertices[index0] = quad0;
                     vertices[index0 + 1] = quad1;
