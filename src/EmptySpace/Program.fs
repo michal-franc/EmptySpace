@@ -18,6 +18,8 @@ let main argv =
     mainWindow.SetFramerateLimit(frameRate)
     mainWindow.Closed.AddHandler(fun sender args -> (sender :?> RenderWindow).Close())
 
+    let view = new View()
+
     let mapRenderer : MapRenderer = new MapRenderer()
 
     let world = World.create howManyTiles howManyTiles 
