@@ -24,7 +24,7 @@
     let spaceTileId = 3
 
     let addObject (target: int[,]) (source: int[,]) (x, y) =
-        Array2D.blit source 0 0 target x y 6 4
+        Array2D.blit source 0 0 target y x (source.GetLength 0) (source.GetLength 1)
 
     let create (width : uint32) (heigth : uint32) = 
         let howMany = (int (width * heigth * 10ul))
