@@ -14,7 +14,14 @@ type Human = {
    Hunger : int
    Thirst : int
    Health : int
-}
+} with
+    member this.tick = { this with Hunger = this.Hunger + Rate ; Thirst = this.Thirst + Rate }
+    member this.needCheck = 
+        let mutable needs = List.Empty
+        needs <- if this.Hunger > 30 then List.append needs ["Food"] else []
+        needs <- if this.Thirst > 30 then List.append needs ["Water"] else []
+        needs
+
 
 let create name = 
     counter <- counter + 1
@@ -25,11 +32,6 @@ let create name =
        Thirst = 0
        Health = 100
     }   
-
-let tick human = 
-    {
-       human with Hunger = human.Hunger + Rate ; Thirst = human.Thirst + Rate 
-    }
 
 [<Fact>] 
 let ``Each created human has incremented id`` ()=
@@ -52,8 +54,16 @@ let ``I can create default Human with Name and all value set to default`` ()=
 let ``On each tick hunger and thirst is modified`` ()=
     let sut = create "Steve"
 
-    let newHuman = tick sut
+    let newHuman = sut.tick
 
     newHuman.Hunger |> should not' (equal 0)
     newHuman.Thirst|> should not' (equal 0)
+
+[<Fact>] 
+let ``If Hunger > 30 generate food need and if Thirst > 30 generate water need`` ()=
+    let sut = { Hunger = 31; Thirst = 31; Name = ""; Id = 1; Health = 100 }
+    let needs = sut.needCheck
+    needs.Length |> should equal 2
+    needs.[0] |> should equal "Food"
+    needs.[1] |> should equal "Water"
 

@@ -3,7 +3,7 @@ open GameState
 
 let gameTick (gameState:GameState) = 
     {
-        gameState with Ship = Ship.tick gameState.Ship
+        gameState with Ship = gameState.Ship.tick
     }
 
 [<EntryPoint>]
