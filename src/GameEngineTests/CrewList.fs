@@ -5,30 +5,18 @@ open Storage
 open Xunit
 open FsUnit.Xunit
 
-let private checkStorage needs storage =
-      let mutable _needs = []
-      let mutable _storage = storage
-      for need in needs do
-            let name, v = need
-            let __storage, item = Storage.take name v _storage
-            _storage <- __storage
-            _needs <- List.append (if item > 0 then [name] else []) _needs
-
-      (_needs, _storage)
-
 type CrewList = {
     Crew : Human list 
    } with
-    member this.tick storage = 
-        let mutable modifiedCrewList = []
-        let mutable _storage = storage
+    member this.tick (storage:Storage) = 
+        let mutable _crewList = []
+        let mutable _storage = storage 
         for mem in this.Crew do 
              let _mem = mem.tick
-             let needs = _mem.getNeeds
-             let _needs, __storage = checkStorage needs _storage
-             _storage <- __storage
-             modifiedCrewList <- List.append modifiedCrewList [_mem.satisfyNeeds _needs] 
-        ({ Crew = modifiedCrewList }, _storage) 
+             let needs = storage.checkItems _mem.tick.getNeeds
+             _crewList <- List.append _crewList [_mem.satisfyNeeds needs] 
+             _storage <- Storage.removeItems (Map.ofList(needs)) _storage
+        ({ Crew = _crewList }, _storage) 
 
 let createDefault = 
     {

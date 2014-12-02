@@ -23,8 +23,8 @@ type Human = {
             needs
     member this.satisfyNeeds satisfiedNeeds = 
             let mutable modifiedT = this
-            for n in satisfiedNeeds do
-                 modifiedT <- match n with 
+            for name, value in satisfiedNeeds do
+                 modifiedT <- match name with 
                                  | "Food" -> { modifiedT with Hunger = modifiedT.Hunger - 30 }
                                  | "Water" -> { modifiedT with Thirst = modifiedT.Thirst - 30 }
                                  | _ -> modifiedT
