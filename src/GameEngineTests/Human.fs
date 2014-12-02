@@ -16,12 +16,21 @@ type Human = {
    Health : int
 } with
     member this.tick = { this with Hunger = this.Hunger + Rate ; Thirst = this.Thirst + Rate }
-    member this.needCheck = 
-        let mutable needs = List.Empty
-        needs <- if this.Hunger > 30 then List.append needs ["Food"] else []
-        needs <- if this.Thirst > 30 then List.append needs ["Water"] else []
-        needs
-
+    member this.getNeeds = 
+            let mutable needs = []
+            needs <- List.append needs (if this.Hunger > 30 then  [("Food", 1)] else [])
+            needs <- List.append needs (if this.Thirst > 30 then  [("Water", 1)] else [])
+            needs
+    member this.satisfyNeeds satisfiedNeeds = 
+            let mutable modifiedT = this
+            for n in satisfiedNeeds do
+                 modifiedT <- match n with 
+                                 | "Food" -> { modifiedT with Hunger = modifiedT.Hunger - 30 }
+                                 | "Water" -> { modifiedT with Thirst = modifiedT.Thirst - 30 }
+                                 | _ -> modifiedT
+            modifiedT
+            
+            
 
 let create name = 
     counter <- counter + 1
@@ -58,12 +67,3 @@ let ``On each tick hunger and thirst is modified`` ()=
 
     newHuman.Hunger |> should not' (equal 0)
     newHuman.Thirst|> should not' (equal 0)
-
-[<Fact>] 
-let ``If Hunger > 30 generate food need and if Thirst > 30 generate water need`` ()=
-    let sut = { Hunger = 31; Thirst = 31; Name = ""; Id = 1; Health = 100 }
-    let needs = sut.needCheck
-    needs.Length |> should equal 2
-    needs.[0] |> should equal "Food"
-    needs.[1] |> should equal "Water"
-

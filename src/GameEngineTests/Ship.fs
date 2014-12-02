@@ -11,11 +11,8 @@ type Ship = {
     Storage : Storage
  } with 
     member this.tick =
-     let needs = this.CrewList.needs
-     match needs with
-        | [] -> ignore
-        | _ -> needs |> List.iter (fun x -> printf "%s %s" x.[0] x.[1])
-     { this with CrewList = this.CrewList.tick }
+     let _crewList, _storage = this.CrewList.tick this.Storage
+     { this with CrewList = _crewList; Storage = _storage }
 
 let createStarterShip :Ship = 
     {
