@@ -22,11 +22,4 @@ let createStarterShip :Ship =
 
 let generateView ship = 
     let title = "Ship Data"
-    let crewList = CrewList.print ship.CrewList
-    let storageView = Storage.print ship.Storage
-    sprintf """ %s
-    Crew List
-        %s
-    Storage View
-        %s
-    """ title crewList storageView
+    title

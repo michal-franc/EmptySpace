@@ -10,10 +10,8 @@ type ShipView() =
     interface IView with 
         member this.GetView state = 
           let shipView = Ship.generateView state.Ship
-          sprintf "%s" shipView +
-          sprintf "turn number : %i" state.Turn +
-          sprintf "Actions\n1.Explore" + 
-          sprintf "Any key Go back" 
+          sprintf "Overall Condition 100\n" +
+          sprintf "%s" shipView
 
         member this.HandleKeys key state =
             match key.Key with 
@@ -42,6 +40,25 @@ type MainMenuView() =
                        | _ -> { state with CurrentView = Menu } 
 
 
+type StorageView() =
+    
+    interface IView with 
+        member this.GetView state =
+           sprintf "Storage \n%s" (Storage.print state.Ship.Storage)
+
+        member this.HandleKeys key state =
+            match key.Key with 
+                       | _ -> { state with CurrentView = Menu } 
+
+type CrewView() =
+    
+    interface IView with 
+        member this.GetView state =
+           sprintf "CrewList \n%s" (CrewList.print state.Ship.CrewList)
+
+        member this.HandleKeys key state =
+            match key.Key with 
+                       | _ -> { state with CurrentView = Menu } 
 
 type MissionsView() =
     

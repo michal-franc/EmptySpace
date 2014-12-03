@@ -9,6 +9,9 @@ open ViewType
 let private ViewCollection:Collections.Generic.IDictionary<ViewType, IView> = dict [
                                     (Menu, new MainMenuView() :> IView);
                                     (Missions, new MissionsView() :> IView);
+                                    (Ship, new ShipView() :> IView);
+                                    (Crew, new CrewView() :> IView);
+                                    (Storage, new StorageView() :> IView);
                                   ]
 
 let keyHandle state key = 
