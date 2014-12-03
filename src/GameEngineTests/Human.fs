@@ -38,6 +38,8 @@ type Human = {
                                  | "Water" -> { modifiedT with Thirst = modifiedT.Thirst - 30 }
                                  | _ -> modifiedT
             modifiedT
+    member this.print =
+            sprintf "%s hunger : %i thirst : %i tired : %i" this.Name this.Hunger this.Thirst this.Tired
             
             
 

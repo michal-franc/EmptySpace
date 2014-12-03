@@ -54,5 +54,6 @@ let ``If crew member is thirsty and hungry and there are items in storage then l
     _sut.Crew.[0].Thirst |> should equal 1
 
 let print crewList =
-    let s = crewList.Crew |> List.fold (fun previous crew -> previous + sprintf "%s hunger : %i thirst : %i" crew.Name crew.Hunger crew.Thirst + "\n") ""
+    let s = crewList.Crew 
+                    |> List.fold (fun previous crew -> previous + crew.print  + "\n") ""
     sprintf "%s" s
