@@ -63,7 +63,11 @@
     <Compile Include="Storage.fs" />
     <Compile Include="CrewList.fs" />
     <Compile Include="Ship.fs" />
+    <Compile Include="ViewType.fs" />
     <Compile Include="GameState.fs" />
+    <Compile Include="Views/IView.fs" />
+    <Compile Include="Views/MainMenuView.fs" />
+    <Compile Include="ViewHandler.fs" />
     <Compile Include="Program.fs" />
     <None Include="App.config" />
     <None Include="packages.config" />

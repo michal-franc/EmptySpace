@@ -1,0 +1,2 @@
+﻿1. Its now hard to use subfolders in F# projects in VS
+ - no wildcards supported

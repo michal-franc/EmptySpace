@@ -6,11 +6,11 @@ let main argv =
     let rec mainLoop(gamestate:GameState) = 
         Console.Clear()
 
-        Console.Write(GameState.getView gamestate)
+        Console.Write(ViewHandler.getView gamestate)
 
         let key = Console.ReadKey()
 
-        let _gamestate = GameState.keyHandle gamestate key.Key
+        let _gamestate = ViewHandler.keyHandle gamestate key
         mainLoop(_gamestate.tick)    
     
     mainLoop(initialGameState)     
