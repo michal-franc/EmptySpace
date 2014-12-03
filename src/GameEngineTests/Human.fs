@@ -3,6 +3,8 @@
 open Xunit
 open FsUnit.Xunit
 
+type Action = Explore | Nothing
+
 [<Literal>]
 let Rate = 1
 
@@ -14,8 +16,15 @@ type Human = {
    Hunger : int
    Thirst : int
    Health : int
+   Tired : int
+   Action : Action
 } with
-    member this.tick = { this with Hunger = this.Hunger + Rate ; Thirst = this.Thirst + Rate }
+    member this.tick = 
+        let tiredRate = match this.Action with
+                        | Explore -> 1
+                        | Nothing -> -1
+
+        { this with Hunger = this.Hunger + Rate ; Thirst = this.Thirst + Rate; Tired = this.Tired + tiredRate }
     member this.getNeeds = 
             let mutable needs = []
             needs <- List.append needs (if this.Hunger > 30 then  [("Food", 1)] else [])
@@ -39,7 +48,9 @@ let create name =
        Name = name
        Hunger = 0
        Thirst = 0
+       Tired = 0
        Health = 100
+       Action = Nothing
     }   
 
 [<Fact>] 
@@ -67,3 +78,18 @@ let ``On each tick hunger and thirst is modified`` ()=
 
     newHuman.Hunger |> should not' (equal 0)
     newHuman.Thirst|> should not' (equal 0)
+
+[<Fact>] 
+let ``Each tick if there is an action increse Tired`` ()=
+    let sut = { create "Steve" with Action = Explore }
+
+    let newHuman = sut.tick
+
+    newHuman.Tired |> should equal 1
+[<Fact>] 
+let ``Each tick if there is no action decrease Tired`` ()=
+    let sut = { create "Steve" with Action = Nothing; Tired = 50 }
+
+    let newHuman = sut.tick
+
+    newHuman.Tired |> should equal 49
