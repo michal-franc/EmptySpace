@@ -1,26 +1,17 @@
 ﻿open System
 open GameState
 
-let gameTick (gameState:GameState) = 
-    {
-        gameState with Ship = gameState.Ship.tick
-    }
-
 [<EntryPoint>]
 let main argv = 
-
-
-    let rec mainLoop(turn, gamestate) = 
+    let rec mainLoop(gamestate:GameState) = 
         Console.Clear()
 
-        let shipView = Ship.generateView gamestate.Ship
-                
-        printfn "%s" shipView
-        printfn "turn number : %i" turn 
-        printfn "press any key to turn"
+        Console.Write(GameState.getView gamestate)
+
         let key = Console.ReadKey()
 
-        mainLoop(turn + 1, gameTick gamestate)    
+        let _gamestate = GameState.keyHandle gamestate key.Key
+        mainLoop(_gamestate.tick)    
     
-    mainLoop(0, initialGameState)     
+    mainLoop(initialGameState)     
     0
