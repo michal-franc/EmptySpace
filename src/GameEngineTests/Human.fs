@@ -23,8 +23,9 @@ type Human = {
         let tiredRate = match this.Action with
                         | Explore -> 1
                         | Nothing -> -1
+        let tiredValue = this.Tired + tiredRate 
 
-        { this with Hunger = this.Hunger + Rate ; Thirst = this.Thirst + Rate; Tired = this.Tired + tiredRate }
+        { this with Hunger = this.Hunger + Rate ; Thirst = this.Thirst + Rate; Tired = if tiredValue < 0 then 0 else tiredValue }
     member this.getNeeds = 
             let mutable needs = []
             needs <- List.append needs (if this.Hunger > 30 then  [("Food", 1)] else [])
@@ -88,6 +89,7 @@ let ``Each tick if there is an action increse Tired`` ()=
     let newHuman = sut.tick
 
     newHuman.Tired |> should equal 1
+
 [<Fact>] 
 let ``Each tick if there is no action decrease Tired`` ()=
     let sut = { create "Steve" with Action = Nothing; Tired = 50 }
@@ -95,3 +97,11 @@ let ``Each tick if there is no action decrease Tired`` ()=
     let newHuman = sut.tick
 
     newHuman.Tired |> should equal 49
+
+[<Fact>] 
+let ``Min Tired value is 0`` ()=
+    let sut = { create "Steve" with Action = Nothing; Tired = 0 }
+
+    let newHuman = sut.tick
+
+    newHuman.Tired |> should equal 0 
