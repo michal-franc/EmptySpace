@@ -65,9 +65,23 @@ type MissionsView() =
     interface IView with 
         member this.GetView state = 
             "Select Mission\n" +
-            "1. Explore"
+            "e. Explore"
 
         member this.HandleKeys key state =
             match key.Key with 
-                       | ConsoleKey.NumPad1 -> { state with CurrentView = Explore }
+                       | ConsoleKey.E -> { state with CurrentView = Explore }
+                       | _ -> { state with CurrentView = Menu } 
+
+
+type ExploreView() =
+    
+    interface IView with 
+        member this.GetView state = 
+            let orderedCrewList, counter = (state.Ship.CrewList.Crew |> List.fold (fun state human -> 
+                                                                                    let s, counter = state
+                                                                                    (s  + sprintf "\n%i." counter + human.Name, counter + 1)) ("", 1))
+            "Select crew member :" + orderedCrewList
+
+        member this.HandleKeys key state =
+            match key.Key with 
                        | _ -> { state with CurrentView = Menu } 

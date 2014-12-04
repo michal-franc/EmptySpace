@@ -1,2 +1,12 @@
 ﻿1. Its now hard to use subfolders in F# projects in VS
  - no wildcards supported
+
+
+        member this.GetView state = 
+            let orderedCrewList, counter = (state.Ship.CrewList.Crew |> List.fold (fun state human -> 
+                                                                                    let s, counter = state
+                                                                                    (s  + "\n" + human.Name, counter + 1)) ("", 1))
+            "Select crew member :" + orderedCrewList
+
+
+How to do an ordered list! Start with simple string accumulator adn then discussion how to do a counter
