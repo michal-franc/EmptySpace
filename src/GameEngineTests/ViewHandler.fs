@@ -15,8 +15,7 @@ let private ViewCollection:Collections.Generic.IDictionary<ViewType, IView> = di
                                     (Explore, new ExploreView() :> IView);
                                   ]
 
-let keyHandle state key = 
-    ViewCollection.[state.CurrentView].HandleKeys key state
-
-let getView state =
-    ViewCollection.[state.CurrentView].GetView state
+let handle state = 
+        Console.Clear()
+        let _gamestate = ViewCollection.[state.CurrentView].innerLoop state
+        _gamestate
