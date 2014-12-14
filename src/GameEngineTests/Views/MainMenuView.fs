@@ -99,23 +99,77 @@ type MissionsView() =
             _state
 
 
+type ListSelection = NonSelected | Selected | Highlited | HighlitedSelected
+
 type ExploreView() =
-    member this.GetView state = 
-        let orderedCrewList, counter = (state.Ship.CrewList.Crew |> List.fold (fun state human -> 
-                                                                                let s, counter = state
-                                                                                (s  + sprintf "\n%i." counter + human.Name, counter + 1)) ("", 1))
+
+    let rec makeNextHighlighted list =
+        let exists = list |> List.exists (fun x -> snd x = Highlited)
+
+        if exists then
+           match list with
+            | x :: tail -> match x with
+                            | _, Highlited -> (fst x, NonSelected) :: (makeNextHighlighted tail)
+                            | _, _ -> list
+            | [] -> [] 
+        else
+            match list with
+            | x :: tail -> (fst x, Highlited) :: tail
+            | [] -> []
+
+
+    let makePreviouHighlighted list = 
+        let exists = list |> List.exists (fun x -> snd x = Highlited)
+
+        if exists then
+           match list with
+            | x :: tail -> match x with
+                            | _, Highlited -> (fst x, NonSelected) :: (makeNextHighlighted tail)
+                            | _, _ -> list
+            | [] -> [] 
+        else
+            match list with
+            | x :: tail -> (fst x, Highlited) :: tail
+            | [] -> []
+
+    let selectHighlited list = 
+        list |> List.map (fun x -> if snd x = Highlited then (fst x, Selected) else x)
+        
+
+    member this.GetView list = 
+        let orderedCrewList, counter = (list |> List.fold (fun state elem -> 
+                                                            let s, counter = state
+                                                            let name, selection = elem
+                                                            match selection with 
+                                                                | NonSelected -> (s + sprintf "\n%i." counter + (name), counter + 1)
+                                                                | Selected -> (s + sprintf "\n@%i." counter + (name), counter + 1)
+                                                                | HighlitedSelected -> (s + sprintf "\n-@%i." counter + (name), counter + 1)
+                                                                | Highlited -> (s + sprintf "\n-%i." counter + (name), counter + 1)
+                                                                ) ("", 1))
+
+                                                                                
         "Select crew member :" + orderedCrewList
 
-    member this.HandleKeys (key:ConsoleKeyInfo) state =
+    member this.loop list = 
+
+        Console.Clear()
+        Console.Write(this.GetView list)
+        Console.WriteLine("\n\n\n\nj. go down k. go up s. select f. finish c. cancel")
+
+        let key = Console.ReadKey()
+
         match key.Key with 
-                   | ConsoleKey.J -> state
-                   | ConsoleKey.K -> state
-                   | ConsoleKey.S -> state
-                   | _ -> { state with CurrentView = Menu }
+                   | ConsoleKey.J -> this.loop (makeNextHighlighted list)
+                   | ConsoleKey.K -> this.loop (makePreviouHighlighted list)
+                   | ConsoleKey.S -> this.loop (selectHighlited list)
+                   | ConsoleKey.C -> [] 
+                   | ConsoleKey.F -> list
+                   | _ -> this.loop list 
 
     interface IView with
         member this.innerLoop state = 
-            Console.Write(this.GetView state)
-            let key = Console.ReadKey()
-            let _state = this.HandleKeys key state 
-            _state
+            let initialList = state.Ship.CrewList.Crew |> List.map(fun x -> (x.Name, NonSelected) )
+
+            let list = this.loop initialList
+
+            { state with CurrentView = Menu}
