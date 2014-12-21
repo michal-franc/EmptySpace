@@ -20,9 +20,8 @@ type CrewList = {
 
 let createDefault = 
     {
-        Crew = [ Human.create "Steve"; Human.create "Arnold" ]
+        Crew = [ Human.create "Steve"; Human.create "Arnold"; Human.create "Matt"; Human.create "Michael"; Human.create "Thomas" ]
     }
-
 
 [<Fact>] 
 let ``If crew member is hungry and there are items in storage then lower the hunger`` ()=
