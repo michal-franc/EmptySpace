@@ -104,37 +104,35 @@ type ListSelection = NonSelected | Selected | Highlited | HighlitedSelected
 type ExploreView() =
 
     let rec makeNextHighlighted list =
-        let exists = list |> List.exists (fun x -> snd x = Highlited)
+        let exists = list |> List.exists (fun x -> snd x = Highlited || snd x = HighlitedSelected)
 
         if exists then
            match list with
             | x :: tail -> match x with
                             | _, Highlited -> (fst x, NonSelected) :: (makeNextHighlighted tail)
-                            | _, _ -> list
+                            | _, HighlitedSelected -> (fst x, Selected) :: (makeNextHighlighted tail)
+                            | _, _ -> x :: (makeNextHighlighted tail)
             | [] -> [] 
         else
             match list with
-            | x :: tail -> (fst x, Highlited) :: tail
+            | x :: tail -> (fst x, match snd x with
+                                    | NonSelected -> Highlited
+                                    | Highlited -> NonSelected
+                                    | HighlitedSelected -> Selected
+                                    | Selected -> HighlitedSelected)
+                            :: tail
             | [] -> []
-
 
     let makePreviouHighlighted list = 
-        let exists = list |> List.exists (fun x -> snd x = Highlited)
-
-        if exists then
-           match list with
-            | x :: tail -> match x with
-                            | _, Highlited -> (fst x, NonSelected) :: (makeNextHighlighted tail)
-                            | _, _ -> list
-            | [] -> [] 
-        else
-            match list with
-            | x :: tail -> (fst x, Highlited) :: tail
-            | [] -> []
+        List.rev (makeNextHighlighted (List.rev list))
+        
 
     let selectHighlited list = 
-        list |> List.map (fun x -> if snd x = Highlited then (fst x, Selected) else x)
-        
+        // dont change the fst value but change the snd only if Highlited and HSelected
+        list |> List.map (fun x -> (fst x, match snd x with
+                                            | Highlited -> HighlitedSelected
+                                            | HighlitedSelected -> Highlited
+                                            | _ -> snd x))
 
     member this.GetView list = 
         let orderedCrewList, counter = (list |> List.fold (fun state elem -> 
