@@ -11,13 +11,12 @@ type ExploreView() =
 
     let highlightFirst list = 
         match list with
-        | x :: tail -> let fst, snd, thd = x
-                       (fst, snd, match thd with
-                                   | NonSelected -> Highlited
-                                   | Selected -> HighlitedSelected
-                                   | _ -> NonSelected)
-                        :: tail
-        | [] -> []
+         | (fst, snd, thd) :: tail -> (fst, snd, match thd with
+                                                 | NonSelected -> Highlited
+                                                 | Selected -> HighlitedSelected
+                                                 | _ -> NonSelected)
+                                     :: tail
+         | [] -> []
     
     let unhighlightCurrent (fst, snd, thd) =
         (fst, snd, match thd with
@@ -43,12 +42,10 @@ type ExploreView() =
         
 
     let selectHighlited list = 
-        // dont change the fst value but change the snd only if Highlited and HSelected
-        list |> List.map (fun x ->  let fst, snd, thd = x
-                                    (fst, snd, match thd with
-                                                | Highlited -> HighlitedSelected
-                                                | HighlitedSelected -> Highlited
-                                                | _ -> thd))
+        list |> List.map (fun (fst, snd, thd) ->  (fst, snd, match thd with
+                                                              | Highlited -> HighlitedSelected
+                                                              | HighlitedSelected -> Highlited
+                                                              | _ -> thd))
 
     member this.GetView list = 
         let orderedCrewList, counter = (list |> List.fold (fun state elem -> 
