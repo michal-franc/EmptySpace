@@ -70,6 +70,7 @@
     <Compile Include="ViewType.fs" />
     <Compile Include="GameState.fs" />
     <Compile Include="Views/IView.fs" />
+    <Compile Include="Views/ExploreView.fs" />
     <Compile Include="Views/MainMenuView.fs" />
     <Compile Include="ViewHandler.fs" />
     <Compile Include="Program.fs" />

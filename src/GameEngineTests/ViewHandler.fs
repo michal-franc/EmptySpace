@@ -5,6 +5,7 @@ open MainMenuView
 open GameState
 open System
 open ViewType
+open ExploreView
 
 let private ViewCollection:Collections.Generic.IDictionary<ViewType, IView> = dict [
                                     (Menu, new MainMenuView() :> IView);
