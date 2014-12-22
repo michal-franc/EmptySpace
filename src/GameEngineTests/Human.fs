@@ -3,7 +3,7 @@
 open Xunit
 open FsUnit.Xunit
 
-type Action = Explore | Nothing
+type Action = Exploring | Nothing
 
 [<Literal>]
 let Rate = 1
@@ -21,7 +21,7 @@ type Human = {
 } with
     member this.tick = 
         let tiredRate = match this.Action with
-                        | Explore -> 1
+                        | Exploring -> 1
                         | Nothing -> -1
         let tiredValue = this.Tired + tiredRate 
 
@@ -40,7 +40,9 @@ type Human = {
                                  | _ -> modifiedT
             modifiedT
     member this.print =
-            sprintf "%s hunger : %i thirst : %i tired : %i" this.Name this.Hunger this.Thirst this.Tired
+            sprintf "%s hunger : %i thirst : %i tired : %i action: %s" this.Name this.Hunger this.Thirst this.Tired (match this.Action with
+                                                                                                                    | Exploring-> "Explore"
+                                                                                                                    | _ -> "None")
             
             
 
@@ -84,7 +86,7 @@ let ``On each tick hunger and thirst is modified`` ()=
 
 [<Fact>] 
 let ``Each tick if there is an action increse Tired`` ()=
-    let sut = { create "Steve" with Action = Explore }
+    let sut = { create "Steve" with Action = Exploring}
 
     let newHuman = sut.tick
 

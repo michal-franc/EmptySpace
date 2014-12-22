@@ -4,6 +4,7 @@ open IView
 open System
 open GameState
 open ViewType
+open Human
 
 type ShipView() = 
     member this.GetView state = 
@@ -88,8 +89,8 @@ type MissionsView() =
 
     member this.HandleKeys (key:ConsoleKeyInfo) state =
             match key.Key with 
-                       | ConsoleKey.E -> { state with CurrentView = Explore }
-                       | _ -> { state with CurrentView = Menu } 
+             | ConsoleKey.E -> { state with CurrentView = Explore }
+             | _ -> { state with CurrentView = Menu } 
 
     interface IView with
         member this.innerLoop state = 
@@ -104,22 +105,26 @@ type ListSelection = NonSelected | Selected | Highlited | HighlitedSelected
 type ExploreView() =
 
     let rec makeNextHighlighted list =
-        let exists = list |> List.exists (fun x -> snd x = Highlited || snd x = HighlitedSelected)
+        let exists = list |> List.exists (fun x -> match x with
+                                                    | _, _, Highlited -> true
+                                                    | _, _, HighlitedSelected -> true
+                                                    | _, _, _ -> false)
 
         if exists then
            match list with
-            | x :: tail -> match x with
-                            | _, Highlited -> (fst x, NonSelected) :: (makeNextHighlighted tail)
-                            | _, HighlitedSelected -> (fst x, Selected) :: (makeNextHighlighted tail)
-                            | _, _ -> x :: (makeNextHighlighted tail)
+            | (fst, snd, thd) :: tail -> match thd with
+                                          | Highlited -> (fst, snd, NonSelected) :: (makeNextHighlighted tail)
+                                          | HighlitedSelected -> (fst, snd, Selected) :: (makeNextHighlighted tail)
+                                          | _ -> (fst, snd, thd ) :: (makeNextHighlighted tail)
             | [] -> [] 
         else
             match list with
-            | x :: tail -> (fst x, match snd x with
-                                    | NonSelected -> Highlited
-                                    | Highlited -> NonSelected
-                                    | HighlitedSelected -> Selected
-                                    | Selected -> HighlitedSelected)
+            | x :: tail -> let fst, snd, thd = x
+                           (fst, snd, match thd with
+                                       | NonSelected -> Highlited
+                                       | Highlited -> NonSelected
+                                       | HighlitedSelected -> Selected
+                                       | Selected -> HighlitedSelected)
                             :: tail
             | [] -> []
 
@@ -129,21 +134,22 @@ type ExploreView() =
 
     let selectHighlited list = 
         // dont change the fst value but change the snd only if Highlited and HSelected
-        list |> List.map (fun x -> (fst x, match snd x with
-                                            | Highlited -> HighlitedSelected
-                                            | HighlitedSelected -> Highlited
-                                            | _ -> snd x))
+        list |> List.map (fun x ->  let fst, snd, thd = x
+                                    (fst, snd, match thd with
+                                                | Highlited -> HighlitedSelected
+                                                | HighlitedSelected -> Highlited
+                                                | _ -> thd))
 
     member this.GetView list = 
         let orderedCrewList, counter = (list |> List.fold (fun state elem -> 
                                                             let s, counter = state
-                                                            let name, selection = elem
+                                                            let id, name, selection = elem
                                                             match selection with 
-                                                                | NonSelected -> (s + sprintf "\n%i." counter + (name), counter + 1)
-                                                                | Selected -> (s + sprintf "\n@%i." counter + (name), counter + 1)
-                                                                | HighlitedSelected -> (s + sprintf "\n-@%i." counter + (name), counter + 1)
-                                                                | Highlited -> (s + sprintf "\n-%i." counter + (name), counter + 1)
-                                                                ) ("", 1))
+                                                             | NonSelected -> (s + (sprintf "\n%i. %i-" counter id) + (name), counter + 1)
+                                                             | Selected -> (s + (sprintf "\n@%i. %i-" counter id) + (name), counter + 1)
+                                                             | HighlitedSelected -> (s + (sprintf "\n-@%i. %i-" counter id) + (name), counter + 1)
+                                                             | Highlited -> (s + (sprintf "\n-%i. %i-" counter id)+ (name), counter + 1)
+                                                             ) ("", 1))
 
                                                                                 
         "Select crew member :" + orderedCrewList
@@ -166,8 +172,16 @@ type ExploreView() =
 
     interface IView with
         member this.innerLoop state = 
-            let initialList = state.Ship.CrewList.Crew |> List.map(fun x -> (x.Name, NonSelected) )
+            let initialList = state.Ship.CrewList.Crew 
+                                |> List.map(fun x -> (x.Id, x.Name, NonSelected) )
 
-            let list = this.loop initialList
+            let idList = this.loop initialList 
+                            |> List.filter (fun (_, _, sel) -> sel = Selected || sel = HighlitedSelected ) 
+                            |> List.map (fun (id, _, _) -> id)
 
-            { state with CurrentView = Menu}
+            let newList = state.Ship.CrewList.Crew 
+                            |> List.map (fun crew -> match crew.Id with 
+                                                      | id when idList |> List.exists (fun id1 -> id1 = id) -> { crew with Action = Exploring }
+                                                      | _ -> crew )
+
+            { state with CurrentView = Menu; Ship = { state.Ship with CrewList = { Crew = newList }}}
