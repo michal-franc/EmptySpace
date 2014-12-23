@@ -21,8 +21,8 @@ type Human = {
 } with
     member this.tick = 
         let tiredRate = match this.Action with
-                        | Exploring -> 1
-                        | Nothing -> -1
+                        | Nothing -> 0
+                        |  _ -> 1
         let tiredValue = this.Tired + tiredRate 
 
         { this with Hunger = this.Hunger + Rate ; Thirst = this.Thirst + Rate; Tired = if tiredValue < 0 then 0 else tiredValue }
