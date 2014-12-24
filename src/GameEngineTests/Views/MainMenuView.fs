@@ -28,7 +28,7 @@ type MainMenuView() =
     member this.GetView state = 
       sprintf "Year Number : %i\n\n" state.Turn +
       sprintf "Alerts: %s\n\n" "Low Food" +
-      sprintf "Info: %s\n\n" "You are on a planet lz-512" +
+      sprintf "Info: You are on a %s\n\n" state.Location.print +
       sprintf "Menu\n\n" +
       sprintf "s. Ship\n" +
       sprintf "S. Storage\n" +
