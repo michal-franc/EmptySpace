@@ -42,6 +42,7 @@ type MainMenuView() =
                    | ConsoleKey.S, _-> { state with CurrentView = Ship }
                    | ConsoleKey.M, _ -> { state with CurrentView = Missions }
                    | ConsoleKey.C, _ -> { state with CurrentView = Crew }
+                   | ConsoleKey.Spacebar, _ -> state.tick 
                    | _ -> { state with CurrentView = Menu } 
 
     interface IView with
