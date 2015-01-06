@@ -30,6 +30,7 @@ type MainMenuView() =
       sprintf "Alerts: %s\n\n" "Low Food" +
       sprintf "Info: You are on a %s\n\n" state.Location.print +
       sprintf "Menu\n\n" +
+      sprintf "l. %A\n" state.Location.Type +
       sprintf "s. Ship\n" +
       sprintf "S. Storage\n" +
       sprintf "m. Missions\n" +
@@ -40,6 +41,7 @@ type MainMenuView() =
         match key.Key, key.Modifiers with 
                    | ConsoleKey.S, ConsoleModifiers.Shift -> { state with CurrentView = Storage }
                    | ConsoleKey.S, _-> { state with CurrentView = Ship }
+                   | ConsoleKey.L, _-> { state with CurrentView = Location }
                    | ConsoleKey.M, _ -> { state with CurrentView = Missions }
                    | ConsoleKey.C, _ -> { state with CurrentView = Crew }
                    | ConsoleKey.Spacebar, _ -> state.tick 

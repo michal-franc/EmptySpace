@@ -6,6 +6,7 @@ open GameState
 open System
 open ViewType
 open ExploreView
+open LocationView
 
 let private ViewCollection:Collections.Generic.IDictionary<ViewType, IView> = dict [
                                     (Menu, new MainMenuView() :> IView);
@@ -14,6 +15,7 @@ let private ViewCollection:Collections.Generic.IDictionary<ViewType, IView> = di
                                     (Crew, new CrewView() :> IView);
                                     (Storage, new StorageView() :> IView);
                                     (Explore, new ExploreView() :> IView);
+                                    (Location, new LocationView() :> IView);
                                   ]
 
 let handle state = 

@@ -72,6 +72,7 @@
     <Compile Include="Views/IView.fs" />
     <Compile Include="Views/ExploreView.fs" />
     <Compile Include="Views/MainMenuView.fs" />
+    <Compile Include="LocationView.fs" />
     <Compile Include="ViewHandler.fs" />
     <Compile Include="Program.fs" />
     <None Include="App.config" />
