@@ -92,13 +92,13 @@ let ``Each tick if there is an action increse Tired`` ()=
 
     newHuman.Tired |> should equal 1
 
-[<Fact>] 
-let ``Each tick if there is no action decrease Tired`` ()=
-    let sut = { create "Steve" with Action = Nothing; Tired = 50 }
-
-    let newHuman = sut.tick
-
-    newHuman.Tired |> should equal 49
+//[<Fact>] 
+//let ``Each tick if there is no action decrease Tired`` ()=
+//    let sut = { create "Steve" with Action = Nothing; Tired = 50 }
+//
+//    let newHuman = sut.tick
+//
+//    newHuman.Tired |> should equal 49
 
 [<Fact>] 
 let ``Min Tired value is 0`` ()=

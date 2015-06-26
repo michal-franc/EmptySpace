@@ -6,23 +6,6 @@ open GameState
 open ViewType
 open Human
 
-type ShipView() = 
-    member this.GetView state = 
-      let shipView = Ship.generateView state.Ship
-      sprintf "Overall Condition 100\n" +
-      sprintf "%s" shipView
-
-    member this.HandleKeys (key:ConsoleKeyInfo) state =
-        match key.Key with 
-                   | _ -> { state with CurrentView = Menu } 
-
-    interface IView with
-        member this.innerLoop state = 
-            Console.Write(this.GetView state)
-            let key = Console.ReadKey()
-            let _state = this.HandleKeys key state 
-            _state
-
 type MainMenuView() =
     
     member this.GetView state = 
@@ -35,7 +18,8 @@ type MainMenuView() =
       sprintf "S. Storage\n" +
       sprintf "m. Missions\n" +
       sprintf "c. Crew\n" +
-      sprintf "\n\n\n\npress space to end day" 
+      sprintf "\n\n\nesc to close game\n" +
+      sprintf "\npress space to end day" 
 
     member this.HandleKeys (key:ConsoleKeyInfo) state =
         match key.Key, key.Modifiers with 
@@ -45,6 +29,7 @@ type MainMenuView() =
                    | ConsoleKey.M, _ -> { state with CurrentView = Missions }
                    | ConsoleKey.C, _ -> { state with CurrentView = Crew }
                    | ConsoleKey.Spacebar, _ -> state.tick 
+                   | ConsoleKey.Escape, _ -> state.tick 
                    | _ -> { state with CurrentView = Menu } 
 
     interface IView with
@@ -55,49 +40,7 @@ type MainMenuView() =
             _state
 
 
-type StorageView() =
-    member this.GetView state =
-       sprintf "Storage \n%s" (Storage.print state.Ship.Storage)
 
-    member this.HandleKeys (key:ConsoleKeyInfo) state =
-        match key.Key with 
-                   | _ -> { state with CurrentView = Menu } 
 
-    interface IView with
-        member this.innerLoop state = 
-            Console.Write(this.GetView state)
-            let key = Console.ReadKey()
-            let _state = this.HandleKeys key state 
-            _state
 
-type CrewView() =
-    member this.GetView state =
-           sprintf "CrewList \n%s" (CrewList.print state.Ship.CrewList)
 
-    member this.HandleKeys (key:ConsoleKeyInfo) state =
-            match key.Key with 
-                       | _ -> { state with CurrentView = Menu } 
-
-    interface IView with
-        member this.innerLoop state = 
-            Console.Write(this.GetView state)
-            let key = Console.ReadKey()
-            let _state = this.HandleKeys key state 
-            _state
-
-type MissionsView() =
-    member this.GetView state = 
-            "Select Mission\n" +
-            "e. Explore"
-
-    member this.HandleKeys (key:ConsoleKeyInfo) state =
-            match key.Key with 
-             | ConsoleKey.E -> { state with CurrentView = Explore }
-             | _ -> { state with CurrentView = Menu } 
-
-    interface IView with
-        member this.innerLoop state = 
-            Console.Write(this.GetView state)
-            let key = Console.ReadKey()
-            let _state = this.HandleKeys key state 
-            _state

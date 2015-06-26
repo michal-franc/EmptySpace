@@ -1,12 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "EmptySpace", "EmptySpace\EmptySpace.fsproj", "{6CA13BCC-7914-48B8-A346-7CC383231094}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapRenderer", "MapRenderer\MapRenderer.csproj", "{E6FB142D-1518-41DB-B326-D02526267777}"
-EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "GameEngineTests", "GameEngineTests\GameEngineTests.fsproj", "{2E541F54-D075-4ED8-9D64-DAE1963C2870}"
-EndProject
+# Visual Studio 14
+VisualStudioVersion = 14.0.22823.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{A3B3368E-4CC2-4DDB-8F72-64C51579805E}"
 	ProjectSection(SolutionItems) = preProject
 		.nuget\NuGet.Config = .nuget\NuGet.Config
@@ -14,6 +10,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{A3B336
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "EmptySpace", "EmptySpace\EmptySpace.fsproj", "{6CA13BCC-7914-48B8-A346-7CC383231094}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapRenderer", "MapRenderer\MapRenderer.csproj", "{E6FB142D-1518-41DB-B326-D02526267777}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "GameEngineTests", "GameEngineTests\GameEngineTests.fsproj", "{2E541F54-D075-4ED8-9D64-DAE1963C2870}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
