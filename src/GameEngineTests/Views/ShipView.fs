@@ -1,5 +1,10 @@
 ﻿module ShipView
 
+open IView
+open System
+open ViewType
+open GameState
+
 type ShipView() = 
     member this.GetView state = 
       let shipView = Ship.generateView state.Ship
