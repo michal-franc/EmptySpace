@@ -7,6 +7,10 @@ open System
 open ViewType
 open ExploreView
 open LocationView
+open MissionView
+open ShipView
+open CrewView
+open StorageView
 
 let private ViewCollection:Collections.Generic.IDictionary<ViewType, IView> = dict [
                                     (Menu, new MainMenuView() :> IView);
