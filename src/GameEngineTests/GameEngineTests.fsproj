@@ -111,6 +111,7 @@ xcopy /y "$(ProjectDir)\..\..\lib\SDL.dll" "$(TargetDir)"
 xcopy /y "$(ProjectDir)\..\..\lib\zlib1.dll" "$(TargetDir)"
 xcopy /y "$(ProjectDir)\..\..\lib\libtcod-net.dll" "$(TargetDir)"
 xcopy /y "$(ProjectDir)\..\..\lib\libtcod-net-unmanaged.dll" "$(TargetDir)"
+xcopy /y "$(ProjectDir)\..\..\lib\terminal.png" "$(TargetDir)"
 </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
