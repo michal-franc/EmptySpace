@@ -1,3 +1,3 @@
 ﻿module ViewType
 
-type ViewType = Menu | Crew | Missions | Storage | Explore | Ship | Location
+type ViewType = Menu | Crew | Missions | Storage | List | Ship | System | Location

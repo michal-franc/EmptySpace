@@ -1,19 +1,19 @@
-﻿module LocationView
+﻿module SystemView
 
 open IView
 open System
 open ViewType
 open GameState
 
-type LocationView() =
+type SystemView() =
 
     member this.GetView location = 
         sprintf "%A %A %s" location.Size location.Type location.Name
     
-    member this.loop location = 
+    member this.loop state = 
 
         Console.Clear()
-        Console.Write(this.GetView location)
+        Console.Write(this.GetView state.Location )
         Console.WriteLine("")
         Console.WriteLine("")
         Console.WriteLine("1. Sun - Red Dwarf XF-4")
@@ -28,11 +28,14 @@ type LocationView() =
 
         let key = Console.ReadKey()
         match key.Key with 
-                   | ConsoleKey.Spacebar -> location
-                   | ConsoleKey.NumPad0 -> location
-                   | _ -> this.loop location
+                   | ConsoleKey.Spacebar -> state.Location 
+                   | ConsoleKey.D1 -> state.Location
+                   | ConsoleKey.D2 -> state.Location
+                   | ConsoleKey.D3 -> state.Location
+                   | ConsoleKey.D4 -> state.Location
+                   | _ -> this.loop state
 
     interface IView with
         member this.innerLoop state = 
-            let newLocation = this.loop state.Location
+            let newLocation = this.loop state
             { state with CurrentView = Menu; Location = newLocation }

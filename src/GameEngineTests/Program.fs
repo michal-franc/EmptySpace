@@ -1,5 +1,6 @@
 ﻿open System
 open GameState
+open libtcod
 
 // In basic form, to start mission you select where and how many time then you need to provide resources
 // you cant start mission with not enough food, water and some equipment
@@ -47,8 +48,13 @@ open GameState
 
 [<EntryPoint>]
 let main argv = 
-    let rec mainLoop(gamestate) = 
+
+    TCODConsole.initRoot(50, 50, "EmptySpace", false, TCODRendererType.SDL);
+
+    let rec mainLoop(gamestate) =
+        TCODConsole.root.clear()
         let _gamestate = ViewHandler.handle gamestate
-        mainLoop(_gamestate)    
-    mainLoop(initialGameState)     
+        TCODConsole.flush();
+        mainLoop(_gamestate)   
+    mainLoop(initialGameState)
     0

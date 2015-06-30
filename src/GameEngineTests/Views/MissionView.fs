@@ -13,7 +13,7 @@ type MissionsView() =
 
     member this.HandleKeys (key:ConsoleKeyInfo) state =
             match key.Key with 
-             | ConsoleKey.E -> { state with CurrentView = Explore }
+             | ConsoleKey.E -> { state with CurrentView = List }
              | _ -> { state with CurrentView = Menu } 
 
     interface IView with

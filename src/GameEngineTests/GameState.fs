@@ -4,7 +4,7 @@ open Ship
 open System
 open ViewType
 
-type LocationType = Planet | Space | Asteroid | Station | Unknown
+type LocationType = System | Planet | Space | Asteroid | Station | Unknown
 
 type LocationSize = Huge | Large | Medium | Small | Tiny
 
@@ -34,7 +34,7 @@ let initialGameState  =
         CurrentView = Menu
         Turn = 0
         Location = {
-                   Type = Planet
+                   Type = System 
                    Name = "LZ-415"
                    Size = Medium
         }
