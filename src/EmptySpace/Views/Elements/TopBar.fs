@@ -11,7 +11,6 @@ type TopBar(text, wndSize, font) =
     interface  Drawable with
         member this.Draw(target, renderState) = 
                let mutable rect = new RectangleShape(vector (wndSize, 30.0f))
-               rect.Position <- vector1 (0.0f)
                rect.FillColor <- Color.Yellow
                target.Draw(rect)
 
