@@ -4,13 +4,13 @@ open SFML.Window
 open Helper
 
 type TopBar(text, wndSize, font) =
-    let wndSize = wndSize
+    let wholeLength = vector (wndSize, 30.0f)
     let font = font
     let text = text
 
     interface  Drawable with
         member this.Draw(target, renderState) = 
-               let mutable rect = new RectangleShape(vector (wndSize, 30.0f))
+               let mutable rect = new RectangleShape(wholeLength)
                rect.FillColor <- Color.Yellow
                target.Draw(rect)
 
