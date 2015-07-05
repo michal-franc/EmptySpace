@@ -49,7 +49,7 @@ open libtcod
 [<EntryPoint>]
 let main argv = 
 
-    TCODConsole.initRoot(50, 50, "EmptySpace", false, TCODRendererType.SDL);
+    TCODConsole.initRoot(100, 50, "EmptySpace", false, TCODRendererType.SDL);
 
     let rec mainLoop(gamestate) =
         TCODConsole.root.clear()

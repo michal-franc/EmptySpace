@@ -38,6 +38,56 @@
     <DocumentationFile>bin\Release\GameEngineTests.XML</DocumentationFile>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
+  </PropertyGroup>
+  <Choose>
+    <When Condition="'$(VisualStudioVersion)' == '11.0'">
+      <PropertyGroup>
+        <FSharpTargetsPath>$(MSBuildExtensionsPath32)\..\Microsoft SDKs\F#\3.0\Framework\v4.0\Microsoft.FSharp.Targets</FSharpTargetsPath>
+      </PropertyGroup>
+    </When>
+    <Otherwise>
+      <PropertyGroup>
+        <FSharpTargetsPath>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\FSharp\Microsoft.FSharp.Targets</FSharpTargetsPath>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
+  <Import Project="$(FSharpTargetsPath)" Condition="Exists('$(FSharpTargetsPath)')" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /y "$(ProjectDir)\..\..\lib\libtcod-VS.dll" "$(TargetDir)"
+xcopy /y "$(ProjectDir)\..\..\lib\SDL.dll" "$(TargetDir)"
+xcopy /y "$(ProjectDir)\..\..\lib\zlib1.dll" "$(TargetDir)"
+xcopy /y "$(ProjectDir)\..\..\lib\libtcod-net.dll" "$(TargetDir)"
+xcopy /y "$(ProjectDir)\..\..\lib\libtcod-net-unmanaged.dll" "$(TargetDir)"
+xcopy /y "$(ProjectDir)\..\..\gfx\terminal.png" "$(TargetDir)"
+xcopy /y "$(ProjectDir)\..\..\gfx\planets.png" "$(TargetDir)"
+</PostBuildEvent>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Human.fs" />
+    <Compile Include="Storage.fs" />
+    <Compile Include="CrewList.fs" />
+    <Compile Include="Ship.fs" />
+    <Compile Include="ViewType.fs" />
+    <Compile Include="GameState.fs" />
+    <Compile Include="Views\Elements\TopBar.fs" />
+    <Compile Include="Views/IView.fs" />
+    <Compile Include="Views/ListView.fs" />
+    <Compile Include="Views/MainMenuView.fs" />
+    <Compile Include="Views/StorageView.fs" />
+    <Compile Include="Views/ShipView.fs" />
+    <Compile Include="Views\SystemView.fs" />
+    <Compile Include="Views\CrewView.fs" />
+    <Compile Include="Views\MissionView.fs" />
+    <Compile Include="Views\LocationView.fs" />
+    <Compile Include="ViewHandler.fs" />
+    <Compile Include="Program.fs" />
+    <None Include="App.config" />
+    <None Include="packages.config" />
+    <Content Include="todo.xml" />
+  </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <Private>True</Private>
@@ -66,54 +116,6 @@
       <Private>True</Private>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Human.fs" />
-    <Compile Include="Storage.fs" />
-    <Compile Include="CrewList.fs" />
-    <Compile Include="Ship.fs" />
-    <Compile Include="ViewType.fs" />
-    <Compile Include="GameState.fs" />
-    <Compile Include="Views\Elements\TopBar.fs" />
-    <Compile Include="Views/IView.fs" />
-    <Compile Include="Views/ListView.fs" />
-    <Compile Include="Views/MainMenuView.fs" />
-    <Compile Include="Views/StorageView.fs" />
-    <Compile Include="Views/ShipView.fs" />
-    <Compile Include="Views\SystemView.fs" />
-    <Compile Include="Views\CrewView.fs" />
-    <Compile Include="Views\MissionView.fs" />
-    <Compile Include="Views\LocationView.fs" />
-    <Compile Include="ViewHandler.fs" />
-    <Compile Include="Program.fs" />
-    <None Include="App.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <PropertyGroup>
-    <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
-  </PropertyGroup>
-  <Choose>
-    <When Condition="'$(VisualStudioVersion)' == '11.0'">
-      <PropertyGroup>
-        <FSharpTargetsPath>$(MSBuildExtensionsPath32)\..\Microsoft SDKs\F#\3.0\Framework\v4.0\Microsoft.FSharp.Targets</FSharpTargetsPath>
-      </PropertyGroup>
-    </When>
-    <Otherwise>
-      <PropertyGroup>
-        <FSharpTargetsPath>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\FSharp\Microsoft.FSharp.Targets</FSharpTargetsPath>
-      </PropertyGroup>
-    </Otherwise>
-  </Choose>
-  <Import Project="$(FSharpTargetsPath)" Condition="Exists('$(FSharpTargetsPath)')" />
-  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>xcopy /y "$(ProjectDir)\..\..\lib\libtcod-VS.dll" "$(TargetDir)"
-xcopy /y "$(ProjectDir)\..\..\lib\SDL.dll" "$(TargetDir)"
-xcopy /y "$(ProjectDir)\..\..\lib\zlib1.dll" "$(TargetDir)"
-xcopy /y "$(ProjectDir)\..\..\lib\libtcod-net.dll" "$(TargetDir)"
-xcopy /y "$(ProjectDir)\..\..\lib\libtcod-net-unmanaged.dll" "$(TargetDir)"
-xcopy /y "$(ProjectDir)\..\..\lib\terminal.png" "$(TargetDir)"
-</PostBuildEvent>
-  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

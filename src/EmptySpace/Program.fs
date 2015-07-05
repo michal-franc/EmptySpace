@@ -3,6 +3,7 @@ open Player
 open SFML.Window
 open SFML.Graphics
 open MapRenderer
+open StarSystem
 
 [<EntryPoint>]
 let main argv = 
@@ -12,58 +13,97 @@ let main argv =
     let frameRate = 60ul
     let howManyTiles = (windowSize / tileSize)
 
-    let player = Player.create 220
-
     let mainWindow = new RenderWindow(new VideoMode(windowSize, windowSize), "EmptySpace")
     mainWindow.SetFramerateLimit(frameRate)
     mainWindow.Closed.AddHandler(fun sender args -> (sender :?> RenderWindow).Close())
-
-    let viewManipulation key = 
-        
-        let mainView = mainWindow.DefaultView
-        
-        match key with
-        | Keyboard.Key.H -> mainView.Move(new Vector2f(-50.0f, 0.0f))
-        | Keyboard.Key.J -> mainView.Move(new Vector2f(0.0f, 50.0f))
-        | Keyboard.Key.K -> mainView.Move(new Vector2f(0.0f, -50.0f))
-        | Keyboard.Key.L -> mainView.Move(new Vector2f(50.0f, 0.0f))
-        | Keyboard.Key.Comma -> mainView.Rotate(5.0f)
-        | Keyboard.Key.Period-> mainView.Rotate(-5.0f)
-        | Keyboard.Key.Num9 -> mainView.Zoom(0.9f)
-        | Keyboard.Key.Num0 -> mainView.Zoom(1.1f)
-        | _ -> ()
-
-        mainWindow.SetView(mainView)
-
-    let mouseManipulations wheelDelta =
-
-        let mainView = mainWindow.DefaultView
-
-        if wheelDelta < 0 then mainView.Zoom(1.1f)
-        else mainView.Zoom(0.9f)
-
-        mainWindow.SetView(mainView)
 
     let optionsKeys key =
         match key with
         | Keyboard.Key.Escape -> mainWindow.Close()
         | _ -> ()
 
-    mainWindow.KeyPressed.AddHandler(fun sender args -> viewManipulation args.Code)
     mainWindow.KeyPressed.AddHandler(fun sender args -> optionsKeys args.Code)
 
-    mainWindow.MouseWheelMoved.AddHandler(fun sender args -> mouseManipulations args.Delta)
+    let test = {
+        Sun = {
+         Name = "Sol";
+         Size = Huge;
+         Planets = [{ 
+                    Name = "Sol I";
+                    Size = Large; 
+                    Type = Rock; 
+                    Moons = [
+                        { Name = "Moon"; Size = Medium; Type = Toxic };
+                        { Name = "Moon"; Size = Small; Type = Gas};
+                        { Name = "Moon"; Size = Small; Type = Terran};
+                        { Name = "Moon"; Size = Small; Type = Arctic};
+                        {Name = "Moon";  Size = Small; Type = Gas };
+                        {Name = "Moon";  Size = Small; Type = Rock};
 
-    let mapRenderer : MapRenderer = new MapRenderer()
+                    ]};
+                    {
+                    Name = "Sol II";
+                    Size = Large; 
+                    Type = Terran; 
+                    Moons = [
+                        {Name = "Moon"; Size = Medium; Type = Desert };
+                        { Name = "Moon";Size = Small; Type = Gas};
+                        {Name = "Moon"; Size = Small; Type = Terran }
+                    ]};
+                    {
+                    Name = "Sol III";
+                    Size = Small; 
+                    Type = Gas; 
+                    Moons = [
+                        { Name = "Moon";Size = Medium; Type = Desert};
+                        { Name = "Moon";Size = Small; Type = Gas};
+                        { Name = "Moon";Size = Small; Type = Toxic}
+                    ]};
+                    {
+                    Name = "Sol IV";
+                    Size = Medium; 
+                    Type = Rock; 
+                    Moons = [
+                        { Name = "Moon";Size = Medium; Type = Desert};
+                        { Name = "Moon";Size = Small; Type = Gas};
+                        { Name = "Moon";Size = Small; Type = Gas};
+                    ]};
+                    {
+                    Name = "Sol V";
+                    Size = Small;
+                    Type = Terran; 
+                    Moons = [
+                        { Name = "Moon";Size = Medium; Type = Rock};
+                        { Name = "Moon";Size = Small; Type = Gas};
+                        { Name = "Moon";Size = Small; Type = Jungle}
+                    ]};
+                    {
+                    Name = "Sol VI";
+                    Size = Medium; 
+                    Type = Terran; 
+                    Moons = [
+                        { Name = "Moon";Size = Medium; Type = Inferno };
+                        { Name = "Moon";Size = Small; Type = Gas};
+                        { Name = "Moon";Size = Small; Type = Ocean}
+                    ]};
+                    {
+                    Name = "Sol VII";
+                    Size = Tiny; 
+                    Type = Inferno; 
+                    Moons = [
+                        { Name = "Moon";Size = Medium; Type = Ocean};
+                        { Name = "Moon1";Size = Small; Type = Gas};
+                        { Name = "Moon2";Size = Small; Type = Rock;}
+                    ]};
+       ] }
+       }
 
-    let world = World.create (howManyTiles * 2ul)  (howManyTiles * 2ul)
-
-    mapRenderer.Load("tiles.png", new Vector2u(tileSize, tileSize), world.Tiles)
+    let systemView = new SystemView(test, mainWindow)
 
     let rec mainLoop() = 
         mainWindow.Clear()
         mainWindow.DispatchEvents()
-        mainWindow.Draw(mapRenderer)
+        systemView.Render()
         mainWindow.Display()
 
         match mainWindow.IsOpen() with
