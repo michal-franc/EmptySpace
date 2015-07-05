@@ -58,6 +58,7 @@
     <None Include="App.config" />
     <Compile Include="Helper.fs" />
     <Compile Include="Views\Elements\TopBar.fs" />
+	<Compile Include="Views\Elements\SpriteWithHint.fs" />
     <Compile Include="MainMenuView.fs" />
     <Compile Include="StarSystem.fs" />
     <Compile Include="WorldObject.fs" />
