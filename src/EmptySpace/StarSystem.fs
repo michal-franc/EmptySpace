@@ -67,17 +67,18 @@ type StarSystem = {
         let x, y = planetSpriteStart planetType
         new IntRect(x + xForNthPlanet, y, 30, 30)
 
-
+let rnd = 
+    let r = System.Random()
+    fun n -> r.Next(1, 6)
 
 //TODO: sprite number based on some RNG
 type SystemDrawRenderer(filename:string) =
-
     let texture : Texture = new Texture(filename)
     let mutable sprites : SpriteWithHint list = []
     member this.Sprites with get() = sprites
 
     member this.sprite pos size t name =
-        let s = new SpriteWithHint(name, texture, rectForType 1 t, Font)
+        let s = new SpriteWithHint(name, texture, rectForType (rnd()) t, Font)
         s.Scale <- vector1 size 
         s.Position <- adjustPos pos (s.GetGlobalBounds()) |> vector 
         s
