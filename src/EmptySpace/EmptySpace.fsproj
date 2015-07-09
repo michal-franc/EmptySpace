@@ -58,7 +58,7 @@
     <None Include="App.config" />
     <Compile Include="Helper.fs" />
     <Compile Include="Views\Elements\TopBar.fs" />
-	<Compile Include="Views\Elements\SpriteWithHint.fs" />
+    <Compile Include="Views\Elements\SpriteWithHint.fs" />
     <Compile Include="MainMenuView.fs" />
     <Compile Include="StarSystem.fs" />
     <Compile Include="WorldObject.fs" />
@@ -94,8 +94,7 @@ xcopy /y "$(ProjectDir)\..\..\lib\csfml-graphics-2.dll" "$(TargetDir)"
 xcopy /y "$(ProjectDir)\..\..\lib\csfml-window-2.dll" "$(TargetDir)"
 xcopy /y "$(ProjectDir)\..\..\lib\openal32.dll" "$(TargetDir)"
 xcopy /y "$(ProjectDir)\..\..\lib\libsndfile-1.dll" "$(TargetDir)"
-xcopy /y "$(ProjectDir)\..\..\gfx\tiles.png" "$(TargetDir)"
-xcopy /y "$(ProjectDir)\..\..\gfx\planets.png" "$(TargetDir)"</PostBuildEvent>
+xcopy /y "$(ProjectDir)\..\..\gfx" /S "$(TargetDir)\gfx\"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

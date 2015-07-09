@@ -1,8 +1,10 @@
 ﻿<!--
+// TODO: add space background
+// TODO: selectable sprites with injected actions
+// TODO: Sun pallete is currently colorfull
 // TODO: click on planet / sun selects it
 // TODO: drawing simple buttons / active - disabled state
 // TODO: event handling on button click
 // TODO: click on a planet activates the buttons
-// TODO: add space background
 -->
 <xml></xml>

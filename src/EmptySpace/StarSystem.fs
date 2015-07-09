@@ -67,14 +67,19 @@ type StarSystem = {
         let x, y = planetSpriteStart planetType
         new IntRect(x + xForNthPlanet, y, 30, 30)
 
+
 let rnd = 
     let r = System.Random()
     fun n -> r.Next(1, 6)
 
-//TODO: sprite number based on some RNG
 type SystemDrawRenderer(filename:string) =
-    let texture : Texture = new Texture(filename)
+    let image = new Image(filename)
+    let mutable texture : Texture = new Texture(image) 
     let mutable sprites : SpriteWithHint list = []
+    do
+        image.CreateMaskFromColor(Color.Black);
+        texture <- new Texture(image)
+
     member this.Sprites with get() = sprites
 
     member this.sprite pos size t name =
@@ -128,18 +133,21 @@ type SystemDrawRenderer(filename:string) =
 
 type SystemView(system, mainWindow:RenderWindow) =
     let wnd = mainWindow
-    let planetsRenderer = new SystemDrawRenderer("planets.png")
+    let planetsRenderer = new SystemDrawRenderer("gfx/planets.png")
+
+    let texture = new Texture("gfx/space_back.png")
+    let backSprite = new Sprite(texture)
 
     do planetsRenderer.Create(system)
 
     member this.Render() =
+        mainWindow.Draw(backSprite)
         mainWindow.Draw(new TopBar("Beta Eridani XLS-51", float32(mainWindow.Size.X), Font))
         mainWindow.Draw(planetsRenderer)
         // TODO: Mouse Over has to be handled in sprite somehow so i can hide the complexity
         for s in planetsRenderer.Sprites do
             s.DrawHint(mainWindow)
 
-        // I think its all for now :) the basic sprite with 'hint' is there. At least concept works
-        // next step - selectable sprites with injected actions
+
     //member this.HandleEvents() =
         
