@@ -7,7 +7,7 @@ open SpriteWithHint
 
 type ObjectType = Sun | Planet | Moon | Asteroid
 type Size = Huge | Large | Medium | Small | Tiny
-type PlanetType = Terran | Jungle | Rock | Ocean | Desert | Arctic | Gas | Inferno | Toxic | None
+type PlanetType = Terran | Jungle | Rock | Ocean | Desert | Arctic | Gas | Inferno | Toxic | Star
 
 type Moon = {
     Name : string
@@ -91,7 +91,7 @@ type SystemDrawRenderer(filename:string) =
     member this.CreateSun(sun) =
         let sunSize = translateSize Sun sun.Size
         let sunPos = (150.0f, 150.0f)
-        this.sprite sunPos sunSize None sun.Name
+        this.sprite sunPos sunSize Star sun.Name
 
     member this.CreatePlanet(planet:Planet, shiftX, shiftY) =
         let plSize = translateSize Planet planet.Size
@@ -138,16 +138,29 @@ type SystemView(system, mainWindow:RenderWindow) =
     let texture = new Texture("gfx/space_back.png")
     let backSprite = new Sprite(texture)
 
+    let mutable selectedObject = Option<SpriteWithHint>.None
+
     do planetsRenderer.Create(system)
 
     member this.Render() =
         mainWindow.Draw(backSprite)
         mainWindow.Draw(new TopBar("Beta Eridani XLS-51", float32(mainWindow.Size.X), Font))
         mainWindow.Draw(planetsRenderer)
-        // TODO: Mouse Over has to be handled in sprite somehow so i can hide the complexity
+        this.HandleEvents()
+
+    member this.HandleEvents() =
+        let leftPressed = Mouse.IsButtonPressed(Mouse.Button.Left)
+        let mPos = Mouse.GetPosition(mainWindow)
+
+        match selectedObject with
+        | Some(s) -> s.DrawSelected(mainWindow)
+        | _ -> ()
+
         for s in planetsRenderer.Sprites do
-            s.DrawHint(mainWindow)
+             if s.MouseInSprite(mPos) then
+                s.DrawHint(mainWindow)
 
+                if leftPressed then
+                    selectedObject <- Some(s)
 
-    //member this.HandleEvents() =
-        
+                
