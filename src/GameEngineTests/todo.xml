@@ -1,9 +1,8 @@
 ﻿<!--
-// TODO: click on planet / sun selects it
-// TODO: selectable sprites with injected actions
-// TODO: drawing simple buttons / active - disabled state
-// TODO: move the sprite hint logic somewhere else :D
+// TODO: state management and change to galaxy view
+// TODO: render galaxy - simple dots with hints
+// TODO: click on dot goes to system view
+// TODO: generic shapes with text in it 
 // TODO: event handling on button click
-// TODO: click on a planet activates the buttons
 -->
 <xml></xml>
