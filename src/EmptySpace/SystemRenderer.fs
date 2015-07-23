@@ -7,13 +7,8 @@ open SpriteWithHint
 open StarSystem
 
 
-type SystemRenderer(filename:string) =
-    let image = new Image(filename)
-    let mutable texture : Texture = new Texture(image) 
+type SystemRenderer(texture) =
     let mutable sprites : SpriteWithHint list = []
-    do
-        image.CreateMaskFromColor(Color.Black);
-        texture <- new Texture(image)
 
     member this.Sprites with get() = sprites
 

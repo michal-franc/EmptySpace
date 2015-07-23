@@ -19,13 +19,11 @@ namespace Renderer
 
         public void Draw(RenderTarget target, RenderStates states)
         {
-            var font = new Font("ariblk.ttf");
-
-            target.Draw(new TopBar("Galaxy", target.Size.X, font));
+            target.Draw(new TopBar("Galaxy", target.Size.X));
 
             foreach (var starSystem in universe.Systems)
             {
-                var rect = new Button(string.Empty, new Vector2f(starSystem.Position.X, starSystem.Position.Y), font, (s) => s.ChangeView(new SystemView(starSystem)));
+                var rect = new Button(string.Empty, new Vector2f(starSystem.Position.X, starSystem.Position.Y), GlobalAssets.Font, (s) => s.ChangeView(new SystemView(starSystem)));
                 _buttons.Add(rect);
                 target.Draw(rect);
             }
@@ -52,11 +50,8 @@ namespace Renderer
     public class SystemView : IGameView
     {
         private readonly StarSystem.StarSystem _system;
-        private StarSystem.SystemDrawRenderer _planetsRenderer;
-        private Texture _texture;
-        private Sprite _backSprite;
+        private SystemRenderer.SystemRenderer _planetsRenderer;
         private SpriteWithHint.SpriteWithHint _selectedObject;
-        private Font _font;
         private IGameView _selectedGameView;
 
         private ICollection<Button> _buttons;
@@ -64,20 +59,18 @@ namespace Renderer
         public SystemView(StarSystem.StarSystem system)
         {
             _system = system;
-            _planetsRenderer = new StarSystem.SystemDrawRenderer("gfx/planets.png");
-            _texture = new Texture("gfx/space_back.png");
-            _font = new Font("ariblk.ttf");
-            _backSprite = new Sprite(_texture);
+            _planetsRenderer = new SystemRenderer.SystemRenderer(GlobalAssets.PlanetsSprite);
+
             _planetsRenderer.Create(_system);
             _buttons = new List<Button>();
 
-            _buttons.Add(new Button("Galaxy", new Vector2f(100.0f, 500.0f), _font, (s) => s.ChangeView(new GalaxyView(s.Universe))));
+            _buttons.Add(new Button("Galaxy", new Vector2f(100.0f, 500.0f), GlobalAssets.Font, (s) => s.ChangeView(new GalaxyView(s.Universe))));
         }
 
         public void Draw(RenderTarget target, RenderStates states)
         {
-            target.Draw(_backSprite);
-            target.Draw(new TopBar(_system.Sun.Name, target.Size.X, _font));
+            target.Draw(GlobalAssets.SpaceBackground);
+            target.Draw(new TopBar(_system.Sun.Name, target.Size.X));
             target.Draw(_planetsRenderer);
 
             foreach (var b in _buttons)
@@ -90,7 +83,7 @@ namespace Renderer
         {
             _selectedObject.DrawSelected(mainWindow);
 
-            var button = new Button("Explore", new Vector2f(300.0f, 500.0f), _font, null);
+            var button = new Button("Explore", new Vector2f(300.0f, 500.0f), GlobalAssets.Font, null);
             mainWindow.Draw(button);
         }
 

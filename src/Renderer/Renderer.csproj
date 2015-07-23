@@ -57,6 +57,7 @@
     <Compile Include="Button.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="GameView.cs" />
+    <Compile Include="GlobalAssets.cs" />
     <Compile Include="MapRenderer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
