@@ -57,7 +57,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <Compile Include="Helper.fs" />
-    <Compile Include="Views\Elements\SpriteWithHint.fs" />
     <Compile Include="StarSystem.fs" />
     <Compile Include="SystemRenderer.fs" />
     <Compile Include="Universe.fs" />

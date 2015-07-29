@@ -29,7 +29,13 @@ let rndInt min max =
 let rnd = fun n -> float32(r.NextDouble())
 
 let rndPos = 
-    fun n -> (rnd() * 1000.f, rnd() * 1000.f) |> vector 
+    fun n -> (rnd() * 15000.f, rnd() * 15000.f) |> vector 
+
+let rndColor = fun n ->
+    let a = byte (rndInt 0 256)
+    let b = byte (rndInt 0 256)
+    let c = byte (rndInt 0 256)
+    new SFML.Graphics.Color(a, b, c)
 
 let rndType() = 
     enum<PlanetType>(rndInt 1 9)
@@ -64,15 +70,16 @@ let rndPlanets starName =
 let rndSun = fun n ->
     let name = starNames.[rndInt 1 10]
     let planets = rndPlanets(name)
-    { Name = name; Size = rndSize(); Planets = planets }
+    let color = rndColor()
+    { Name = name; Size = rndSize(); Planets = planets ; Color = color}
     
 
 let generate =
     let mutable lis = []
 
-    for i in 1 .. 100 do
+    for i in 1 .. 5000 do
         let pos = rndPos()
         let sun = rndSun()
-        lis <- List.append  [{ Position = pos; Sun = sun }] lis
+        lis <- List.append  [{ Position = pos; Sun = sun}] lis
 
     { Systems = lis }

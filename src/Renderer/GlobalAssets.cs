@@ -5,6 +5,7 @@ namespace Renderer
     public static class GlobalAssets
     {
         public static Font Font { get; }
+        public static Font GalaxyFont{ get; }
         public static Texture PlanetsSprite { get; }
         public static Sprite SpaceBackground { get; }
 
@@ -16,6 +17,7 @@ namespace Renderer
 
             SpaceBackground = new Sprite(new Texture("gfx/space_back.png"));
             Font = new Font("ariblk.ttf");
+            GalaxyFont = new Font("BlackHoleBB.ttf");
         }
     }
 }

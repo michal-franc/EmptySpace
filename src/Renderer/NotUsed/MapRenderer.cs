@@ -1,7 +1,7 @@
 ﻿using SFML.Graphics;
 using SFML.Window;
 
-namespace Renderer
+namespace Renderer.NotUsed
 {
     public class MapRenderer : Transformable, Drawable
     {

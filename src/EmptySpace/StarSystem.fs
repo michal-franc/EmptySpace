@@ -2,7 +2,6 @@
 open SFML.Graphics
 open SFML.Window
 open Helper
-open SpriteWithHint
 
 type ObjectType = Sun | Planet | Moon | Asteroid
 type Size = Huge = 1 | Large = 2 | Medium = 3| Small = 4| Tiny =5
@@ -25,6 +24,7 @@ type Sun = {
     Name : string
     Size : Size
     Planets : Planet list
+    Color : Color
 }
 
 type StarSystem = {

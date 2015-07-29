@@ -1,4 +1,6 @@
-﻿namespace Renderer
+﻿using Renderer.Views;
+
+namespace Renderer
 {
     public class GameState
     {
@@ -11,9 +13,10 @@
             CurrentView = new GalaxyView(Universe);
         }
 
-        public void ChangeView(IGameView selectedView)
+        public GameState ChangeView(IGameView selectedView)
         {
             CurrentView = selectedView;
+            return this;
         }
     }
 }
