@@ -9,6 +9,8 @@ namespace Renderer.Views
 {
     public class GalaxyView: GameView
     {
+        public override string Name => "Galaxy";
+
         private View mainView;
 
         public GalaxyView(Universe.Universe universe)

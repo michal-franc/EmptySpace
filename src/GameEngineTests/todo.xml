@@ -1,12 +1,9 @@
 ﻿<!--
-// TODO: TopBar - View dependant value
-// TODO: Base Dashboard View
-// TODO: Base Ship View
 // TODO: Partial View - menu with informations about planet
 // TODO: Add current location to state and mark it on galaxy map
 // TODO: Add Travel option
 // TODO: Basic gameplay with food diminishing over time
 // TODO: Explore gets food
-// TODO: zoom in / zoom out in place
+// TODO: zoom in / zoom out in place - minimap like in distant worlds
 -->
 <xml></xml>

@@ -16,11 +16,11 @@ namespace Renderer.Controls
         {
             this.Controls = new List<ControlBase>();
             var dashBtn = new Button("Dashboard", new Vector2f(10.0f, 10.0f + this.Position.Y));
-            //dashBtn.OnClick += (sender, state) => state.ChangeView()
+            dashBtn.OnClick += (sender, state) => state.ChangeView(new DashboardView(state));
             this.Controls.Add(dashBtn);
 
             var shipBtn = new Button("Ship", new Vector2f(100.0f, 10.0f + this.Position.Y));
-            //shipBtn.OnClick += (sender, state) => state.ChangeView()
+            shipBtn.OnClick += (sender, state) => state.ChangeView(new ShipView(state));
             this.Controls.Add(shipBtn);
 
             var galaxyBtn = new Button("Galaxy", new Vector2f(200.0f, 10.0f + this.Position.Y));

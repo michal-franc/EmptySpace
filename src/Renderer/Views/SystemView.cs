@@ -10,6 +10,8 @@ namespace Renderer.Views
         private string _systemName;
         private SpriteButton _selectedPlanet;
 
+        public override string Name => $"System - '{_systemName}'";
+
         public SystemView(StarSystem.StarSystem system)
         {
             _systemName = system.Sun.Name;
@@ -36,8 +38,6 @@ namespace Renderer.Views
         {
             target.Draw(GlobalAssets.SpaceBackground);
             base.Draw(target,states);
-
-            this.Add(new TopBar(string.Format("System - '{0}'", _systemName), target.Size.X));
 
             _selectedPlanet?.DrawSelected(target);
         }

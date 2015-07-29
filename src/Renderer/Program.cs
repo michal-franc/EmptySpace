@@ -24,7 +24,7 @@ namespace Renderer
 
             var state = new GameState();
 
-            var layoutGameView = new LayoutView();
+            
 
             while (true)
             {
@@ -34,6 +34,7 @@ namespace Renderer
                 state = state.CurrentView.HandleEvents(mainWindow, state);
                 mainWindow.SetView(mainWindow.DefaultView);
 
+                var layoutGameView = new LayoutView(state.CurrentView.Name);
                 mainWindow.Draw(layoutGameView);
                 state = layoutGameView.HandleEvents(mainWindow, state);
 

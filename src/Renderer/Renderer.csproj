@@ -68,6 +68,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controls\TopBar.cs" />
+    <Compile Include="Views\DashboardView.cs" />
     <Compile Include="Views\GalaxyView.cs" />
     <Compile Include="Views\GameView.cs" />
     <Compile Include="Views\LayoutView.cs" />

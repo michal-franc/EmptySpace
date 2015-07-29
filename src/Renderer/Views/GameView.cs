@@ -10,6 +10,7 @@ namespace Renderer.Views
     public interface IGameView : Drawable
     {
         GameState HandleEvents(RenderWindow mainWindow, GameState currentState);
+        string Name { get; }
     }
 
     public abstract class GameView : IGameView
@@ -60,5 +61,7 @@ namespace Renderer.Views
 
             return currentState;
         }
+
+        public abstract string Name { get; }
     }
 }
