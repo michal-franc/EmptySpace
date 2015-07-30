@@ -1,4 +1,5 @@
 ﻿using Renderer.Views;
+using Renderer.Views.Partial;
 using SFML.Graphics;
 using SFML.Window;
 

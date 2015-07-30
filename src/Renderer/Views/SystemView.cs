@@ -27,11 +27,12 @@ namespace Renderer.Views
                     _selectedPlanet = planetSprite;
                     return state;
                 };
+
+                planetSprite.OnHover += (sender, args) => sender.Draw(new Menu(new Vector2f(700.0f, 100.0f), 200.0f, 400.0f ));
                 base.Add(planetSprite);
             }
 
-            var exploreBtn = new Button("Explore", new Vector2f(300.0f, 500.0f));
-            this.Add(exploreBtn, () => _selectedPlanet != null);
+            this.Add(new Menu(new Vector2f(700.0f, 100.0f), 200.0f, 400.0f), () => _selectedPlanet != null);
         }
 
         public override void Draw(RenderTarget target, RenderStates states)

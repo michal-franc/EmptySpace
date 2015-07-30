@@ -30,7 +30,7 @@ namespace Renderer.Controls.Buttons
         {
             base.Draw(target, states);
 
-            var h = new Text(_text, GlobalAssets.Font);
+            var h = new Text(_text, GlobalAssets.FontBold);
             h.Scale = new Vector2f(0.4f, 0.4f);
             h.Position = new Vector2f(_pos.X, _pos.Y);
             h.Color = Color.Black;

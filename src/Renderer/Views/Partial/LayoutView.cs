@@ -1,7 +1,7 @@
 ﻿using Renderer.Controls;
 using SFML.Graphics;
 
-namespace Renderer.Views
+namespace Renderer.Views.Partial
 {
     public class LayoutView : GameView
     {

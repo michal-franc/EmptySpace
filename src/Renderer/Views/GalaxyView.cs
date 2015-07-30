@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Renderer.Controls;
-using Renderer.Controls.Buttons;
+﻿using Renderer.Controls.Buttons;
 using SFML.Graphics;
 using SFML.Window;
 
@@ -45,11 +42,11 @@ namespace Renderer.Views
         {
             if (args.Delta > 0)
             {
-                mainView.Zoom(1.1f);
+                mainView.Zoom(1.4f);
             }
             else
             {
-                mainView.Zoom(1.0f / 1.1f);
+                mainView.Zoom(1.0f / 1.4f);
             }
         }
 

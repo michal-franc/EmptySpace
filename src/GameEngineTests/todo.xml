@@ -1,9 +1,15 @@
 ﻿<!--
-// TODO: Partial View - menu with informations about planet
+// TODO: Scroll Galaxy map with mouse drag
+// TODO: Create easiliby usable wrap text control container
+// TODO: Create Control with menu panel with name of the panel on top
+// TODO: Create Control with menu panel with left - right aligned data and name on back
+// Menu like here that enables you to left righ align text - http://fractalsoftworks.com/wp-content/uploads/2010/11/651a-02.jpg
 // TODO: Add current location to state and mark it on galaxy map
 // TODO: Add Travel option
 // TODO: Basic gameplay with food diminishing over time
 // TODO: Explore gets food
 // TODO: zoom in / zoom out in place - minimap like in distant worlds
+// TODO: add on hover info about star system - galaxy view ( maybe remove hint around star )
+// TODO: in the star system add system info panel ( static allways visible )
 -->
 <xml></xml>

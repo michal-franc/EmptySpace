@@ -71,7 +71,8 @@
     <Compile Include="Views\DashboardView.cs" />
     <Compile Include="Views\GalaxyView.cs" />
     <Compile Include="Views\GameView.cs" />
-    <Compile Include="Views\LayoutView.cs" />
+    <Compile Include="Views\Partial\LayoutView.cs" />
+    <Compile Include="Controls\Menu.cs" />
     <Compile Include="Views\SystemView.cs" />
   </ItemGroup>
   <ItemGroup>

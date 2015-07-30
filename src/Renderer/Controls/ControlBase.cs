@@ -46,7 +46,7 @@ namespace Renderer.Controls
 
         public virtual void DrawHint(RenderTarget target)
         {
-            var hint = new Text(this.Hint, GlobalAssets.GalaxyFont, 20);
+            var hint = new Text(this.Hint, GlobalAssets.FontBold, 20);
             hint.Style = Text.Styles.Bold;
             hint.Position = new Vector2f(this.Position.X, this.Position.Y - 25.0f);
             hint.Color = Color.White;

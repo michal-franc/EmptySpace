@@ -4,8 +4,9 @@ namespace Renderer
 {
     public static class GlobalAssets
     {
-        public static Font Font { get; }
-        public static Font GalaxyFont{ get; }
+        public static Font FontNormal { get; }
+        public static Font FontBold { get; }
+        public static Font FontLight { get; }
         public static Texture PlanetsSprite { get; }
         public static Sprite SpaceBackground { get; }
 
@@ -16,8 +17,9 @@ namespace Renderer
             PlanetsSprite = new Texture(planetImage);
 
             SpaceBackground = new Sprite(new Texture("gfx/space_back.png"));
-            Font = new Font("ariblk.ttf");
-            GalaxyFont = new Font("BlackHoleBB.ttf");
+            FontNormal = new Font("orbitron-black.ttf");
+            FontBold = new Font("orbitron-bold.ttf");
+            FontLight = new Font("orbitron-light.ttf");
         }
     }
 }

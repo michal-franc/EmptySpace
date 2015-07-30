@@ -43,8 +43,7 @@ namespace Renderer.Controls
         {
             base.Draw(target, states);
 
-            var h = new Text(_text, GlobalAssets.Font);
-            h.Scale = Helper.vector1(0.5f);
+            var h = new Text(_text, GlobalAssets.FontBold, 15);
             var pos = Helper.centerPos(base.Shape.GetGlobalBounds());
             var adjustedPos = Helper.adjustPos(pos.Item1, pos.Item2, h.GetGlobalBounds());
             h.Position = new Vector2f(adjustedPos.Item1, adjustedPos.Item2);
