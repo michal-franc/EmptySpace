@@ -1,4 +1,7 @@
-﻿using SFML.Graphics;
+﻿using System;
+using System.Text;
+using Renderer.Controls.Panels;
+using SFML.Graphics;
 using SFML.Window;
 
 namespace Renderer.Controls
@@ -34,6 +37,9 @@ namespace Renderer.Controls
             }
         }
 
+        
+        // Experimental Mess
+        // TODO: I need a control to easilly define a container that has a wrapped text
         public override void Draw(RenderTarget target, RenderStates states)
         {
             base.Draw(target, states);
@@ -58,20 +64,7 @@ namespace Renderer.Controls
                            "Type - Terran" +
                            "Size - Large";
 
-            var newText = string.Empty;
-
-            var currentOffset = 0;
-            foreach (var c in longText)
-            {
-                var glyph = GlobalAssets.FontNormal.GetGlyph(c, 11, false);
-                currentOffset += glyph.Advance;
-                if (currentOffset >= (_width - 20))
-                {
-                    newText += "\n";
-                    currentOffset = 0;
-                }
-                newText += c;
-            }
+            var textCont = new WrappedTextContainer(longText, this._position, new Vector2f(10.0f, 10.0f), _width);
 
             var planetDataText = "Data of the planet";
             var planetData = new Text(planetDataText, GlobalAssets.FontNormal, 11);
@@ -84,12 +77,7 @@ namespace Renderer.Controls
 
             target.Draw(backRect);
             target.Draw(planetData);
-
-
-            var text = new Text(newText, GlobalAssets.FontNormal, 11);
-            text.Color = Color.White;
-            text.Position = new Vector2f(_position.X + 5.0f, _position.Y + 10.0f);
-            target.Draw(text);
+            target.Draw(textCont);
         }
     }
 }

@@ -1,0 +1,22 @@
+*.suo
+*.user
+*.datasource
+*.Publish.xml
+*.dotcover
+
+obj
+bin
+Bin
+ClientBin
+GeneratedCode
+Service References
+WCFNHibernate
+*UnitOfWork*
+GenericTransaction
+_ReSharper*
+elearn.suo
+App_Readme
+Adminica
+packages
+TestResults
+*ncrunch*

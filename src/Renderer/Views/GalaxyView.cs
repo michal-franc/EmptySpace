@@ -58,7 +58,6 @@ namespace Renderer.Views
 
             var window = ((RenderWindow)target);
 
-            // Those are hacks for testing :)
             window.MouseWheelMoved -= MoseWheelMoved;
             window.MouseWheelMoved += MoseWheelMoved;
 

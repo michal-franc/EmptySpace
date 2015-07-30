@@ -61,6 +61,7 @@
     <Compile Include="Controls\OnClickHandler.cs" />
     <Compile Include="Controls\OnHoverHandler.cs" />
     <Compile Include="Controls\Buttons\StarControl.cs" />
+    <Compile Include="Controls\Panels\WrappedTextContainer.cs" />
     <Compile Include="CustomShapes\StarShape.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="GlobalAssets.cs" />
