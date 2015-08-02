@@ -61,6 +61,8 @@
     <Compile Include="Controls\OnClickHandler.cs" />
     <Compile Include="Controls\OnHoverHandler.cs" />
     <Compile Include="Controls\Buttons\StarControl.cs" />
+    <Compile Include="Controls\Panels\NamedAlignedTextContainer.cs" />
+    <Compile Include="Controls\Panels\NamePlateContainer.cs" />
     <Compile Include="Controls\Panels\WrappedTextContainer.cs" />
     <Compile Include="CustomShapes\StarShape.cs" />
     <Compile Include="GameState.cs" />
@@ -73,7 +75,7 @@
     <Compile Include="Views\GalaxyView.cs" />
     <Compile Include="Views\GameView.cs" />
     <Compile Include="Views\Partial\LayoutView.cs" />
-    <Compile Include="Controls\Menu.cs" />
+    <Compile Include="Controls\NamedPanel.cs" />
     <Compile Include="Views\SystemView.cs" />
   </ItemGroup>
   <ItemGroup>
