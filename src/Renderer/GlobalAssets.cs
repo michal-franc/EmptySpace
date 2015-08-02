@@ -17,9 +17,9 @@ namespace Renderer
             PlanetsSprite = new Texture(planetImage);
 
             SpaceBackground = new Sprite(new Texture("gfx/space_back.png"));
-            FontNormal = new Font("orbitron-black.ttf");
-            FontBold = new Font("orbitron-bold.ttf");
-            FontLight = new Font("orbitron-light.ttf");
+            FontNormal = new Font("fonts/orbitron-black.ttf");
+            FontBold = new Font("fonts/orbitron-bold.ttf");
+            FontLight = new Font("fonts/orbitron-light.ttf");
         }
     }
 }

@@ -97,7 +97,8 @@ xcopy /y "$(ProjectDir)\..\..\lib\csfml-graphics-2.dll" "$(TargetDir)"
 xcopy /y "$(ProjectDir)\..\..\lib\csfml-window-2.dll" "$(TargetDir)"
 xcopy /y "$(ProjectDir)\..\..\lib\openal32.dll" "$(TargetDir)"
 xcopy /y "$(ProjectDir)\..\..\lib\libsndfile-1.dll" "$(TargetDir)"
-xcopy /y "$(ProjectDir)\..\..\gfx" /S "$(TargetDir)\gfx\"</PostBuildEvent>
+xcopy /y "$(ProjectDir)\..\..\gfx" /S "$(TargetDir)\gfx\"
+xcopy /y "$(ProjectDir)\..\..\fonts" /S "$(TargetDir)\fonts\"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
