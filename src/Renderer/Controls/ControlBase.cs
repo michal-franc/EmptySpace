@@ -3,13 +3,16 @@ using SFML.Window;
 
 namespace Renderer.Controls
 {
+    // TODO: derive special control from control base that do have clicabke and hoverable option
+    // TODO: Control base should just be the base without additional functionality
+    // TODO: Move relation parent - child to some control base
     public abstract class ControlBase : Drawable
     {
         public abstract FloatRect GetGlobalBounds();
         protected abstract Drawable MainObj { get; }
 
         protected string Hint { get; private set; }
-        protected Vector2f Position { get; private set; }
+        public Vector2f Position { get; private set; }
 
         public event OnHoverHandler OnHover;
         public event OnClickHandler OnClick;
