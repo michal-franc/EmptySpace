@@ -1,4 +1,5 @@
-﻿using SFML.Graphics;
+﻿using Renderer.Controls.Base;
+using SFML.Graphics;
 using SFML.Window;
 
 namespace Renderer.Controls
@@ -28,23 +29,23 @@ namespace Renderer.Controls
         }
     }
 
-
-    public class TopBar : ControlShapeBase
+    public class TopBar : IBaseControl
     {
         private readonly string _text;
+        private readonly Shape _rect;
 
         public TopBar(string text, float size)
-            :base(new Vector2f(0.0f, 0.0f), ShapeHelper.RectangleWithColor(new Vector2f(size, 30.0f), Color.Yellow), string.Empty)
         {
+            _rect = ShapeHelper.RectangleWithColor(new Vector2f(size, 30.0f), Color.Yellow);
             _text = text;
         }
 
-        public override void Draw(RenderTarget target, RenderStates states)
+        public void Draw(RenderTarget target, RenderStates states)
         {
-            base.Draw(target, states);
+            target.Draw(_rect);
 
             var h = new Text(_text, GlobalAssets.FontBold, 15);
-            var pos = Helper.centerPos(base.Shape.GetGlobalBounds());
+            var pos = Helper.centerPos(this._rect.GetGlobalBounds());
             var adjustedPos = Helper.adjustPos(pos.Item1, pos.Item2, h.GetGlobalBounds());
             h.Position = new Vector2f(adjustedPos.Item1, adjustedPos.Item2);
             h.Color = Color.Black;

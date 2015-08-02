@@ -1,34 +1,40 @@
-﻿using SFML.Graphics;
+﻿using Renderer.Controls.Base;
+using SFML.Graphics;
 using SFML.Window;
 
 namespace Renderer.Controls.Buttons
 {
-    public interface IClickable
-    {
-        event OnClickHandler OnClick;
-    }
-
-    public interface IHoverable
-    {
-        event OnHoverHandler OnHover;
-    }
-
-
-    public class Button : ControlShapeBase
+    // TODO: Create a helper to generate a rect with text inside, currently i have to do this manualy
+    public class Button : IBaseControl, IClickable
     {
         private readonly string _text;
         private readonly Vector2f _pos;
+        private Shape _rect;
 
-        public Button(string text, Vector2f pos, string hint = "")
-            :base(pos, ShapeHelper.Rectangle(new Vector2f(40.0f, 20.0f), pos), hint)
+        public event OnClickHandler OnClick;
+
+        public Button(string text, Vector2f pos)
         {
             _text = text;
             _pos = pos;
+            _rect = ShapeHelper.Rectangle(new Vector2f(40.0f, 20.0f), _pos);
+            _rect.FillColor = Color.White;
         }
 
-        public override void Draw(RenderTarget target, RenderStates states)
+        public FloatRect GetGlobalBounds()
         {
-            base.Draw(target, states);
+            return _rect.GetGlobalBounds();
+        }
+
+        public GameState Click(RenderTarget target, GameState state)
+        {
+            if (OnClick != null) { return this.OnClick(target, state); } 
+            return state;
+        }
+
+        public void Draw(RenderTarget target, RenderStates states)
+        {
+            target.Draw(_rect);
 
             var h = new Text(_text, GlobalAssets.FontBold);
             h.Scale = new Vector2f(0.4f, 0.4f);

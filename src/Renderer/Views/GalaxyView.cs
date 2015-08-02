@@ -47,7 +47,6 @@ namespace Renderer.Views
             foreach (var starSystem in universe.Systems)
             {
                 var rect = new StarControl(starSystem);
-                rect.OnClick += (sender, state) => state.ChangeView(new SystemView(starSystem));
                 base.Add(rect);
             }
         }
@@ -74,6 +73,7 @@ namespace Renderer.Views
             base.Draw(target, states);
         }
 
+        //TODO: Scrolling should not move the mouse cursor
         private void OnWindowOnMouseMoved(object sender, MouseMoveEventArgs args)
         {
             if (Mouse.IsButtonPressed(Mouse.Button.Right))

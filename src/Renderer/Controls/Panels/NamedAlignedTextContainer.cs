@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Renderer.Controls.Base;
 using SFML.Graphics;
 using SFML.Window;
 
@@ -10,30 +11,29 @@ namespace Renderer.Controls.Panels
     // TODO: this will require different font so that all the chars have the same size (Arial ? )
     // TODO: data dict has to be more complicated with info about color of value, style, etc
     // TODO: this logic can be moved to F#
-    public class LeftRightAlignedText : ControlBase
+    public class LeftRightAlignedText : IBaseControl
     {
         private readonly IDictionary<string, string> _data; 
         private readonly Vector2f _position;
         private readonly Vector2f _padding;
         private readonly float _width;
         private Text _text;
-        protected override Drawable MainObj => _text;
 
-        public LeftRightAlignedText(IDictionary<string, string> data, Vector2f padding, ControlBase parent) : base(string.Empty, parent.Position + padding)
+        public LeftRightAlignedText(IDictionary<string, string> data, Vector2f padding, IControlContainer parent)
         {
             _data = data;
             _position = parent.Position + padding;
             _padding = padding;
-            _width = parent.GetGlobalBounds().Width;
+            _width = parent.GlobalBounds.Width;
         }
 
-        public override void Draw(RenderTarget target, RenderStates states)
+        public void Draw(RenderTarget target, RenderStates states)
         {
             _text = new Text(this.CreateLeftRightAlignedText(), GlobalAssets.FontNormal, 11);
             _text.Color = Color.White;
             _text.Position = new Vector2f(_position.X, _position.Y);
 
-            base.Draw(target, states);
+            target.Draw(_text);
         }
 
         private string CreateLeftRightAlignedText()
@@ -71,11 +71,6 @@ namespace Renderer.Controls.Panels
             }
 
             return size;
-        }
-
-        public override FloatRect GetGlobalBounds()
-        {
-            return new FloatRect();
         }
     }
 }

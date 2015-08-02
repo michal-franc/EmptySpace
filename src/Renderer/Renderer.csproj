@@ -54,14 +54,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\Base\IBaseControl.cs" />
+    <Compile Include="Controls\Base\IClickable.cs" />
+    <Compile Include="Controls\Base\IHoverable.cs" />
     <Compile Include="Controls\BottomBar.cs" />
     <Compile Include="Controls\Buttons\Button.cs" />
-    <Compile Include="Controls\Buttons\SelectableSpriteButton.cs" />
-    <Compile Include="Controls\ControlBase.cs" />
+    <Compile Include="Controls\Buttons\SpriteButton.cs" />
     <Compile Include="Controls\OnClickHandler.cs" />
     <Compile Include="Controls\OnHoverHandler.cs" />
     <Compile Include="Controls\Buttons\StarControl.cs" />
     <Compile Include="Controls\Panels\NamedAlignedTextContainer.cs" />
+    <Compile Include="Controls\Panels\NamedPanel.cs" />
     <Compile Include="Controls\Panels\NamePlateContainer.cs" />
     <Compile Include="Controls\Panels\WrappedTextContainer.cs" />
     <Compile Include="CustomShapes\StarShape.cs" />
@@ -75,7 +78,6 @@
     <Compile Include="Views\GalaxyView.cs" />
     <Compile Include="Views\GameView.cs" />
     <Compile Include="Views\Partial\LayoutView.cs" />
-    <Compile Include="Controls\NamedPanel.cs" />
     <Compile Include="Views\SystemView.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -26,6 +26,7 @@ namespace Renderer.Views
 
             foreach (var sprite in sprites)
             {
+                // TODO: generated based on the object
                 var testDataOfPlanet = new Dictionary<string, string>
                 {
                     { "Type", "Terran" },
