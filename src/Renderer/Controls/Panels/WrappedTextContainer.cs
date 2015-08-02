@@ -5,8 +5,10 @@ using SFML.Window;
 
 namespace Renderer.Controls.Panels
 {
-    //TODO: Configurable Font, Size, Style, padding
+    //TODO: Configurable Font, Size, Style 
     //TODO: Wrap words correctly without split-up
+    //TODO: move wraped text logic to separate object without padding and parent and just maxWidth defined
+    //padding and position will be then defined by parend on add
     public class WrappedTextContainer : ControlBase
     {
         private readonly Vector2f _padding;
@@ -14,13 +16,13 @@ namespace Renderer.Controls.Panels
         private Text _text;
         protected override Drawable MainObj => _text;
 
-        public WrappedTextContainer(string text, Vector2f position, Vector2f padding, float maxWidth) : base(string.Empty, position)
+        public WrappedTextContainer(string text, Vector2f padding, ControlBase parent) : base(string.Empty, parent.Position + padding)
         {
             _padding = padding;
-            _maxWidth = maxWidth;
+            _maxWidth = parent.GetGlobalBounds().Width;
             _text = new Text(this.WrapText(text), GlobalAssets.FontNormal, 11);
             _text.Color = Color.White;
-            _text.Position = position + padding;
+            _text.Position = parent.Position + padding;
         }
 
         private string WrapText(string longText)
