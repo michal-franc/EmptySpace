@@ -18,7 +18,11 @@ type Planet = {
     Size : Size
     Type : PlanetType
     Moons : Moon list
+    Description : string
 }
+
+let createPlanet name size t moons desc =
+    { Name = name; Size = size; Type = t; Moons = moons; Description = desc } 
 
 type Sun = {
     Name : string

@@ -6,6 +6,15 @@ open Microsoft.FSharp.Reflection
 
 let starNames = ["Hastaybos"; "Recleinia"; "Festrilles"; "Xuspade"; "Reyrus"; "Laynov"; "Scecostea"; "Smabeturn"; "Shichi"; "Flillon"]
 
+let longDescLorem = "A desolate planet with rich resources and inidginous life." +
+                           "Lorem ipsum dolor sit amet, cu sed summo iudico fastidii." +
+                           "Ut pri esse reque dicam, in nemore tincidunt eos. Eu clita" +
+                           "periculis complectitur mel, docendi dolores ius no. Et est" +
+                           "dicat noster. Et his vitae libris impetus, quem evertitur" +
+                           "suscipiantur est at. Ea pertinax efficiendi pro, ubique" +
+                           "delectus cum id. suscipiantur est at. Ea pertinax efficiendi " +
+                           "pro, ubique";
+
 let intToRoman i =
     match i with 
     | 1 -> "I"
@@ -56,7 +65,7 @@ let rndMoons planetName =
     lis
 
 let rndPlanet name =
-    { Name = name; Size = rndSize(); Type = rndType(); Moons = rndMoons name }
+    StarSystem.createPlanet name (rndSize()) (rndType()) (rndMoons name) (sprintf "%s\n%s" name longDescLorem)
 
 let rndPlanets starName =
     let mutable lis = []
