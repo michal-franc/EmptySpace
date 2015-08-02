@@ -104,7 +104,7 @@ namespace Renderer.Views
 
         private void MoseWheelMoved(object sender, MouseWheelEventArgs args)
         {
-            if (args.Delta > 0)
+            if (args.Delta < 0)
             {
                 mainView.Zoom(1.4f);
             }
