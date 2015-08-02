@@ -48,7 +48,7 @@ let rndMoon name =
 
 let rndMoons planetName =
     let mutable lis = []
-    let nMoons = rndInt 1 3
+    let nMoons = rndInt 0 3
 
     for i in 1 .. nMoons do
         let mName = sprintf "%s %s" planetName (intToRoman i)
@@ -60,7 +60,7 @@ let rndPlanet name =
 
 let rndPlanets starName =
     let mutable lis = []
-    let nPlanets = rndInt 1 5
+    let nPlanets = rndInt 0 5
 
     for i in 1 .. nPlanets do
         let pName = sprintf "%s %s" starName (intToRoman i)
