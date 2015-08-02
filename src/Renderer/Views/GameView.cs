@@ -66,29 +66,24 @@ namespace Renderer.Views
 
         private GameState HandleEventsRec(RenderWindow mainWindow, GameState currentState, IBaseControl ctrl)
         {
-            var c = ctrl as IClickable;
-            if (c != null)
+            // TODO: how to do now double click event ? click event ? right click event ?
+            // TODO: click event handler will have click event args (left, right, double ) and i will be able to decide what to do with it
+            // TODO: i will probably have to implement double click by myself ( in my scenario i dont need double click but just left click with different action based on context )
+            var mPos = mainWindow.MapPixelToCoords(Mouse.GetPosition(mainWindow), mainWindow.GetView());
+            var mouse = new FloatRect(mPos.X, mPos.Y, 1.0f, 1.0f);
+            if (mouse.Intersects(ctrl.GlobalBounds))
             {
-                if (Mouse.IsButtonPressed(Mouse.Button.Left))
+                var c = ctrl as IClickable;
+                if (c != null)
                 {
-                    var mPos = mainWindow.MapPixelToCoords(Mouse.GetPosition(mainWindow), mainWindow.GetView());
-                    var mouse = new FloatRect(mPos.X, mPos.Y, 1.0f, 1.0f);
-                    if (mouse.Intersects(c.GetGlobalBounds()))
+                    if (Mouse.IsButtonPressed(Mouse.Button.Left))
                     {
                         currentState = c.Click(mainWindow, currentState);
                     }
                 }
-            }
 
-            var h = ctrl as IHoverable;
-            if (h != null)
-            {
-                var mPos = mainWindow.MapPixelToCoords(Mouse.GetPosition(mainWindow), mainWindow.GetView());
-                var mouse = new FloatRect(mPos.X, mPos.Y, 1.0f, 1.0f);
-                if (mouse.Intersects(h.GetGlobalBounds()))
-                {
-                    h.Hover(mainWindow);
-                }
+                var h = ctrl as IHoverable;
+                h?.Hover(mainWindow);
             }
 
             var p = ctrl as IControlContainer;

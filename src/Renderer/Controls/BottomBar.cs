@@ -26,7 +26,7 @@ namespace Renderer.Controls
             shipBtn.OnClick += (sender, state) => state.ChangeView(new ShipView(state));
 
             var galaxyBtn = new Button("Galaxy", new Vector2f(200.0f, 10.0f + pos.Y));
-            galaxyBtn.OnClick += (sender, state) => state.ChangeView(new GalaxyView(state.Universe));
+            galaxyBtn.OnClick += (sender, state) => state.ChangeView(new GalaxyView(state));
 
             ChildrenControls = new[] { dashBtn, shipBtn, galaxyBtn };
         }

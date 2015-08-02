@@ -31,6 +31,8 @@ namespace Renderer.Controls
 
     public class TopBar : IBaseControl
     {
+        public FloatRect GlobalBounds => _rect.GetGlobalBounds();
+
         private readonly string _text;
         private readonly Shape _rect;
 

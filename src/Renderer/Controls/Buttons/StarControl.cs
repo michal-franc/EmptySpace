@@ -6,11 +6,13 @@ using SFML.Window;
 
 namespace Renderer.Controls.Buttons
 {
-    public class StarControl : IBaseControl, IClickable, IHoverable 
+    public class StarControl : IClickable, IHoverable 
     {
         private Shape _rect;
         private StarSystem.Sun _sun;
         private Vector2f _position;
+
+        public FloatRect GlobalBounds => _rect.GetGlobalBounds();
 
         public StarControl(StarSystem.StarSystem system)
         {
@@ -47,11 +49,6 @@ namespace Renderer.Controls.Buttons
             hint.Position = new Vector2f(this._position.X, this._position.Y - 25.0f);
             hint.Color = Color.White;
             return hint;
-        }
-
-        public FloatRect GetGlobalBounds()
-        {
-            return this._rect.GetGlobalBounds();
         }
 
         public void Draw(RenderTarget target, RenderStates states)

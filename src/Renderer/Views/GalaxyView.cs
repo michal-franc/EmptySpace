@@ -39,16 +39,20 @@ namespace Renderer.Views
 
         private View mainView;
 
-        public GalaxyView(Universe.Universe universe)
+        public GalaxyView(GameState state)
         {
             this.mainView = new View(new FloatRect(0.0f, 0.0f, 1920, 900));
             mainView.Viewport = new FloatRect(0.0f, 0.0f, 1.0f, 1.0f);
+            mainView.Center = state.PlayerPosition;
 
-            foreach (var starSystem in universe.Systems)
+            foreach (var starSystem in state.Universe.Systems)
             {
                 var rect = new StarControl(starSystem);
                 base.Add(rect);
             }
+
+            var playerIndicator = new PlayerIndicatorControl(state.PlayerPosition);
+            base.Add(playerIndicator);
         }
         
         public override void Draw(RenderTarget target, RenderStates states)
@@ -113,7 +117,6 @@ namespace Renderer.Views
                 mainView.Zoom(1.0f / 1.4f);
             }
         }
-
 
         private void WindowOnKeyPressed(object sender, KeyEventArgs keyEventArgs)
         {

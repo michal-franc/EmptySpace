@@ -19,6 +19,8 @@ namespace Renderer.Controls.Panels
         private readonly float _width;
         private Text _text;
 
+        public FloatRect GlobalBounds => _text.GetGlobalBounds();
+
         public LeftRightAlignedText(IDictionary<string, string> data, Vector2f padding, IControlContainer parent)
         {
             _data = data;

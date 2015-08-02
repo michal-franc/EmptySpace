@@ -59,6 +59,7 @@
     <Compile Include="Controls\Base\IHoverable.cs" />
     <Compile Include="Controls\BottomBar.cs" />
     <Compile Include="Controls\Buttons\Button.cs" />
+    <Compile Include="Controls\Buttons\PlayerIndicatorControl.cs" />
     <Compile Include="Controls\Buttons\SpriteButton.cs" />
     <Compile Include="Controls\OnClickHandler.cs" />
     <Compile Include="Controls\OnHoverHandler.cs" />

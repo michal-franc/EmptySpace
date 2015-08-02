@@ -16,6 +16,8 @@ namespace Renderer.Controls.Panels
         private readonly float _maxWidth;
         private Text _text;
 
+        public FloatRect GlobalBounds => _text.GetGlobalBounds();
+
         public WrappedTextContainer(string text, Vector2f padding, IControlContainer parent)
         {
             _padding = padding;

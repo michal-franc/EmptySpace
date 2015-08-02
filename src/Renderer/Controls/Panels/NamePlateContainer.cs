@@ -9,6 +9,9 @@ namespace Renderer.Controls.Panels
     // TODO: somehow create two types of this object, one which can be a main object the other one which needs allways a parent
     public class NamePlateContainer : IBaseControl 
     {
+        //TODO: HACK, how to define globalbounds of this control ?
+        public FloatRect GlobalBounds => new FloatRect();
+
         private readonly string _panelName;
         private readonly Vector2f _padding;
         private readonly Vector2f _position;

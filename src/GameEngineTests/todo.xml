@@ -1,11 +1,13 @@
 ﻿<!--
-// TODO: Add Travel option
+// TODO: Double click on a star opens the system view -> first one makes it selected other one goes to system view
+// TODO: Add Travel option -> click on star system makes it selected and a button travel pops out
 // TODO: Basic gameplay with food diminishing over time
 // TODO: Explore gets food
-// TODO: zoom in / zoom out in place - minimap like in distant worlds
-// TODO: add on hover info about star system - galaxy view ( maybe remove hint around star )
+// TODO: zoom in / zoom out in place - minimap like in distant worlds, zoom in where the cursor is
+// TODO: add on hover info about star system - galaxy view ( remove hint around star )
 // TODO: in the star system add system info panel ( static allways visible )
 // TODO: Layouts construct like in wpf / xaml
-// TODO: Randomize planet description ( simple generator withotu context )
+// TODO: Randomize planet description ( simple generator without context )
+// TODO: On galaxy view click remember last zoom setting
 -->
 <xml></xml>

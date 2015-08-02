@@ -4,10 +4,13 @@ using SFML.Window;
 
 namespace Renderer.Controls.Buttons
 {
-    class SpriteButton : IBaseControl, IClickable, IHoverable
+    class SpriteButton : IClickable, IHoverable
     {
         private readonly Sprite _sprite;
         private readonly string _hint;
+
+        public FloatRect GlobalBounds => _sprite.GetGlobalBounds();
+
         public SpriteButton(Sprite sprite, string hint)
         {
             _sprite = sprite;
@@ -49,9 +52,5 @@ namespace Renderer.Controls.Buttons
             return hint;
         }
 
-        public FloatRect GetGlobalBounds()
-        {
-            return this._sprite.GetGlobalBounds();
-        }
     }
 }
