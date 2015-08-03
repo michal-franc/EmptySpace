@@ -7,7 +7,7 @@ namespace Renderer
     {
         public IGameView CurrentView { get; private set; }
         public Universe.Universe Universe { get; }
-        public Vector2f PlayerPosition { get; }
+        public Vector2f PlayerPosition { get; private set; }
 
         public GameState()
         {
@@ -20,6 +20,12 @@ namespace Renderer
         public GameState ChangeView(IGameView selectedView)
         {
             CurrentView = selectedView;
+            return this;
+        }
+
+        public GameState Travel(Vector2f pos)
+        {
+            this.PlayerPosition = pos;
             return this;
         }
     }

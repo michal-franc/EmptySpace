@@ -4,18 +4,18 @@ using SFML.Window;
 
 namespace Renderer.Controls.Buttons
 {
-    public class PlayerIndicatorControl : IBaseControl
+    public class StarSelectedIndicatorControl : IBaseControl
     {
         private Shape _shape;
         public FloatRect GlobalBounds => _shape.GetGlobalBounds();
 
-        public PlayerIndicatorControl(Vector2f playerPosition)
+        public StarSelectedIndicatorControl(Vector2f playerPosition)
         {
             var r = 20.0f;
             var middle = playerPosition - new Vector2f(r, r);
             _shape = new CircleShape(r);
             _shape.Position = middle;
-            _shape.OutlineColor = new Color(255, 255, 0, 150);
+            _shape.OutlineColor = new Color(255, 0, 0, 150);
             _shape.FillColor = Color.Transparent;
             _shape.OutlineThickness = 5;
         }

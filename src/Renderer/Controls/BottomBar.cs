@@ -20,13 +20,13 @@ namespace Renderer.Controls
             _rect = ShapeHelper.Rectangle(new Vector2f(sizex, 50.0f), pos, Color.Blue);
 
             var dashBtn = new Button("Dashboard", new Vector2f(10.0f, 10.0f + pos.Y));
-            dashBtn.OnClick += (sender, state) => state.ChangeView(new DashboardView(state));
+            dashBtn.OnLeftClick += (sender, state) => state.ChangeView(new DashboardView(state));
 
             var shipBtn = new Button("Ship", new Vector2f(100.0f, 10.0f + pos.Y));
-            shipBtn.OnClick += (sender, state) => state.ChangeView(new ShipView(state));
+            shipBtn.OnLeftClick += (sender, state) => state.ChangeView(new ShipView(state));
 
             var galaxyBtn = new Button("Galaxy", new Vector2f(200.0f, 10.0f + pos.Y));
-            galaxyBtn.OnClick += (sender, state) => state.ChangeView(new GalaxyView(state));
+            galaxyBtn.OnLeftClick += (sender, state) => state.ChangeView(new GalaxyView(state));
 
             ChildrenControls = new[] { dashBtn, shipBtn, galaxyBtn };
         }

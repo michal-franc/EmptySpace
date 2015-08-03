@@ -4,12 +4,12 @@ using SFML.Window;
 
 namespace Renderer.Controls.Buttons
 {
-    class SpriteButton : IClickable, IHoverable
+    class SpriteButton : Clickable, IHoverable
     {
         private readonly Sprite _sprite;
         private readonly string _hint;
 
-        public FloatRect GlobalBounds => _sprite.GetGlobalBounds();
+        public override FloatRect GlobalBounds => _sprite.GetGlobalBounds();
 
         public SpriteButton(Sprite sprite, string hint)
         {
@@ -23,16 +23,9 @@ namespace Renderer.Controls.Buttons
             target.Draw(this.CreateHint(_hint));
         }
 
-        public void Draw(RenderTarget target, RenderStates states)
+        public override void Draw(RenderTarget target, RenderStates states)
         {
             target.Draw(_sprite);
-        }
-
-        public event OnClickHandler OnClick;
-        public GameState Click(RenderTarget target, GameState state)
-        {
-            if (OnClick != null) { return this.OnClick(target, state); }
-            return state;
         }
 
         public event OnHoverHandler OnHover;

@@ -44,7 +44,7 @@ namespace Renderer.Views
                 planetInfoPanel.AddChild(new LeftRightAlignedText(testDataOfPlanet, new Vector2f(10.0f, 230.0f), planetInfoPanel));
 
                 var planetSprite = new SpriteButton(sprite.Sprite, sprite.Name);
-                planetSprite.OnClick += (sender, state) =>
+                planetSprite.OnLeftClick += (sender, state) =>
                 {
                     _selectedPlanet = planetSprite;
                     return state;

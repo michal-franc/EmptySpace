@@ -6,29 +6,21 @@ using SFML.Window;
 
 namespace Renderer.Controls.Buttons
 {
-    public class StarControl : IClickable, IHoverable 
+    public class StarControl : Clickable, IHoverable
     {
+        public Vector2f Position => _position;
+
         private Shape _rect;
         private StarSystem.Sun _sun;
         private Vector2f _position;
 
-        public FloatRect GlobalBounds => _rect.GetGlobalBounds();
+        public override FloatRect GlobalBounds => _rect.GetGlobalBounds();
 
         public StarControl(StarSystem.StarSystem system)
         {
-            this.OnClick += (sender, state) => state.ChangeView(new SystemView(system));
-
             _position = system.Position;
             _rect = new StarShape(system, new Vector2f(_position.X, _position.Y));
             _sun = system.Sun; 
-        }
-
-        public event OnClickHandler OnClick;
-        public GameState Click(RenderTarget target, GameState state)
-        {
-            // TODO : I will have to think how to get rid of this -.-
-            if (OnClick != null) { return this.OnClick(target, state); }
-            return state;
         }
 
         public event OnHoverHandler OnHover;
@@ -51,7 +43,7 @@ namespace Renderer.Controls.Buttons
             return hint;
         }
 
-        public void Draw(RenderTarget target, RenderStates states)
+        public override void Draw(RenderTarget target, RenderStates states)
         {
             target.Draw(_rect);
         }

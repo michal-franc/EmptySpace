@@ -17,24 +17,22 @@ namespace Renderer.Views
         public abstract string Name { get; }
 
         private IList<IBaseControl> _controls;
-        public Dictionary<IBaseControl, Func<bool>> _conditionalControls;
+        public Dictionary<Func<IBaseControl>, Func<bool>> _conditionalControls;
 
         public GameView()
         {
             _controls = new List<IBaseControl>();
-            _conditionalControls = new Dictionary<IBaseControl, Func<bool>>();
+            _conditionalControls = new Dictionary<Func<IBaseControl>, Func<bool>>();
         }
 
-        public void Add(IBaseControl control, Func<bool> condition = null)
+        public void Add(IBaseControl control)
         {
-            if (condition == null)
-            {
                 this._controls.Add(control);
-            }
-            else
-            {
-                this._conditionalControls.Add(control, condition);
-            }
+        }
+
+        public void Add(Func<IBaseControl> funccontrol, Func<bool> funcbool)
+        {
+                this._conditionalControls.Add(funccontrol, funcbool);
         }
 
         public virtual void Draw(RenderTarget target, RenderStates states)
@@ -48,7 +46,7 @@ namespace Renderer.Views
             {
                 if (conditionalControl.Value())
                 {
-                    target.Draw(conditionalControl.Key);
+                    target.Draw(conditionalControl.Key());
                 }
             }
         }
@@ -61,6 +59,15 @@ namespace Renderer.Views
                 currentState = this.HandleEventsRec(mainWindow, currentState, c);
             }
 
+            //TODO: we are invoking and creating the same control all the time!
+            foreach (var c in _conditionalControls)
+            {
+                if (c.Value())
+                {
+                    currentState = this.HandleEventsRec(mainWindow, currentState, c.Key());
+                }
+            }
+
             return currentState;
         }
 
@@ -69,6 +76,7 @@ namespace Renderer.Views
             // TODO: how to do now double click event ? click event ? right click event ?
             // TODO: click event handler will have click event args (left, right, double ) and i will be able to decide what to do with it
             // TODO: i will probably have to implement double click by myself ( in my scenario i dont need double click but just left click with different action based on context )
+            // TODO: Maybe expose event handlers, left click, right click ? ( Instead of one )
             var mPos = mainWindow.MapPixelToCoords(Mouse.GetPosition(mainWindow), mainWindow.GetView());
             var mouse = new FloatRect(mPos.X, mPos.Y, 1.0f, 1.0f);
             if (mouse.Intersects(ctrl.GlobalBounds))
@@ -78,7 +86,11 @@ namespace Renderer.Views
                 {
                     if (Mouse.IsButtonPressed(Mouse.Button.Left))
                     {
-                        currentState = c.Click(mainWindow, currentState);
+                        currentState = c.LeftClick(mainWindow, currentState);
+                    }
+                    else if (Mouse.IsButtonPressed(Mouse.Button.Right))
+                    {
+                        currentState = c.RightClick(mainWindow, currentState);
                     }
                 }
 

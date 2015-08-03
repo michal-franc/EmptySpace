@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Runtime.Remoting.Channels;
+using System.Threading;
 using Renderer.Controls.Buttons;
+using Renderer.Controls.Panels;
 using SFML.Graphics;
 using SFML.Window;
 
@@ -36,6 +39,7 @@ namespace Renderer.Views
     {
         public override string Name => "Galaxy";
         private Vector2f _mouseDragStartPosition;
+        private StarControl _selectedStar;
 
         private View mainView;
 
@@ -48,13 +52,31 @@ namespace Renderer.Views
             foreach (var starSystem in state.Universe.Systems)
             {
                 var rect = new StarControl(starSystem);
+                rect.OnLeftClick += (sender, gstate) => { _selectedStar = rect; return gstate; };
+                rect.OnRightClick += (sender, gameState) => gameState.ChangeView(new SystemView(starSystem));
                 base.Add(rect);
             }
+
+            base.Add(() => new StarSelectedIndicatorControl(_selectedStar.Position), () => _selectedStar != null);
+            base.Add(() =>
+            {
+                var panel = new NamedPanel("Star Name", _selectedStar.Position + new Vector2f(50.0f, -40.0f), 100.0f, 100.0f);
+
+                //TODO: we need button that can have a parent so it can ve positioned inside panel
+                var btn = new Button("Travel", new Vector2f(10.0f, 50.0f), panel);
+                btn.OnLeftClick += (sender, gameState) =>
+                {
+                    gameState.Travel(_selectedStar.Position);
+                    return gameState.ChangeView(new GalaxyView(gameState));
+                };
+                panel.AddChild(btn);
+                return panel;
+            }, () => _selectedStar != null);
 
             var playerIndicator = new PlayerIndicatorControl(state.PlayerPosition);
             base.Add(playerIndicator);
         }
-        
+
         public override void Draw(RenderTarget target, RenderStates states)
         {
             target.Draw(GlobalAssets.SpaceBackground);

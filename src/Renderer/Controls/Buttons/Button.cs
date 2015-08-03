@@ -5,20 +5,19 @@ using SFML.Window;
 namespace Renderer.Controls.Buttons
 {
     // TODO: Create a helper to generate a rect with text inside, currently i have to do this manualy
-    public class Button : IClickable
+    public class Button : Clickable
     {
         private readonly string _text;
         private readonly Vector2f _pos;
         private Shape _rect;
 
-        public event OnClickHandler OnClick;
+        public override FloatRect GlobalBounds => _rect.GetGlobalBounds();
 
-        public FloatRect GlobalBounds => _rect.GetGlobalBounds();
-
-        public Button(string text, Vector2f pos)
+        public Button(string text, Vector2f pos, IControlContainer parent = null)
         {
             _text = text;
-            _pos = pos;
+            if (parent != null) { _pos = pos + parent.Position; }
+            else _pos = pos;
             _rect = ShapeHelper.Rectangle(new Vector2f(40.0f, 20.0f), _pos);
             _rect.FillColor = Color.White;
         }
@@ -28,14 +27,7 @@ namespace Renderer.Controls.Buttons
             return _rect.GetGlobalBounds();
         }
 
-        // ok i a bit tired :) time to get some rest, thanks for watching
-        public GameState Click(RenderTarget target, GameState state)
-        {
-            if (OnClick != null) { return this.OnClick(target, state); } 
-            return state;
-        }
-
-        public void Draw(RenderTarget target, RenderStates states)
+        public override void Draw(RenderTarget target, RenderStates states)
         {
             target.Draw(_rect);
 
