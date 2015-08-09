@@ -25,8 +25,8 @@ type Human = {
         { this with Hunger = this.Hunger + Rate ; Thirst = this.Thirst + Rate; Tired = if tiredValue < 0 then 0 else tiredValue }
     member this.getNeeds = 
             let mutable needs = []
-            needs <- List.append needs (if this.Hunger > 30 then  [("Food", 1)] else [])
-            needs <- List.append needs (if this.Thirst > 30 then  [("Water", 1)] else [])
+            needs <- List.append needs (if this.Hunger > 30 then  [("Food", 1.0f)] else [])
+            needs <- List.append needs (if this.Thirst > 30 then  [("Water", 1.0f)] else [])
             needs
     member this.satisfyNeeds satisfiedNeeds = 
             let mutable modifiedT = this

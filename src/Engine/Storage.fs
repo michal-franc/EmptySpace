@@ -4,7 +4,7 @@ open System.Collections
 
 
 type Storage = {
-    Objects : Map<string,int> 
+    Objects : Map<string, float32> 
 } with 
     member this.checkItems items = 
         let mutable list = []
@@ -23,7 +23,7 @@ let private merge op map1 map2 =
 let print storage =
     match storage.Objects.Count with
         | 0 -> "Storage is empty"
-        | _ -> storage.Objects |> Map.fold(fun state key item -> state + (sprintf "%s - %i" key item) + "\n") ""
+        | _ -> storage.Objects |> Map.fold(fun state key item -> state + (sprintf "%s - %.2f" key item) + "\n") ""
 
 let createEmpty = 
     {
@@ -32,7 +32,7 @@ let createEmpty =
 
 let createDefault = 
     {
-        Objects = (Map.ofList[("Food", 100);("Water", 100);("Fuel", 1000)])
+        Objects = (Map.ofList[("Food", 100.0f);("Water", 100.0f);("Fuel", 1000.0f)])
     }
 
 let create initialMap = 
@@ -51,10 +51,10 @@ let removeItems updateList oldStorage:Storage =
     }
 
 let private takeAndSubstract itemName storage num currentVal=
-        let updateVal = if currentVal - num  < 0 then -currentVal else -num 
+        let updateVal = if currentVal - num  < 0.0f then -currentVal else -num 
         addItems (Map.ofList[(itemName, updateVal)]) storage 
 
 let take itemName howMany storage =
     match Map.tryFind itemName storage.Objects with
         | Some value' -> ( takeAndSubstract itemName storage howMany value', value' )
-        | None -> (storage, 0)
+        | None -> (storage, 0.0f)
