@@ -9,5 +9,6 @@
 // TODO: On galaxy view click remember last zoom setting
 // TODO: huge optimizaiton effort - create a sprite and dont draw everything all the time
 // TODO: Storage items have proper measurement system so that there are kg and liters
+// TODO: Center view on moving ship
 -->
 <xml></xml>
