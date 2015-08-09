@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using Renderer.Controls.Base;
+using Renderer.Controls.Buttons;
 using SFML.Graphics;
 using SFML.Window;
 
@@ -10,7 +11,7 @@ namespace Renderer.Controls.Panels
     //TODO: Wrap words correctly without split-up
     //TODO: move wraped text logic to separate object without padding and parent and just maxWidth defined
     //padding and position will be then defined by parend on add
-    public class WrappedTextContainer : IBaseControl 
+    public class WrappedTextContainer : IBaseControl
     {
         private readonly Vector2f _padding;
         private readonly float _maxWidth;
@@ -50,6 +51,15 @@ namespace Renderer.Controls.Panels
         public void Draw(RenderTarget target, RenderStates states)
         {
             target.Draw(_text);
+        }
+
+        //TODO: DRY
+        public void UpdateText(string text)
+        {
+            var oldPos = _text.Position;
+            _text = new Text(this.WrapText(text), GlobalAssets.FontNormal, 11);
+            _text.Color = Color.White;
+            _text.Position = oldPos;
         }
     }
 }

@@ -1,11 +1,30 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Renderer.Controls.Base;
+using Renderer.Controls.Buttons;
 using SFML.Graphics;
 using SFML.Window;
 
 namespace Renderer.Controls.Panels
 {
+    public class StoragePanel : NamedPanel, IUpdatable
+    {
+        private WrappedTextContainer _storageText;
+
+        public StoragePanel(Vector2f position, float width, float height, Storage.Storage storage) : base("Storage", position, width, height)
+        {
+            _storageText = new WrappedTextContainer(Storage.print(storage), new Vector2f(10.0f, 10.0f), this);
+            this.AddChild(_storageText);
+        }
+
+        public void Update(GameEngine.GameState state)
+        {
+            //TODO: Ideally proper one way data binding solution would the best here so that i wouldnt have to do this
+            //This code is just useless and adds noise
+            _storageText.UpdateText(Storage.print(state.Storage));
+        }
+    }
+
     //TODO: Add drawable child controls in here so that i can dynamicaly create panels with elements
     //TODO: Stackable panels like in wpf so that layout is automatic
     public class NamedPanel : IControlContainer 

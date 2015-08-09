@@ -13,6 +13,7 @@ namespace Renderer
     {
         static void Main(string[] args)
         {
+            //TODO: speed of the simulation has to be independent from screen refresh rate
             var frameRate = 60u;
 
             var mainWindow = new RenderWindow(new VideoMode(1920, 900), "EmptySpace", Styles.Resize);

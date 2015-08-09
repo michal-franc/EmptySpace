@@ -32,7 +32,7 @@ let createEmpty =
 
 let createDefault = 
     {
-        Objects = (Map.ofList[("Food", 100);("Water", 100)])
+        Objects = (Map.ofList[("Food", 100);("Water", 100);("Fuel", 1000)])
     }
 
 let create initialMap = 

@@ -28,11 +28,20 @@ let create = fun () ->
 let tick state =
     let (crewlist, storage) = state.CrewList.tick(state.Storage)
 
-    let speed = 0.3f;
-    let whereToGo = state.PlayerPosition - state.Destination;
-    let moveVector = (normalize whereToGo) * 0.3f;
+    let speed = 0.5f;
 
-    { state with Storage = storage; CrewList = crewlist; PlayerPosition = state.PlayerPosition - moveVector }
+    //TODO: Move this whole logic to SHIP tick
+    let whereToGo = state.PlayerPosition - state.Destination;
+    let moveVector = (normalize whereToGo) * speed;
+    if moveVector.X > 0.0f || moveVector.Y > 0.0f then
+        let (newStorage, x) = Storage.take "Fuel" 1 storage
+        if x > 0 then
+            { state with Storage = newStorage; CrewList = crewlist; PlayerPosition = state.PlayerPosition - moveVector }
+        else
+            { state with Storage = newStorage; CrewList = crewlist; PlayerPosition = state.PlayerPosition }
+    else
+        { state with Storage = storage; CrewList = crewlist; PlayerPosition = state.PlayerPosition - moveVector }
+
 
 let startTravel state pos = 
     { state with Destination = pos}

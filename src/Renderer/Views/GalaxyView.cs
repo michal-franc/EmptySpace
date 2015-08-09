@@ -60,17 +60,14 @@ namespace Renderer.Views
                 base.Add(rect);
             }
 
-            //TODO: do a travel animation
-            //TODO: add fuel
-            //TODO: When traveling use fuel 
-            //TODO: Show low fuel alert
+            //TODO: Show low fuel alert -> alert system
             base.Add(() => new StarSelectedIndicatorControl(_selectedStar.Position), () => _selectedStar != null);
             base.Add(() =>
             {
                 // TODO: encapsulate this as aseparate control
                 var panel = new NamedPanel("Star Name", _selectedStar.Position + new Vector2f(50.0f, -40.0f), 100.0f, 100.0f);
 
-                //TODO: we need button that can have a parent so it can ve positioned inside panel
+                //TODO: we need button that can have a parent so it can be positioned inside panel
                 var btn = new Button("Travel", new Vector2f(10.0f, 50.0f), panel);
                 btn.OnLeftClick += (sender, gameState) => new SelectTravelDestination(_selectedStar.Position);
                 panel.AddChild(btn);
