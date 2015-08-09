@@ -5,6 +5,7 @@ open SFML.Graphics
 
 let vector t = new Vector2f(fst t, snd t)
 let vector1 t = new Vector2f(t, t)
+let vector0 = fun () -> new Vector2f(0.0f, 0.0f)
 
 let centerPos (bounds:FloatRect) =
     ( bounds.Left + (bounds.Width / 2.0f), (bounds.Height / 2.0f) + bounds.Top )
@@ -21,3 +22,6 @@ let normalize (t:Vector2f) =
         vector (t.X / distance, t.Y / distance)
     else
         vector1 0.0f
+
+let isZero (t:Vector2f) =
+    t.X = 0.0f && t.Y = 0.0f
