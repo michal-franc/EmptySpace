@@ -27,7 +27,7 @@ namespace Renderer
                     ((RenderWindow) sender).Close();
                 }
             };
-            //TODO: Handle Events receives all the events to event stream then we are consuming all the events
+
             //TODO: Save the event stream to file ? log file ?
             var state = GameEngine.create();
             var viewState = new ViewState(state);

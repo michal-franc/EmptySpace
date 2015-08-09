@@ -72,9 +72,10 @@
     <Compile Include="Controls\Base\IBaseControl.cs" />
     <Compile Include="Controls\Base\IClickable.cs" />
     <Compile Include="Controls\Base\IHoverable.cs" />
+    <Compile Include="Controls\Base\IUpdatable.cs" />
     <Compile Include="Controls\BottomBar.cs" />
     <Compile Include="Controls\Buttons\Button.cs" />
-    <Compile Include="Controls\Buttons\PlayerIndicatorControl.cs" />
+    <Compile Include="Controls\Buttons\ShipIndicatorControl.cs" />
     <Compile Include="Controls\Buttons\SpriteButton.cs" />
     <Compile Include="Controls\Buttons\StarSelectedIndicatorControl.cs" />
     <Compile Include="Controls\OnClickHandler.cs" />

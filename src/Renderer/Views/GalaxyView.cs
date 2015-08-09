@@ -46,7 +46,7 @@ namespace Renderer.Views
         {
             this.mainView = new View(new FloatRect(0.0f, 0.0f, 1920, 900));
             mainView.Viewport = new FloatRect(0.0f, 0.0f, 1.0f, 1.0f);
-            mainView.Center = state.State.PlayerPosition;
+            mainView.Center = state.State.Ship.Position;
 
             foreach (var starSystem in state.State.Universe.Systems)
             {
@@ -74,7 +74,7 @@ namespace Renderer.Views
                 return panel;
             }, () => _selectedStar != null);
 
-            base.Add(new PlayerIndicatorControl(state.State.PlayerPosition));
+            base.Add(new ShipIndicatorControl(state.State.Ship.Position));
         }
 
         public override void Draw(RenderTarget target, RenderStates states)

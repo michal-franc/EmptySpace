@@ -21,7 +21,7 @@ namespace Renderer.Controls.Panels
         {
             //TODO: Ideally proper one way data binding solution would the best here so that i wouldnt have to do this
             //This code is just useless and adds noise
-            _storageText.UpdateText(Storage.print(state.Storage));
+            _storageText.UpdateText(Storage.print(state.Ship.Storage));
         }
     }
 

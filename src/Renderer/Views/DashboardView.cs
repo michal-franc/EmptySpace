@@ -7,7 +7,8 @@ namespace Renderer.Views
     {
         public DashboardView(ViewState state)
         {
-            var panel = new StoragePanel(new Vector2f(100.0f, 100.0f), 300.0f, 150.0f, state.State.Storage);
+            // YEAH law of demeter all the way ....
+            var panel = new StoragePanel(new Vector2f(100.0f, 100.0f), 300.0f, 150.0f, state.State.Ship.Storage);
             base.Add(panel);
         }
 
