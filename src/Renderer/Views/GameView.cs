@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Renderer.Controls.Base;
+using Renderer.Controls.Buttons;
+using Renderer.StateEvents;
 using SFML.Graphics;
 using SFML.Window;
 
@@ -8,7 +10,8 @@ namespace Renderer.Views
 {
     public interface IGameView : Drawable
     {
-        GameState HandleEvents(RenderWindow mainWindow, GameState currentState);
+        IEnumerable<IViewStateChangeEvent> HandleEvents(RenderWindow mainWindow, ViewState currentState);
+        void UpdateControls(GameEngine.GameState state);
         string Name { get; }
     }
 
@@ -51,12 +54,37 @@ namespace Renderer.Views
             }
         }
 
-
-        public GameState HandleEvents(RenderWindow mainWindow, GameState currentState)
+        public void UpdateControls(GameEngine.GameState state)
         {
             foreach (var c in _controls)
             {
-                currentState = this.HandleEventsRec(mainWindow, currentState, c);
+                UpdateControlsRec(c, state);
+            }
+        }
+
+        private void UpdateControlsRec(IBaseControl ctrl, GameEngine.GameState state)
+        {
+            var u = ctrl as IUpdatable;
+            u?.Update(state);
+
+
+            var p = ctrl as IControlContainer;
+            if (p != null)
+            {
+                foreach (var c in p.ChildrenControls)
+                {
+                    UpdateControlsRec(c, state);
+                }
+            }
+        }
+
+        public IEnumerable<IViewStateChangeEvent> HandleEvents(RenderWindow mainWindow, ViewState currentState)
+        {
+            var events = new List<IViewStateChangeEvent>();
+
+            foreach (var c in _controls)
+            {
+                events.AddRange(this.HandleEventsRec(mainWindow, currentState, c));
             }
 
             //TODO: we are invoking and creating the same control all the time!
@@ -64,15 +92,17 @@ namespace Renderer.Views
             {
                 if (c.Value())
                 {
-                    currentState = this.HandleEventsRec(mainWindow, currentState, c.Key());
+                    events.AddRange(this.HandleEventsRec(mainWindow, currentState, c.Key()));
                 }
             }
 
-            return currentState;
+            return events;
         }
 
-        private GameState HandleEventsRec(RenderWindow mainWindow, GameState currentState, IBaseControl ctrl)
+        private IEnumerable<IViewStateChangeEvent> HandleEventsRec(RenderWindow mainWindow, ViewState currentState, IBaseControl ctrl)
         {
+            var events = new List<IViewStateChangeEvent>();
+
             // TODO: how to do now double click event ? click event ? right click event ?
             // TODO: click event handler will have click event args (left, right, double ) and i will be able to decide what to do with it
             // TODO: i will probably have to implement double click by myself ( in my scenario i dont need double click but just left click with different action based on context )
@@ -86,11 +116,11 @@ namespace Renderer.Views
                 {
                     if (Mouse.IsButtonPressed(Mouse.Button.Left))
                     {
-                        currentState = c.LeftClick(mainWindow, currentState);
+                        events.Add(c.LeftClick(mainWindow, currentState));
                     }
                     else if (Mouse.IsButtonPressed(Mouse.Button.Right))
                     {
-                        currentState = c.RightClick(mainWindow, currentState);
+                        events.Add(c.RightClick(mainWindow, currentState));
                     }
                 }
 
@@ -103,11 +133,11 @@ namespace Renderer.Views
             {
                 foreach (var child in p.ChildrenControls)
                 {
-                    this.HandleEventsRec(mainWindow, currentState, child);
+                    events.AddRange(this.HandleEventsRec(mainWindow, currentState, child));
                 }
             }
 
-            return currentState;
+            return events;
         }
     }
 }

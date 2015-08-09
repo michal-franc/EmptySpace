@@ -5,6 +5,7 @@ using Microsoft.FSharp.Linq;
 using Renderer.Controls;
 using Renderer.Controls.Buttons;
 using Renderer.Controls.Panels;
+using Renderer.StateEvents;
 using SFML.Graphics;
 using SFML.Window;
 
@@ -47,7 +48,7 @@ namespace Renderer.Views
                 planetSprite.OnLeftClick += (sender, state) =>
                 {
                     _selectedPlanet = planetSprite;
-                    return state;
+                    return new NoStateChange("PlanetClick", "Player has clicked planet");
                 };
 
                 planetSprite.OnHover += (sender, args) =>

@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Runtime.Remoting.Channels;
-using System.Threading;
 using Renderer.Controls.Buttons;
 using Renderer.Controls.Panels;
+using Renderer.StateEvents;
 using SFML.Graphics;
 using SFML.Window;
 
@@ -43,38 +42,42 @@ namespace Renderer.Views
 
         private View mainView;
 
-        public GalaxyView(GameState state)
+        public GalaxyView(ViewState state)
         {
             this.mainView = new View(new FloatRect(0.0f, 0.0f, 1920, 900));
             mainView.Viewport = new FloatRect(0.0f, 0.0f, 1.0f, 1.0f);
-            mainView.Center = state.PlayerPosition;
+            mainView.Center = state.State.PlayerPosition;
 
-            foreach (var starSystem in state.Universe.Systems)
+            foreach (var starSystem in state.State.Universe.Systems)
             {
                 var rect = new StarControl(starSystem);
-                rect.OnLeftClick += (sender, gstate) => { _selectedStar = rect; return gstate; };
-                rect.OnRightClick += (sender, gameState) => gameState.ChangeView(new SystemView(starSystem));
+                rect.OnLeftClick += (sender, gstate) => { _selectedStar = rect; return new NoStateChange("StarSelect", "Player has selected star"); };
+                rect.OnRightClick += (sender, gameState) => 
+                {
+                   gameState.ChangeView(ViewType.System, starSystem);
+                   return new NoStateChange("ChangeView", string.Empty);
+                };
                 base.Add(rect);
             }
 
+            //TODO: do a travel animation
+            //TODO: add fuel
+            //TODO: When traveling use fuel 
+            //TODO: Show low fuel alert
             base.Add(() => new StarSelectedIndicatorControl(_selectedStar.Position), () => _selectedStar != null);
             base.Add(() =>
             {
+                // TODO: encapsulate this as aseparate control
                 var panel = new NamedPanel("Star Name", _selectedStar.Position + new Vector2f(50.0f, -40.0f), 100.0f, 100.0f);
 
                 //TODO: we need button that can have a parent so it can ve positioned inside panel
                 var btn = new Button("Travel", new Vector2f(10.0f, 50.0f), panel);
-                btn.OnLeftClick += (sender, gameState) =>
-                {
-                    gameState.Travel(_selectedStar.Position);
-                    return gameState.ChangeView(new GalaxyView(gameState));
-                };
+                btn.OnLeftClick += (sender, gameState) => new SelectTravelDestination(_selectedStar.Position);
                 panel.AddChild(btn);
                 return panel;
             }, () => _selectedStar != null);
 
-            var playerIndicator = new PlayerIndicatorControl(state.PlayerPosition);
-            base.Add(playerIndicator);
+            base.Add(new PlayerIndicatorControl(state.State.PlayerPosition));
         }
 
         public override void Draw(RenderTarget target, RenderStates states)

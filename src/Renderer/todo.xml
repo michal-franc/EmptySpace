@@ -7,5 +7,6 @@
 // TODO: Layouts construct like in wpf / xaml
 // TODO: Randomize planet description ( simple generator without context )
 // TODO: On galaxy view click remember last zoom setting
+// TODO: huge optimizaiton effort - create a sprite and dont draw everything all the time
 -->
 <xml></xml>

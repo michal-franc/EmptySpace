@@ -2,7 +2,7 @@
 {
     public class DashboardView : GameView
     {
-        public DashboardView(GameState state) : base()
+        public DashboardView(ViewState state) : base()
         {
         }
 
@@ -11,7 +11,7 @@
 
     public class ShipView : GameView
     {
-        public ShipView(GameState state) : base()
+        public ShipView(ViewState state) : base()
         {
         }
 

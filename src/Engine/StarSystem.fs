@@ -36,6 +36,10 @@ type StarSystem = {
    Position : Vector2f
 }
 
+type Universe = {
+    Systems : StarSystem list
+}
+
 let Font = new Font("ariblk.ttf")
 
 let translateSize objectType size =
@@ -51,6 +55,7 @@ let translateSize objectType size =
                | Size.Medium -> 3.0f
                | Size.Small -> 2.0f
                | Size.Tiny -> 1.0f
+               | _ -> 1.0f
 
     size * multiplier
     

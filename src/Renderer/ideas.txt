@@ -1,8 +1,4 @@
-﻿open System
-open GameState
-open libtcod
-
-// In basic form, to start mission you select where and how many time then you need to provide resources
+﻿// In basic form, to start mission you select where and how many time then you need to provide resources
 // you cant start mission with not enough food, water and some equipment
 // at the end mission has different outcomes
 // that would be - First iteration of missions
@@ -44,17 +40,3 @@ open libtcod
 // - soldier - different skillset
 //    - specs - marine
 //    - weapon specialist 
-
-
-[<EntryPoint>]
-let main argv = 
-
-    TCODConsole.initRoot(100, 50, "EmptySpace", false, TCODRendererType.SDL);
-
-    let rec mainLoop(gamestate) =
-        TCODConsole.root.clear()
-        let _gamestate = ViewHandler.handle gamestate
-        TCODConsole.flush();
-        mainLoop(_gamestate)   
-    mainLoop(initialGameState)
-    0

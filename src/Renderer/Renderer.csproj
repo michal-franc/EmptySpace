@@ -12,6 +12,21 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -70,15 +85,17 @@
     <Compile Include="Controls\Panels\NamePlateContainer.cs" />
     <Compile Include="Controls\Panels\WrappedTextContainer.cs" />
     <Compile Include="CustomShapes\StarShape.cs" />
-    <Compile Include="GameState.cs" />
     <Compile Include="GlobalAssets.cs" />
     <Compile Include="NotUsed\MapRenderer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controls\TopBar.cs" />
+    <Compile Include="ViewState.cs" />
     <Compile Include="Views\DashboardView.cs" />
     <Compile Include="Views\GalaxyView.cs" />
     <Compile Include="Views\GameView.cs" />
+    <Compile Include="StateEvents\IViewStateChangeEvent.cs" />
+    <Compile Include="StateEvents\NoStateChange.cs" />
     <Compile Include="Views\Partial\LayoutView.cs" />
     <Compile Include="Views\SystemView.cs" />
   </ItemGroup>
@@ -86,10 +103,26 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EmptySpace\EmptySpace.fsproj">
+    <ProjectReference Include="..\Engine\Engine.fsproj">
       <Project>{6ca13bcc-7914-48b8-a346-7cc383231094}</Project>
-      <Name>EmptySpace</Name>
+      <Name>Engine</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ideas.txt" />
+    <Content Include="todo.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

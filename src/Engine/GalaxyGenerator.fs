@@ -1,5 +1,4 @@
 ﻿module GalaxyGenerator
-open Universe 
 open Helper
 open StarSystem
 open Microsoft.FSharp.Reflection
