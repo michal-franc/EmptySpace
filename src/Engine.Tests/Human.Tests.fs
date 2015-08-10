@@ -48,7 +48,7 @@ let ``Each tick if there is an action increse Tired`` ()=
 
 [<Fact>] 
 let ``Min Tired value is 0`` ()=
-    let sut = { create "Steve" with Action = Nothing; Tired = 0 }
+    let sut = { create "Steve" with Action = Nothing; Tired = 0.0f }
 
     let newHuman = sut.tick
 

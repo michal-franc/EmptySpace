@@ -20,3 +20,8 @@ let createDefault =
     {
         Crew = [ Human.create "Steve"; Human.create "Arnold"; Human.create "Matt"; Human.create "Michael"; Human.create "Thomas" ]
     }
+
+let print crewList =
+    match crewList.Crew.Length with
+       | 0 -> "Storage is empty"
+       | _ -> crewList.Crew |> List.fold(fun state item -> state + (sprintf "%s\n" item.print )) ""

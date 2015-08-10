@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Renderer.Controls.Base;
@@ -7,13 +8,15 @@ using SFML.Window;
 
 namespace Renderer.Controls.Panels
 {
-    public class StoragePanel : NamedPanel, IUpdatable
+    public class UpdatablePanel : NamedPanel, IUpdatable
     {
-        private WrappedTextContainer _storageText;
+        private readonly Func<GameEngine.GameState, string> _textFunc;
+        private readonly WrappedTextContainer _storageText;
 
-        public StoragePanel(Vector2f position, float width, float height, Storage.Storage storage) : base("Storage", position, width, height)
+        public UpdatablePanel(string panelName, Vector2f position, float width, float height, Func<GameEngine.GameState, string> textFunc) : base(panelName, position, width, height)
         {
-            _storageText = new WrappedTextContainer(Storage.print(storage), new Vector2f(10.0f, 10.0f), this);
+            _textFunc = textFunc;
+            _storageText = new WrappedTextContainer(string.Empty, new Vector2f(10.0f, 10.0f), this);
             this.AddChild(_storageText);
         }
 
@@ -21,7 +24,7 @@ namespace Renderer.Controls.Panels
         {
             //TODO: Ideally proper one way data binding solution would the best here so that i wouldnt have to do this
             //This code is just useless and adds noise
-            _storageText.UpdateText(Storage.print(state.Ship.Storage));
+            _storageText.UpdateText(_textFunc(state));
         }
     }
 

@@ -7,7 +7,7 @@ open CrewList
 [<Fact>] 
 let ``If crew member is hungry and there are items in storage then lower the hunger`` ()=
     let storage = Storage.createDefault
-    let sut = { Crew = [ { Human.create "Mike" with Hunger = 30 }]  } 
+    let sut = { Crew = [ { Human.create "Mike" with Hunger = 30.0f }]  } 
 
     let _sut, _storage = sut.tick storage
 
@@ -17,7 +17,7 @@ let ``If crew member is hungry and there are items in storage then lower the hun
 [<Fact>] 
 let ``If crew member is thirsty and there are items in storage then lower the Thirsty`` ()=
     let storage = Storage.createDefault
-    let sut = { Crew = [ { Human.create "Mike" with Thirst = 30 }]  } 
+    let sut = { Crew = [ { Human.create "Mike" with Thirst = 30.0f }]  } 
 
     let _sut, _storage= sut.tick storage
 
@@ -26,7 +26,7 @@ let ``If crew member is thirsty and there are items in storage then lower the Th
 [<Fact>] 
 let ``If crew member is thirsty and hungry and there are items in storage then lower the Thirsty and Hungry`` ()=
     let storage = Storage.createDefault
-    let sut = { Crew = [ { Human.create "Mike" with Thirst = 30; Hunger = 30 }]  } 
+    let sut = { Crew = [ { Human.create "Mike" with Thirst = 30.0f; Hunger = 30.0f }]  } 
 
     let _sut, _storage= sut.tick storage
 
