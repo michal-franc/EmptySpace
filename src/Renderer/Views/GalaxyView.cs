@@ -9,11 +9,6 @@ namespace Renderer.Views
 {
     public static class Vector2fExtensions
     {
-        public static bool IsZero(this Vector2f vect)
-        {
-            return vect.X == 0.0f && vect.Y == 0.0f;
-        }
-
         public static Vector2f Apply(this Vector2f vect, Func<float, float> apply)
         {
             vect.X = apply(vect.X);
@@ -107,7 +102,7 @@ namespace Renderer.Views
                 var curPos = new Vector2f(args.X, args.Y);;
 
                 var diff = _mouseDragStartPosition - curPos;
-                if (!diff.IsZero())
+                if (!Helper.isZero(diff))
                 {
                     var multiplier = 2.0f + (this.mainView.Size.X / 1000.0f) ;
                     diff = diff.Normalize();
