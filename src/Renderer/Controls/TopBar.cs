@@ -1,4 +1,8 @@
-﻿using Renderer.Controls.Base;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Renderer.Controls.Base;
+using Renderer.Controls.Buttons;
+using Renderer.StateEvents;
 using SFML.Graphics;
 using SFML.Window;
 
@@ -29,17 +33,25 @@ namespace Renderer.Controls
         }
     }
 
-    public class TopBar : IBaseControl
+    public class TopBar : IUpdatable, IControlContainer
     {
         public FloatRect GlobalBounds => _rect.GetGlobalBounds();
 
         private readonly string _text;
+        private  string _dateText;
         private readonly Shape _rect;
 
         public TopBar(string text, float size)
         {
             _rect = ShapeHelper.RectangleWithColor(new Vector2f(size, 30.0f), Color.Yellow);
             _text = text;
+
+            var speedUp = new Button("plus", new Vector2f(250.0f, 6.0f));
+            speedUp.OnLeftClick += (sender, state) => new ChangeGameSpeed(1);
+            var speedDown = new Button("minus", new Vector2f(300.0f, 6.0f));
+            speedDown.OnLeftClick += (sender, state) => new ChangeGameSpeed(-1);
+
+            ChildrenControls = new[] { speedUp, speedDown};
         }
 
         public void Draw(RenderTarget target, RenderStates states)
@@ -52,6 +64,25 @@ namespace Renderer.Controls
             h.Position = new Vector2f(adjustedPos.Item1, adjustedPos.Item2);
             h.Color = Color.Black;
             target.Draw(h);
+
+            var dateText = new Text(_dateText, GlobalAssets.FontBold, 12);
+            dateText.Position = new Vector2f(10.0f, 10.0f);
+            dateText.Color = Color.Black;
+            target.Draw(dateText);
+
+            foreach (var ctrl in ChildrenControls)
+            {
+                target.Draw(ctrl);
+
+            }
         }
+
+        public void Update(GameEngine.GameState state)
+        {
+            _dateText = state.Date.ToString("dd MMMM yyyy -> H:mm") + " -> " +state.GameSpeed;
+        }
+
+        public IEnumerable<IBaseControl> ChildrenControls { get; }
+        public Vector2f Position => _rect.Position;
     }
 }

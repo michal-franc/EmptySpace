@@ -28,11 +28,16 @@ namespace Renderer
                 }
             };
 
+
             //TODO: Save the event stream to file ? log file ?
             var state = GameEngine.create();
             var viewState = new ViewState(state);
 
+            mainWindow.MouseButtonReleased += (sender, eventArgs) => viewState.UnblockClick();
+
             var eventHandler = new GameStateEventHandler();
+
+            float tickCounter = 0;
 
             while (true)
             {
@@ -48,13 +53,21 @@ namespace Renderer
 
                 mainWindow.SetView(mainWindow.DefaultView);
 
-                var layoutGameView = new LayoutView(viewState.CurrentView.Name);
+                var layoutGameView = new LayoutView(viewState.CurrentView.Name, mainWindow.Size.X, mainWindow.Size.Y);
+                layoutGameView.UpdateControls(state);
+                currentEvents.AddRange(layoutGameView.HandleEvents(mainWindow, viewState));
                 mainWindow.Draw(layoutGameView);
 
                 currentEvents.AddRange(layoutGameView.HandleEvents(mainWindow, viewState));
                 state = eventHandler.Consume(currentEvents, state);
 
-                state = GameEngine.tick(state);
+                tickCounter++;
+                if (tickCounter > GameEngine.speed(state))
+                {
+                    state = GameEngine.tick(state);
+                    tickCounter = 0;
+                }
+
                 mainWindow.Display();
             }
         }

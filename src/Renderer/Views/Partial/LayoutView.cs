@@ -9,16 +9,11 @@ namespace Renderer.Views.Partial
 
         private readonly string _name;
 
-        public LayoutView(string name)
+        public LayoutView(string name, float sizeX, float sizeY)
         {
             _name = name;
-        }
-
-        public override void Draw(RenderTarget target, RenderStates states)
-        {
-            base.Add(new TopBar(_name, target.Size.X));
-            base.Add(new BottomBar(target.Size.X, target.Size.Y));
-            base.Draw(target, states);
+            base.Add(new TopBar(_name, sizeX));
+            base.Add(new BottomBar(sizeX, sizeY));
         }
     }
 }

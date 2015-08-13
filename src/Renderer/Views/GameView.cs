@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.ComTypes;
 using Renderer.Controls.Base;
 using Renderer.Controls.Buttons;
 using Renderer.StateEvents;
@@ -21,6 +22,7 @@ namespace Renderer.Views
 
         private IList<IBaseControl> _controls;
         public Dictionary<Func<IBaseControl>, Func<bool>> _conditionalControls;
+        private int _clickCounter = 0;
 
         public GameView()
         {
@@ -114,12 +116,14 @@ namespace Renderer.Views
                 var c = ctrl as IClickable;
                 if (c != null)
                 {
-                    if (Mouse.IsButtonPressed(Mouse.Button.Left))
+                    if (Mouse.IsButtonPressed(Mouse.Button.Left) && !currentState.ClickBlocked)
                     {
+                        currentState.BlockClick();
                         events.Add(c.LeftClick(mainWindow, currentState));
                     }
-                    else if (Mouse.IsButtonPressed(Mouse.Button.Right))
+                    else if (Mouse.IsButtonPressed(Mouse.Button.Right) && !currentState.ClickBlocked)
                     {
+                        currentState.BlockClick();
                         events.Add(c.RightClick(mainWindow, currentState));
                     }
                 }

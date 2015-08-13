@@ -5,6 +5,7 @@ namespace Renderer
 {
     public class ViewState
     {
+        public bool ClickBlocked { get; private set; }
         public IGameView CurrentView { get; private set; }
         private ViewType _currentViewType;
 
@@ -45,6 +46,16 @@ namespace Renderer
         {
             _state = state;
             return this;
+        }
+
+        public void BlockClick()
+        {
+            this.ClickBlocked = true;
+        }
+
+        public void UnblockClick()
+        {
+            this.ClickBlocked = false;
         }
     }
 }
