@@ -1,3 +1,4 @@
+using System.Xml.Schema;
 using Renderer.Controls.Base;
 using Renderer.CustomShapes;
 using Renderer.Views;
@@ -10,7 +11,8 @@ namespace Renderer.Controls.Buttons
     {
         public Vector2f Position => _position;
 
-        private Shape _rect;
+        //private Shape _rect;
+        private StarSprite _rect;
         private StarSystem.Sun _sun;
         private Vector2f _position;
 
@@ -19,7 +21,8 @@ namespace Renderer.Controls.Buttons
         public StarControl(StarSystem.StarSystem system)
         {
             _position = system.Position;
-            _rect = new StarShape(system, new Vector2f(_position.X, _position.Y));
+            //_rect = new StarShape(system, new Vector2f(_position.X, _position.Y));
+            _rect = new StarSprite(system, new Vector2f(_position.X, _position.Y));
             _sun = system.Sun; 
         }
 
