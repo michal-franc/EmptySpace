@@ -85,7 +85,9 @@
     <Compile Include="Controls\Panels\NamedPanel.cs" />
     <Compile Include="Controls\Panels\NamePlateContainer.cs" />
     <Compile Include="Controls\Panels\WrappedTextContainer.cs" />
-    <Compile Include="CustomShapes\StarShape.cs" />
+    <Compile Include="CustomShapes\Rand.cs" />
+    <Compile Include="CustomShapes\StarSprite.cs" />
+    <Compile Include="CustomShapes\Textures.cs" />
     <Compile Include="GlobalAssets.cs" />
     <Compile Include="NotUsed\MapRenderer.cs" />
     <Compile Include="Program.cs" />
