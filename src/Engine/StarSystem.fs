@@ -36,6 +36,7 @@ type Sun = {
 type StarSystem = {
    Sun : Sun
    Position : Vector2f
+   Explored : bool
 }
 
 type Universe = {

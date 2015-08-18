@@ -27,32 +27,42 @@ namespace Renderer.Views
             _planetInfoPanel = new PlanetInfoPanel(new Vector2f(500.0f, 100.0f));
             _selectedplanetInfoPanel = new PlanetInfoPanel(new Vector2f(700.0f, 100.0f));
 
-            this.AddSprites(system.Sun);
+            this.AddSprites(system);
         }
 
-        private void AddSprites(StarSystem.Sun sun)
+        private void AddSprites(StarSystem.StarSystem system)
         {
+            var sun = system.Sun;
             var gapSunPlanet = 30.0f;
             var sunSprite = _renderer.CreateSunSprite(sun);
             this.Add(new SpriteButton(sunSprite, sun.Name));
 
-            //Planet
-            var shiftP = ShiftX(sunSprite.GetGlobalBounds(), gapSunPlanet);
-            foreach (var p in sun.Planets)
+            if (system.Explored)
             {
-                var pS = _renderer.CreatePlanetSprite(p, shiftP.Item1, shiftP.Item2);
-
-                shiftP = new Tuple<float, float>(shiftP.Item1 + pS.GetGlobalBounds().Width + gapSunPlanet, shiftP.Item2);
-                AddPlanetControls(p, pS);
-
-                //Moon
-                var shiftM = ShiftY(pS.GetGlobalBounds(), gapSunPlanet);
-                foreach (var m in p.Moons)
+                //Planet
+                var shiftP = ShiftX(sunSprite.GetGlobalBounds(), gapSunPlanet);
+                foreach (var p in sun.Planets)
                 {
-                    var mS = _renderer.CreateMoonSprite(m, shiftM.Item1, shiftM.Item2);
-                    shiftM = new Tuple<float, float>(shiftM.Item1, shiftM.Item2 + mS.GetGlobalBounds().Height + gapSunPlanet);
-                    //AddMoonControls(m, mS);
+                    var pS = _renderer.CreatePlanetSprite(p, shiftP.Item1, shiftP.Item2);
+
+                    shiftP = new Tuple<float, float>(shiftP.Item1 + pS.GetGlobalBounds().Width + gapSunPlanet,
+                        shiftP.Item2);
+                    AddPlanetControls(p, pS);
+
+                    //Moon
+                    var shiftM = ShiftY(pS.GetGlobalBounds(), gapSunPlanet);
+                    foreach (var m in p.Moons)
+                    {
+                        var mS = _renderer.CreateMoonSprite(m, shiftM.Item1, shiftM.Item2);
+                        shiftM = new Tuple<float, float>(shiftM.Item1,
+                            shiftM.Item2 + mS.GetGlobalBounds().Height + gapSunPlanet);
+                        //AddMoonControls(m, mS);
+                    }
                 }
+            }
+            else
+            {
+                this.Add(new NamedPanel("System Unexplored", new Vector2f(500.0f, 100.0f), 100, 1));
             }
 
             var selectedPlanet = new NamedPanel(string.Empty, new Vector2f(700.0f, 500.0f), 200.0f, 30.0f);
