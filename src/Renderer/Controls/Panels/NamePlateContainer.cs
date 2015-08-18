@@ -1,4 +1,5 @@
-﻿using Renderer.Controls.Base;
+﻿using System.Collections.Generic;
+using Renderer.Controls.Base;
 using SFML.Graphics;
 using SFML.Window;
 
@@ -7,7 +8,7 @@ namespace Renderer.Controls.Panels
     // TODO: nth -> inject text object instead of string to have a wayt to inject all the styles, font, sizes etc
     // TODO: configurable nameplate color
     // TODO: somehow create two types of this object, one which can be a main object the other one which needs allways a parent
-    public class NamePlateContainer : IBaseControl 
+    public class NamePlateContainer : IControlContainer
     {
         //TODO: HACK, how to define globalbounds of this control ?
         public FloatRect GlobalBounds => new FloatRect();
@@ -16,6 +17,7 @@ namespace Renderer.Controls.Panels
         private readonly Vector2f _padding;
         private readonly Vector2f _position;
         private readonly float _width;
+        private IList<IBaseControl> _childControls;
 
         public NamePlateContainer(string panelName, Vector2f padding, IControlContainer parent)
         {
@@ -23,6 +25,7 @@ namespace Renderer.Controls.Panels
             _padding = padding;
             _position = parent.Position;
             _width = parent.GlobalBounds.Width;
+            _childControls = new List<IBaseControl>();
         }
 
         public void Draw(RenderTarget target, RenderStates states)
@@ -37,6 +40,19 @@ namespace Renderer.Controls.Panels
 
             target.Draw(namePlateBack);
             target.Draw(namePlateText);
+
+            foreach (var c in _childControls)
+            {
+                target.Draw(c);
+            }
         }
+
+        public void AddChild(IBaseControl control)
+        {
+            _childControls.Add(control);
+        }
+
+        public IEnumerable<IBaseControl> ChildrenControls => _childControls;
+        public Vector2f Position => _position;
     }
 }

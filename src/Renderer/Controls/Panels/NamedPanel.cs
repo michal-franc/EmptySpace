@@ -30,7 +30,7 @@ namespace Renderer.Controls.Panels
 
     //TODO: Add drawable child controls in here so that i can dynamicaly create panels with elements
     //TODO: Stackable panels like in wpf so that layout is automatic
-    public class NamedPanel : IControlContainer 
+    public class NamedPanel : IControlContainer
     {
         public  IEnumerable<IBaseControl> ChildrenControls => _childControls;
         public  Vector2f Position => _position;

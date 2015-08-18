@@ -13,7 +13,6 @@ namespace Renderer.Controls.Panels
     // TODO: this logic can be moved to F#
     public class LeftRightAlignedText : IBaseControl
     {
-        private readonly IDictionary<string, string> _data; 
         private readonly Vector2f _position;
         private readonly Vector2f _padding;
         private readonly float _width;
@@ -23,29 +22,28 @@ namespace Renderer.Controls.Panels
 
         public LeftRightAlignedText(IDictionary<string, string> data, Vector2f padding, IControlContainer parent)
         {
-            _data = data;
             _position = parent.Position + padding;
             _padding = padding;
             _width = parent.GlobalBounds.Width;
+
+            _text = new Text(this.CreateLeftRightAlignedText(data), GlobalAssets.FontNormal, 11);
+            _text.Color = Color.White;
+            _text.Position = new Vector2f(_position.X, _position.Y);
         }
 
         public void Draw(RenderTarget target, RenderStates states)
         {
-            _text = new Text(this.CreateLeftRightAlignedText(), GlobalAssets.FontNormal, 11);
-            _text.Color = Color.White;
-            _text.Position = new Vector2f(_position.X, _position.Y);
-
             target.Draw(_text);
         }
 
-        private string CreateLeftRightAlignedText()
+        private string CreateLeftRightAlignedText(IDictionary<string, string> data)
         {
             var sb = new StringBuilder();
             
             var glyph = GlobalAssets.FontNormal.GetGlyph(' ', 11, false);
             var sizeOfSpace = glyph.Advance;
             
-            foreach (var d in _data)
+            foreach (var d in data)
             {
                 sb.Append(d.Key);
 

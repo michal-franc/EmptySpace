@@ -1,4 +1,4 @@
-﻿module Helper
+﻿module VectorHelper
 
 open SFML.Window
 open SFML.Graphics

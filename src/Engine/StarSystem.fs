@@ -1,16 +1,18 @@
 ﻿module StarSystem
 open SFML.Graphics
 open SFML.Window
-open Helper
+open VectorHelper
 
 type ObjectType = Sun | Planet | Moon | Asteroid
 type Size = Huge = 1 | Large = 2 | Medium = 3| Small = 4| Tiny =5
+
 type PlanetType = Terran = 1 | Jungle = 2 | Rock = 3| Ocean = 4 | Desert = 6 | Arctic = 7 | Gas = 8 | Inferno = 9 | Toxic = 10 | Star = 11
 
 type Moon = {
-    NameM : string
+    mName : string
     Size : Size
     Type : PlanetType
+    Description : string
 }
 
 type Planet = {

@@ -1,18 +1,22 @@
 ﻿module GalaxyGenerator
-open Helper
+open VectorHelper
 open StarSystem
 open Microsoft.FSharp.Reflection
 
 let starNames = ["Hastaybos"; "Recleinia"; "Festrilles"; "Xuspade"; "Reyrus"; "Laynov"; "Scecostea"; "Smabeturn"; "Shichi"; "Flillon"]
 
 let longDescLorem = "A desolate planet with rich resources and inidginous life." +
-                           "Lorem ipsum dolor sit amet, cu sed summo iudico fastidii." +
-                           "Ut pri esse reque dicam, in nemore tincidunt eos. Eu clita" +
-                           "periculis complectitur mel, docendi dolores ius no. Et est" +
-                           "dicat noster. Et his vitae libris impetus, quem evertitur" +
-                           "suscipiantur est at. Ea pertinax efficiendi pro, ubique" +
-                           "delectus cum id. suscipiantur est at. Ea pertinax efficiendi " +
-                           "pro, ubique";
+                    "Lorem ipsum dolor sit amet, cu sed summo iudico fastidii." +
+                    "Ut pri esse reque dicam, in nemore tincidunt eos. Eu clita" +
+                    "periculis complectitur mel, docendi dolores ius no. Et est" +
+                    "dicat noster. Et his vitae libris impetus, quem evertitur" +
+                    "suscipiantur est at. Ea pertinax efficiendi pro, ubique" +
+                    "delectus cum id. suscipiantur est at. Ea pertinax efficiendi " +
+                    "pro, ubique";
+
+let longDescMoon = "A desolate moon with rich resources and inidginous life." +
+                   "Lorem ipsum dolor sit amet, cu sed summo iudico fastidii." +
+                   "Ut pri esse reque dicam, in nemore tincidunt eos. Eu clita";
 
 let intToRoman i =
     match i with 
@@ -52,7 +56,7 @@ let rndSize() =
     enum<Size>(rndInt 1 5)
 
 let rndMoon name =
-    { NameM = name; Size = rndSize(); Type = rndType();}
+    { mName = name; Size = rndSize(); Type = rndType(); Description = longDescMoon; }
 
 let rndMoons planetName =
     let mutable lis = []

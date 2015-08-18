@@ -102,7 +102,7 @@ namespace Renderer.Views
                 var curPos = new Vector2f(args.X, args.Y);;
 
                 var diff = _mouseDragStartPosition - curPos;
-                if (!Helper.isZero(diff))
+                if (!VectorHelper.isZero(diff))
                 {
                     var multiplier = 2.0f + (this.mainView.Size.X / 1000.0f) ;
                     diff = diff.Normalize();

@@ -59,8 +59,8 @@ namespace Renderer.Controls
             target.Draw(_rect);
 
             var h = new Text(_text, GlobalAssets.FontBold, 15);
-            var pos = Helper.centerPos(this._rect.GetGlobalBounds());
-            var adjustedPos = Helper.adjustPos(pos.Item1, pos.Item2, h.GetGlobalBounds());
+            var pos = VectorHelper.centerPos(this._rect.GetGlobalBounds());
+            var adjustedPos = VectorHelper.adjustPos(pos.Item1, pos.Item2, h.GetGlobalBounds());
             h.Position = new Vector2f(adjustedPos.Item1, adjustedPos.Item2);
             h.Color = Color.Black;
             target.Draw(h);

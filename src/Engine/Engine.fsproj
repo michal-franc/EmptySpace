@@ -72,7 +72,7 @@ xcopy /y "$(ProjectDir)\..\..\gfx" /S "$(TargetDir)\gfx\"</PostBuildEvent>
   <ItemGroup>
     <None Include="App.config" />
     <Content Include="packages.config" />
-    <Compile Include="Helper.fs" />
+    <Compile Include="VectorHelper.fs" />
     <Compile Include="Human.fs" />
     <Compile Include="Storage.fs" />
     <Compile Include="CrewList.fs" />

@@ -4,7 +4,7 @@ open StarSystem
 open SFML.Window
 open GalaxyGenerator
 open CrewList
-open Helper
+open VectorHelper
 open Storage
 open Ship
 open System

@@ -102,6 +102,7 @@
     <Compile Include="StateEvents\NoStateChange.cs" />
     <Compile Include="Views\Partial\LayoutView.cs" />
     <Compile Include="Views\SystemView.cs" />
+    <Compile Include="Views\System\PlanetInfoPanel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

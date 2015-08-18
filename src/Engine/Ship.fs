@@ -3,7 +3,7 @@
 open Storage
 open SFML.Window
 open CrewList
-open Helper
+open VectorHelper
 
 let private isCloseEnough (v:Vector2f) =
     abs v.X < 0.3f && v.Y < 0.3f
