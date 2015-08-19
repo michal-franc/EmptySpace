@@ -37,19 +37,19 @@ namespace Renderer.Views
 
         private View mainView;
 
-        public GalaxyView(ViewState state)
+        public GalaxyView(GameEngine.GameState state)
         {
             this.mainView = new View(new FloatRect(0.0f, 0.0f, 1920, 900));
             mainView.Viewport = new FloatRect(0.0f, 0.0f, 1.0f, 1.0f);
-            mainView.Center = state.State.Ship.Position;
+            mainView.Center = state.Ship.Position;
 
-            foreach (var starSystem in state.State.Universe.Systems)
+            foreach (var starSystem in state.Universe.Systems)
             {
                 var rect = new StarControl(starSystem);
                 rect.OnLeftClick += (sender, gstate) => { _selectedStar = rect; return new NoStateChange("StarSelect", "Player has selected star"); };
                 rect.OnRightClick += (sender, gameState) => 
                 {
-                   gameState.ChangeView(ViewType.System, starSystem);
+                   gameState.ChangeView(ViewType.System, new Tuple<StarSystem.StarSystem, bool>(starSystem, true));
                    return new NoStateChange("ChangeView", string.Empty);
                 };
                 base.Add(rect);
@@ -69,7 +69,7 @@ namespace Renderer.Views
                 return panel;
             }, () => _selectedStar != null);
 
-            base.Add(new ShipIndicatorControl(state.State.Ship.Position));
+            base.Add(new ShipIndicatorControl(state.Ship.Position));
         }
 
         public override void Draw(RenderTarget target, RenderStates states)

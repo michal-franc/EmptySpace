@@ -11,6 +11,7 @@ namespace Renderer.Views
 {
     public class SystemView : GameView
     {
+        private readonly bool _playerInSystem;
         private readonly string _systemName;
         private StarSystem.Planet _selectedObject;
         private SystemRenderer.SystemRenderer _renderer;
@@ -19,8 +20,9 @@ namespace Renderer.Views
 
         public override string Name => $"System - '{_systemName}'";
 
-        public SystemView(StarSystem.StarSystem system)
+        public SystemView(StarSystem.StarSystem system, bool playerInSystem)
         {
+            _playerInSystem = playerInSystem;
             _systemName = system.Sun.Name;
             _renderer = new SystemRenderer.SystemRenderer(GlobalAssets.PlanetsSprite);
 
@@ -63,6 +65,16 @@ namespace Renderer.Views
             else
             {
                 this.Add(new NamedPanel("System Unexplored", new Vector2f(500.0f, 100.0f), 100, 1));
+                if (_playerInSystem)
+                {
+                    var btnExplore = new Button("Explore", new Vector2f(500.0f, 110.0f));
+                    btnExplore.OnLeftClick +=
+                        (sender, state) =>
+                        {
+                            return new ExploreSystem("User explores the system", "User wants to explore system", system.Id);
+                        };
+                    this.Add(btnExplore);
+                }
             }
 
             var selectedPlanet = new NamedPanel(string.Empty, new Vector2f(700.0f, 500.0f), 200.0f, 30.0f);

@@ -92,6 +92,6 @@ let generate =
     for i in 1 .. 5000 do
         let pos = rndPos()
         let sun = rndSun()
-        lis <- List.append  [{ Position = pos; Sun = sun; Explored = false}] lis
+        lis <- List.append  [{ Position = pos; Sun = sun; Explored = false; Id = i}] lis
 
     { Systems = lis }

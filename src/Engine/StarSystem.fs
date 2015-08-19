@@ -34,6 +34,7 @@ type Sun = {
 }
 
 type StarSystem = {
+   Id : int
    Sun : Sun
    Position : Vector2f
    Explored : bool

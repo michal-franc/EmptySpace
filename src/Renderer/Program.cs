@@ -28,14 +28,12 @@ namespace Renderer
                 }
             };
 
+            var eventHandler = new GameStateEventHandler();
 
-            //TODO: Save the event stream to file ? log file ?
             var state = GameEngine.create();
             var viewState = new ViewState(state);
 
             mainWindow.MouseButtonReleased += (sender, eventArgs) => viewState.UnblockClick();
-
-            var eventHandler = new GameStateEventHandler();
 
             float tickCounter = 0;
 
@@ -69,13 +67,15 @@ namespace Renderer
                 }
 
                 mainWindow.Display();
+
+                viewState.ChangeState(state);
             }
         }
     }
 
     internal class GameStateEventHandler
     {
-        public GameEngine.GameState Consume(List<IViewStateChangeEvent> currentEvents, GameEngine.GameState state)
+        public GameEngine.GameState Consume(IEnumerable<IViewStateChangeEvent> currentEvents, GameEngine.GameState state)
         {
             foreach (var eve in currentEvents)
             {
