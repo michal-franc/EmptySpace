@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Http.Headers;
 using Renderer.StateEvents;
-using Renderer.Views;
 using Renderer.Views.Partial;
 using SFML.Graphics;
 using SFML.Window;
@@ -13,7 +11,6 @@ namespace Renderer
     {
         static void Main(string[] args)
         {
-            //TODO: speed of the simulation has to be independent from screen refresh rate
             var frameRate = 60u;
 
             var mainWindow = new RenderWindow(new VideoMode(1920, 900), "EmptySpace", Styles.Resize);
