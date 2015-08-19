@@ -19,25 +19,4 @@ namespace Renderer.StateEvents
             return currentState;
         }
     }
-
-    public class ViewChange : IViewStateChangeEvent
-    {
-        private object _viewData;
-
-        public string EventName => "View Change";
-        public string EventMessage => "View has been changed";
-
-        public object ViewData => _viewData;
-        
-        public ViewChange(object viewData)
-        {
-            _viewData = viewData;
-        }
-
-
-        public GameEngine.GameState Apply(GameEngine.GameState currentState)
-        {
-            return currentState;
-        }
-    }
 }
