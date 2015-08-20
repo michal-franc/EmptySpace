@@ -5,8 +5,6 @@ open GameState
 open StarSystem
 
 let changeSpeed state value  =
-    let newValue = state.GameSpeed + value
-
     let newValue = match state.GameSpeed + value with
                     | x when x > 6 -> 6
                     | x when x < 0 -> 0
