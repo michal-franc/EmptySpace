@@ -1,23 +1,21 @@
-﻿using Renderer.StateEvents;
-using Renderer.Views;
-using SFML.Graphics;
+﻿using SFML.Graphics;
 
 namespace Renderer.Controls.Base
 {
     public abstract class Clickable : IClickable
     {
         public event OnClickHandler OnLeftClick;
-        public IViewStateChangeEvent LeftClick(RenderTarget target, ViewState state)
+        public Events.Event LeftClick(RenderTarget target, ViewState state)
         {
             if (OnLeftClick != null) { return this.OnLeftClick(target, state); }
-            return new NoStateChange("LeftClick", "User clicked left click "); ;
+            return Events.Event.NoStateChange;
         }
 
         public event OnClickHandler OnRightClick;
-        public IViewStateChangeEvent RightClick(RenderTarget target, ViewState state)
+        public Events.Event RightClick(RenderTarget target, ViewState state)
         {
             if (OnRightClick != null) { return this.OnRightClick(target, state); }
-            return new NoStateChange("RightClick", "User clicked right click ");
+            return Events.Event.NoStateChange;
         }
 
         public abstract void Draw(RenderTarget target, RenderStates states);
@@ -29,7 +27,7 @@ namespace Renderer.Controls.Base
     {
         event OnClickHandler OnLeftClick;
         event OnClickHandler OnRightClick;
-        IViewStateChangeEvent LeftClick(RenderTarget target, ViewState state);
-        IViewStateChangeEvent RightClick(RenderTarget target, ViewState state);
+        Events.Event LeftClick(RenderTarget target, ViewState state);
+        Events.Event RightClick(RenderTarget target, ViewState state);
     }
 }

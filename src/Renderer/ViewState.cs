@@ -1,5 +1,5 @@
 ﻿using System;
-using Renderer.StateEvents;
+using Renderer.Controls;
 using Renderer.Views;
 
 namespace Renderer
@@ -8,10 +8,10 @@ namespace Renderer
     {
         public bool ClickBlocked { get; private set; }
         public IGameView CurrentView { get; private set; }
-        private GameEngine.GameState _state;
+        private GameState.GameState _state;
 
 
-        public ViewState(GameEngine.GameState state)
+        public ViewState(GameState.GameState state)
         {
             _state = state;
             CurrentView = new GalaxyView(state);
@@ -42,7 +42,7 @@ namespace Renderer
             return this;
         }
 
-        public ViewState ChangeState(GameEngine.GameState state)
+        public ViewState ChangeState(GameState.GameState state)
         {
             _state = state;
             return this;

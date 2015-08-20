@@ -1,13 +1,19 @@
 ﻿using System.Collections.Generic;
 using Renderer.Controls.Base;
 using Renderer.Controls.Buttons;
-using Renderer.StateEvents;
-using Renderer.Views;
 using SFML.Graphics;
 using SFML.Window;
 
 namespace Renderer.Controls
 {
+    public enum ViewType
+    {
+        Dashboard,
+        Ship,
+        Galaxy,
+        System
+    }
+
     public class BottomBar : IControlContainer
     {
         public IEnumerable<IBaseControl> ChildrenControls { get; }
@@ -24,21 +30,21 @@ namespace Renderer.Controls
             dashBtn.OnLeftClick += (sender, state) =>
             {
                 state.ChangeView(ViewType.Dashboard);
-                return new NoStateChange("ViewChange", string.Empty);
+                return Events.Event.NoStateChange;
             };
 
             var shipBtn = new Button("Ship", new Vector2f(100.0f, 10.0f + pos.Y));
             shipBtn.OnLeftClick += (sender, state) =>
             {
                 state.ChangeView(ViewType.Ship);
-                return new NoStateChange("ViewChange", string.Empty);
+                return Events.Event.NoStateChange; ;
             };
 
             var galaxyBtn = new Button("Galaxy", new Vector2f(200.0f, 10.0f + pos.Y));
             galaxyBtn.OnLeftClick += (sender, state) =>
             {
                 state.ChangeView(ViewType.Galaxy);
-                return new NoStateChange("ViewChange", string.Empty);
+                return Events.Event.NoStateChange;
             };
 
             ChildrenControls = new[] { dashBtn, shipBtn, galaxyBtn };

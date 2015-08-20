@@ -78,6 +78,8 @@ xcopy /y "$(ProjectDir)\..\..\gfx" /S "$(TargetDir)\gfx\"</PostBuildEvent>
     <Compile Include="CrewList.fs" />
     <Compile Include="Ship.fs" />
     <Compile Include="StarSystem.fs" />
+    <Compile Include="GameState.fs" />
+    <Compile Include="Events.fs" />
     <Compile Include="GalaxyGenerator.fs" />
     <Compile Include="SystemRenderer.fs" />
     <Compile Include="GameEngine.fs" />

@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Renderer.StateEvents;
+﻿using System.Collections.Generic;
+using Microsoft.FSharp.Collections;
 using Renderer.Views.Partial;
 using SFML.Graphics;
 using SFML.Window;
@@ -25,8 +24,6 @@ namespace Renderer
                 }
             };
 
-            var eventHandler = new GameStateEventHandler();
-
             var state = GameEngine.create();
             var viewState = new ViewState(state);
 
@@ -36,7 +33,7 @@ namespace Renderer
 
             while (true)
             {
-                var currentEvents = new List<IViewStateChangeEvent>();
+                var currentEvents = new List<Events.Event>();
                 mainWindow.Clear();
                 mainWindow.DispatchEvents();
 
@@ -54,7 +51,8 @@ namespace Renderer
                 mainWindow.Draw(layoutGameView);
 
                 currentEvents.AddRange(layoutGameView.HandleEvents(mainWindow, viewState));
-                state = eventHandler.Consume(currentEvents, state);
+
+                state = GameEngine.consume(ListModule.OfSeq(currentEvents), state);
 
                 tickCounter++;
                 if (tickCounter > GameEngine.speed(state))
@@ -67,19 +65,6 @@ namespace Renderer
 
                 viewState.ChangeState(state);
             }
-        }
-    }
-
-    internal class GameStateEventHandler
-    {
-        public GameEngine.GameState Consume(IEnumerable<IViewStateChangeEvent> currentEvents, GameEngine.GameState state)
-        {
-            foreach (var eve in currentEvents)
-            {
-                state = eve.Apply(state);
-            }
-
-            return state;
         }
     }
 }

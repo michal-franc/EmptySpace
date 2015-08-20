@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.ComTypes;
 using Renderer.Controls.Base;
-using Renderer.Controls.Buttons;
-using Renderer.StateEvents;
 using SFML.Graphics;
 using SFML.Window;
 
@@ -11,8 +8,8 @@ namespace Renderer.Views
 {
     public interface IGameView : Drawable
     {
-        IEnumerable<IViewStateChangeEvent> HandleEvents(RenderWindow mainWindow, ViewState currentState);
-        void UpdateControls(GameEngine.GameState state);
+        IEnumerable<Events.Event> HandleEvents(RenderWindow mainWindow, ViewState currentState);
+        void UpdateControls(GameState.GameState state);
         string Name { get; }
     }
 
@@ -56,7 +53,7 @@ namespace Renderer.Views
             }
         }
 
-        public void UpdateControls(GameEngine.GameState state)
+        public void UpdateControls(GameState.GameState state)
         {
             foreach (var c in _controls)
             {
@@ -64,7 +61,7 @@ namespace Renderer.Views
             }
         }
 
-        private void UpdateControlsRec(IBaseControl ctrl, GameEngine.GameState state)
+        private void UpdateControlsRec(IBaseControl ctrl, GameState.GameState state)
         {
             var u = ctrl as IUpdatable;
             u?.Update(state);
@@ -80,9 +77,9 @@ namespace Renderer.Views
             }
         }
 
-        public IEnumerable<IViewStateChangeEvent> HandleEvents(RenderWindow mainWindow, ViewState currentState)
+        public IEnumerable<Events.Event> HandleEvents(RenderWindow mainWindow, ViewState currentState)
         {
-            var events = new List<IViewStateChangeEvent>();
+            var events = new List<Events.Event>();
 
             foreach (var c in _controls)
             {
@@ -101,9 +98,9 @@ namespace Renderer.Views
             return events;
         }
 
-        private IEnumerable<IViewStateChangeEvent> HandleEventsRec(RenderWindow mainWindow, ViewState currentState, IBaseControl ctrl)
+        private IEnumerable<Events.Event> HandleEventsRec(RenderWindow mainWindow, ViewState currentState, IBaseControl ctrl)
         {
-            var events = new List<IViewStateChangeEvent>();
+            var events = new List<Events.Event>();
 
             // TODO: how to do now double click event ? click event ? right click event ?
             // TODO: click event handler will have click event args (left, right, double ) and i will be able to decide what to do with it

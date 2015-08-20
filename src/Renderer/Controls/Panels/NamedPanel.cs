@@ -10,17 +10,17 @@ namespace Renderer.Controls.Panels
 {
     public class UpdatablePanel : NamedPanel, IUpdatable
     {
-        private readonly Func<GameEngine.GameState, string> _textFunc;
+        private readonly Func<GameState.GameState, string> _textFunc;
         private readonly WrappedTextContainer _storageText;
 
-        public UpdatablePanel(string panelName, Vector2f position, float width, float height, Func<GameEngine.GameState, string> textFunc) : base(panelName, position, width, height)
+        public UpdatablePanel(string panelName, Vector2f position, float width, float height, Func<GameState.GameState, string> textFunc) : base(panelName, position, width, height)
         {
             _textFunc = textFunc;
             _storageText = new WrappedTextContainer(string.Empty, new Vector2f(10.0f, 10.0f), this);
             this.AddChild(_storageText);
         }
 
-        public void Update(GameEngine.GameState state)
+        public void Update(GameState.GameState state)
         {
             //TODO: Ideally proper one way data binding solution would the best here so that i wouldnt have to do this
             //This code is just useless and adds noise

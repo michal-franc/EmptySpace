@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using Renderer.Controls.Base;
-using Renderer.Controls.Buttons;
 using Renderer.Controls.Panels;
-using Renderer.StateEvents;
 using SFML.Graphics;
 using SFML.Window;
 

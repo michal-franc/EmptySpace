@@ -25,7 +25,7 @@ namespace Renderer.Controls.Buttons
             target.Draw(_shape);
         }
 
-        public void Update(GameEngine.GameState state)
+        public void Update(GameState.GameState state)
         {
             var r = _shape.Radius;
             var middle = state.Ship.Position - new Vector2f(r, r);

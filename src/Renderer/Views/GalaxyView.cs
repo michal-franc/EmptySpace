@@ -1,7 +1,7 @@
 ﻿using System;
+using Renderer.Controls;
 using Renderer.Controls.Buttons;
 using Renderer.Controls.Panels;
-using Renderer.StateEvents;
 using SFML.Graphics;
 using SFML.Window;
 
@@ -37,7 +37,7 @@ namespace Renderer.Views
 
         private View mainView;
 
-        public GalaxyView(GameEngine.GameState state)
+        public GalaxyView(GameState.GameState state)
         {
             this.mainView = new View(new FloatRect(0.0f, 0.0f, 1920, 900));
             mainView.Viewport = new FloatRect(0.0f, 0.0f, 1.0f, 1.0f);
@@ -46,11 +46,11 @@ namespace Renderer.Views
             foreach (var starSystem in state.Universe.Systems)
             {
                 var rect = new StarControl(starSystem);
-                rect.OnLeftClick += (sender, gstate) => { _selectedStar = rect; return new NoStateChange("StarSelect", "Player has selected star"); };
+                rect.OnLeftClick += (sender, gstate) => { _selectedStar = rect; return Events.Event.NoStateChange; };
                 rect.OnRightClick += (sender, gameState) => 
                 {
                    gameState.ChangeView(ViewType.System, new Tuple<StarSystem.StarSystem, bool>(starSystem, true));
-                   return new NoStateChange("ChangeView", string.Empty);
+                   return Events.Event.NoStateChange;
                 };
                 base.Add(rect);
             }
@@ -64,7 +64,7 @@ namespace Renderer.Views
 
                 //TODO: we need button that can have a parent so it can be positioned inside panel
                 var btn = new Button("Travel", new Vector2f(10.0f, 50.0f), panel);
-                btn.OnLeftClick += (sender, gameState) => new SelectTravelDestination(_selectedStar.Position);
+                btn.OnLeftClick += (sender, gameState) => Events.Event.NewTravelDest(_selectedStar.Position);
                 panel.AddChild(btn);
                 return panel;
             }, () => _selectedStar != null);

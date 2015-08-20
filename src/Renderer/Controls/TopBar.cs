@@ -2,7 +2,6 @@
 using System.Linq;
 using Renderer.Controls.Base;
 using Renderer.Controls.Buttons;
-using Renderer.StateEvents;
 using SFML.Graphics;
 using SFML.Window;
 
@@ -47,9 +46,9 @@ namespace Renderer.Controls
             _text = text;
 
             var speedUp = new Button("plus", new Vector2f(250.0f, 6.0f));
-            speedUp.OnLeftClick += (sender, state) => new ChangeGameSpeed(1);
+            speedUp.OnLeftClick += (sender, state) => Events.Event.NewChangeGameSpeed(1);
             var speedDown = new Button("minus", new Vector2f(300.0f, 6.0f));
-            speedDown.OnLeftClick += (sender, state) => new ChangeGameSpeed(-1);
+            speedDown.OnLeftClick += (sender, state) => Events.Event.NewChangeGameSpeed(-1);
 
             ChildrenControls = new[] { speedUp, speedDown};
         }
@@ -77,7 +76,7 @@ namespace Renderer.Controls
             }
         }
 
-        public void Update(GameEngine.GameState state)
+        public void Update(GameState.GameState state)
         {
             _dateText = state.Date.ToString("dd MMMM yyyy -> H:mm") + " -> " +state.GameSpeed;
         }

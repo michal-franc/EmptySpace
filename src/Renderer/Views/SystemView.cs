@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using Renderer.Controls.Buttons;
 using Renderer.Controls.Panels;
-using Renderer.StateEvents;
 using Renderer.Views.System;
 using SFML.Graphics;
 using SFML.Window;
@@ -71,7 +69,7 @@ namespace Renderer.Views
                     btnExplore.OnLeftClick +=
                         (sender, state) =>
                         {
-                            return new ExploreSystem("User explores the system", "User wants to explore system", system.Id);
+                            return Events.Event.NewExploreSystem(system.Id);
                         };
                     this.Add(btnExplore);
                 }
@@ -98,7 +96,7 @@ namespace Renderer.Views
             {
                 _selectedObject = planet;
                 _selectedplanetInfoPanel.Update(planet);
-                return new NoStateChange("PlanetClick", "Player has clicked planet");
+                return Events.Event.NoStateChange;
             };
 
             this.Add(planetS);
