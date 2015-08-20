@@ -5,15 +5,14 @@ open GameState
 open StarSystem
 
 let changeSpeed state value  =
-    
-    let mutable cnt = state.GameSpeed
-    cnt <- cnt + value
-    if cnt > 6  then
-        cnt <- 6
-    if cnt < 0 then
-        cnt <- 0
+    let newValue = state.GameSpeed + value
 
-    {state with GameSpeed = cnt}
+    let newValue = match state.GameSpeed + value with
+                    | x when x > 6 -> 6
+                    | x when x < 0 -> 0
+                    | x -> x
+
+    {state with GameSpeed = newValue}
 
 
 let startTravel state pos = 
