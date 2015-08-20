@@ -1,4 +1,5 @@
-﻿using SFML.Graphics;
+﻿using Renderer.Resources;
+using SFML.Graphics;
 using SFML.Window;
 
 namespace Renderer.CustomShapes

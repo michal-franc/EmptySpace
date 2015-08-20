@@ -1,6 +1,6 @@
 ﻿using SFML.Graphics;
 
-namespace Renderer.CustomShapes
+namespace Renderer.Resources
 {
     public static class Textures
     {

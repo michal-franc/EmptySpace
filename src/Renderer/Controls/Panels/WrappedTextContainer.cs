@@ -2,6 +2,7 @@
 using System.Text;
 using Renderer.Controls.Base;
 using Renderer.Controls.Buttons;
+using Renderer.Resources;
 using SFML.Graphics;
 using SFML.Window;
 

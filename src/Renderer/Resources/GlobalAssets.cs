@@ -1,6 +1,6 @@
 ﻿using SFML.Graphics;
 
-namespace Renderer
+namespace Renderer.Resources
 {
     public static class GlobalAssets
     {

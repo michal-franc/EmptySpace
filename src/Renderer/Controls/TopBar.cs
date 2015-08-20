@@ -2,6 +2,7 @@
 using System.Linq;
 using Renderer.Controls.Base;
 using Renderer.Controls.Buttons;
+using Renderer.Resources;
 using SFML.Graphics;
 using SFML.Window;
 
@@ -11,23 +12,23 @@ namespace Renderer.Controls
     {
         public static Shape RectangleWithColor(Vector2f size, Color color)
         {
-            var rect = new RectangleShape(size);
-            rect.FillColor = color;
+            var rect = new RectangleShape(size) {FillColor = color};
             return rect;
         }
 
         public static Shape Rectangle(Vector2f vector2F, Vector2f pos, Color color)
         {
-            var rect = new RectangleShape(vector2F);
-            rect.FillColor = color;
-            rect.Position = pos;
+            var rect = new RectangleShape(vector2F)
+            {
+                FillColor = color,
+                Position = pos
+            };
             return rect;
         }
 
         public static Shape Rectangle(Vector2f vector2F, Vector2f pos)
         {
-            var rect = new RectangleShape(vector2F);
-            rect.Position = pos;
+            var rect = new RectangleShape(vector2F) {Position = pos};
             return rect;
         }
     }
@@ -64,9 +65,11 @@ namespace Renderer.Controls
             h.Color = Color.Black;
             target.Draw(h);
 
-            var dateText = new Text(_dateText, GlobalAssets.FontBold, 12);
-            dateText.Position = new Vector2f(10.0f, 10.0f);
-            dateText.Color = Color.Black;
+            var dateText = new Text(_dateText, GlobalAssets.FontBold, 12)
+            {
+                Position = new Vector2f(10.0f, 10.0f),
+                Color = Color.Black
+            };
             target.Draw(dateText);
 
             foreach (var ctrl in ChildrenControls)

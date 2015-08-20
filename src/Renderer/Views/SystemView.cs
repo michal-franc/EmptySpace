@@ -1,6 +1,7 @@
 ﻿using System;
 using Renderer.Controls.Buttons;
 using Renderer.Controls.Panels;
+using Renderer.Resources;
 using Renderer.Views.System;
 using SFML.Graphics;
 using SFML.Window;

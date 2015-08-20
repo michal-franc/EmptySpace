@@ -6,6 +6,7 @@ using SFML.Window;
 
 namespace Renderer.Views.System
 {
+    // TODO: Partial view concept ?
     public class PlanetInfoPanel : IBaseControl
     {
         private readonly Vector2f _pos;

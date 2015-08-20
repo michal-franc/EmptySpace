@@ -1,15 +1,14 @@
 ﻿using Renderer.Controls;
-using SFML.Graphics;
 
-namespace Renderer.Views.Partial
+namespace Renderer.Views.Overlays
 {
-    public class LayoutView : GameView
+    public class TopBarBottomBarOverlay : GameView
     {
-        public override string Name => "LayoutView";
+        public override string Name => "TopBarBottomBarOverlay";
 
         private readonly string _name;
 
-        public LayoutView(string name, float sizeX, float sizeY)
+        public TopBarBottomBarOverlay(string name, float sizeX, float sizeY)
         {
             _name = name;
             base.Add(new TopBar(_name, sizeX));

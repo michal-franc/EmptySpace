@@ -4,6 +4,8 @@ using SFML.Window;
 
 namespace Renderer.Controls.Buttons
 {
+    //TODO: Positioning of this selection is wrong
+    //TODO: Some nice sprite for this
     public class StarSelectedIndicatorControl : IBaseControl
     {
         private Shape _shape;

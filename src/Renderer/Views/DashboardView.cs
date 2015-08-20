@@ -13,13 +13,4 @@ namespace Renderer.Views
 
         public override string Name => "DashBoard";
     }
-
-    public class ShipView : GameView
-    {
-        public ShipView()
-        {
-        }
-
-        public override string Name => "Ship - 'Glorificatus'";
-    }
 }

@@ -2,32 +2,13 @@
 using Renderer.Controls;
 using Renderer.Controls.Buttons;
 using Renderer.Controls.Panels;
+using Renderer.Resources;
 using SFML.Graphics;
 using SFML.Window;
 
 namespace Renderer.Views
 {
-    public static class Vector2fExtensions
-    {
-        public static Vector2f Apply(this Vector2f vect, Func<float, float> apply)
-        {
-            vect.X = apply(vect.X);
-            vect.Y = apply(vect.Y);
-            return vect;
-        }
-
-        public static Vector2f Normalize(this Vector2f vect)
-        {
-            Func<float, float> abs = (val) =>
-            {
-                var wasNegative = val > 0.0f;
-                val = (float) Math.Sqrt(Math.Abs(val));
-                return wasNegative ? val : -val;
-            };
-
-            return vect.Apply(abs);
-        }
-    }
+    //TODO: Move to F#
 
     public class GalaxyView: GameView
     {

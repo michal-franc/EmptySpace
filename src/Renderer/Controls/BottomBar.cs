@@ -1,19 +1,12 @@
 ﻿using System.Collections.Generic;
 using Renderer.Controls.Base;
 using Renderer.Controls.Buttons;
+using Renderer.Views;
 using SFML.Graphics;
 using SFML.Window;
 
 namespace Renderer.Controls
 {
-    public enum ViewType
-    {
-        Dashboard,
-        Ship,
-        Galaxy,
-        System
-    }
-
     public class BottomBar : IControlContainer
     {
         public IEnumerable<IBaseControl> ChildrenControls { get; }
@@ -50,7 +43,6 @@ namespace Renderer.Controls
             ChildrenControls = new[] { dashBtn, shipBtn, galaxyBtn };
         }
 
-        // I have over-engineered previous code, i am refactoring the mess now
         public void Draw(RenderTarget target, RenderStates states)
         {
             target.Draw(_rect);

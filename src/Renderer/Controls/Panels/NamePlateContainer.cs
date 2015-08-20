@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Renderer.Controls.Base;
+using Renderer.Resources;
 using SFML.Graphics;
 using SFML.Window;
 
