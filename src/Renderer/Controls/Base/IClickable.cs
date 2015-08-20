@@ -2,6 +2,14 @@
 
 namespace Renderer.Controls.Base
 {
+    public interface IClickable : IBaseControl
+    {
+        event OnClickHandler OnLeftClick;
+        event OnClickHandler OnRightClick;
+        Events.Event LeftClick(RenderTarget target, ViewState state);
+        Events.Event RightClick(RenderTarget target, ViewState state);
+    }
+    
     public abstract class Clickable : IClickable
     {
         public event OnClickHandler OnLeftClick;
@@ -21,13 +29,5 @@ namespace Renderer.Controls.Base
         public abstract void Draw(RenderTarget target, RenderStates states);
 
         public abstract FloatRect GlobalBounds { get; }
-    }
-
-    public interface IClickable : IBaseControl
-    {
-        event OnClickHandler OnLeftClick;
-        event OnClickHandler OnRightClick;
-        Events.Event LeftClick(RenderTarget target, ViewState state);
-        Events.Event RightClick(RenderTarget target, ViewState state);
     }
 }

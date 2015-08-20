@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="Controls\Base\IBaseControl.cs" />
     <Compile Include="Controls\Base\IClickable.cs" />
+    <Compile Include="Controls\Base\IControlContainer.cs" />
     <Compile Include="Controls\Base\IHoverable.cs" />
     <Compile Include="Controls\Base\IUpdatable.cs" />
     <Compile Include="Controls\BottomBar.cs" />
