@@ -33,12 +33,12 @@ let setExplored state id =
 type Event = 
     | ChangeGameSpeed of factor : int
     | ExploreSystem of systemId : int
-    | TravelDest of destPoint : Vector2f
+    | TravelDest of dest: (Option<Vector2f * int>)
     | NoStateChange
 
 let apply state = function
     | ChangeGameSpeed(factor) -> changeSpeed state factor
-    | TravelDest(destPoint) -> startTravel state destPoint
+    | TravelDest(dest) -> startTravel state dest
     | ExploreSystem(systemId) -> setExplored state systemId
     | NoStateChange -> state
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.FSharp.Core;
 using Renderer.Controls;
 using Renderer.Controls.Buttons;
 using Renderer.Controls.Panels;
@@ -45,7 +46,7 @@ namespace Renderer.Views
 
                 //TODO: we need button that can have a parent so it can be positioned inside panel
                 var btn = new Button("Travel", new Vector2f(10.0f, 50.0f), panel);
-                btn.OnLeftClick += (sender, gameState) => Events.Event.NewTravelDest(_selectedStar.Position);
+                btn.OnLeftClick += (sender, gameState) => Events.Event.NewTravelDest(new FSharpOption<Tuple<Vector2f, int>>(new Tuple<Vector2f, int>(_selectedStar.Position, _selectedStar.Id)));
                 panel.AddChild(btn);
                 return panel;
             }, () => _selectedStar != null);

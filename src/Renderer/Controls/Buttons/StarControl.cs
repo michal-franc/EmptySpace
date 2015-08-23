@@ -11,16 +11,19 @@ namespace Renderer.Controls.Buttons
     public class StarControl : Clickable, IHoverable
     {
         public Vector2f Position => _position;
+        public int Id => _id;
 
         private StarSprite _rect;
         private StarSystem.Sun _sun;
         private Vector2f _position;
+        private int _id;
 
         public override FloatRect GlobalBounds => _rect.GetGlobalBounds();
 
         public StarControl(StarSystem.StarSystem system)
         {
             _position = system.Position;
+            _id = system.Id;
             _rect = new StarSprite(system, new Vector2f(_position.X, _position.Y));
             _sun = system.Sun; 
         }
