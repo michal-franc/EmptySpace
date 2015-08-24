@@ -38,8 +38,8 @@ type Human = {
             modifiedT
     member this.print =
             sprintf "%s hunger : %.0f thirst : %.0f tired : %.0f action: %s" this.Name this.Hunger this.Thirst this.Tired (match this.Action with
-                                                                                                                    | Exploring-> "Explore"
-                                                                                                                    | _ -> "None")
+                                                                                                                            | Exploring-> "Explore"
+                                                                                                                            | _ -> "None")
             
             
 

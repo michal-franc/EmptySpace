@@ -9,5 +9,6 @@ type GameState = {
      Universe : Universe
      Ship : Ship
      Date : DateTime
+     Alerts : string list
 }
 

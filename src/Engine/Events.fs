@@ -3,6 +3,7 @@
 open SFML.Window
 open GameState
 open StarSystem
+open Destination
 
 let changeSpeed state value  =
     let newValue = match state.GameSpeed + value with
@@ -13,9 +14,9 @@ let changeSpeed state value  =
     {state with GameSpeed = newValue}
 
 
-let startTravel state pos = 
+let startTravel state dest = 
     // TODO: move to ship logic
-    { state with Ship = { state.Ship with Destination = pos} }
+    { state with Ship = { state.Ship with Destination = dest } }
 
 let updateSystem id list f = 
     let rec loop acc = function
@@ -27,19 +28,19 @@ let updateSystem id list f =
 
 let setExplored state id =
     let newSystems = updateSystem id state.Universe.Systems (fun x -> { x with Explored = true })
+    // Optimize: looping same collection twice 
+    let system = List.find (fun x -> x.Id = id) state.Universe.Systems 
 
-    { state with Universe = { state.Universe with Systems = newSystems }}
+    { state with Universe = { state.Universe with Systems = newSystems }; Alerts = [sprintf "%s %s explored" (state.Date.ToShortDateString()) system.Sun.Name ]}
 
 type Event = 
     | ChangeGameSpeed of factor : int
-    | ExploreSystem of systemId : int
-    | TravelDest of dest: (Option<Vector2f * int>)
+    | TravelDest of dest: (Vector2f * int)
     | NoStateChange
 
 let apply state = function
     | ChangeGameSpeed(factor) -> changeSpeed state factor
-    | TravelDest(dest) -> startTravel state dest
-    | ExploreSystem(systemId) -> setExplored state systemId
+    | TravelDest(dest) -> startTravel state (OnRoute(snd dest, fst dest))
     | NoStateChange -> state
 
 

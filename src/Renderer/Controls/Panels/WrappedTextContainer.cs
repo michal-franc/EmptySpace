@@ -57,10 +57,13 @@ namespace Renderer.Controls.Panels
         //TODO: DRY
         public void UpdateText(string text)
         {
-            var oldPos = _text.Position;
-            _text = new Text(this.WrapText(text), GlobalAssets.FontNormal, 11);
-            _text.Color = Color.White;
-            _text.Position = oldPos;
+            if (!string.IsNullOrWhiteSpace(text))
+            {
+                var oldPos = _text.Position;
+                _text = new Text(this.WrapText(text), GlobalAssets.FontNormal, 11);
+                _text.Color = Color.White;
+                _text.Position = oldPos;
+            }
         }
     }
 }

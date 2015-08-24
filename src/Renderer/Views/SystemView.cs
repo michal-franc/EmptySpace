@@ -64,16 +64,6 @@ namespace Renderer.Views
             else
             {
                 this.Add(new NamedPanel("System Unexplored", new Vector2f(500.0f, 100.0f), 100, 1));
-                if (_playerInSystem)
-                {
-                    var btnExplore = new Button("Explore", new Vector2f(500.0f, 110.0f));
-                    btnExplore.OnLeftClick +=
-                        (sender, state) =>
-                        {
-                            return Events.Event.NewExploreSystem(system.Id);
-                        };
-                    this.Add(btnExplore);
-                }
             }
 
             var selectedPlanet = new NamedPanel(string.Empty, new Vector2f(700.0f, 500.0f), 200.0f, 30.0f);

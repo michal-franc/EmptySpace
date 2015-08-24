@@ -7,14 +7,15 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>6ca13bcc-7914-48b8-a346-7cc383231094</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <RootNamespace>EmptySpace</RootNamespace>
     <AssemblyName>Engine</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <Name>Engine</Name>
-    <TargetFSharpCoreVersion>4.3.0.0</TargetFSharpCoreVersion>
+    <TargetFSharpCoreVersion>4.4.0.0</TargetFSharpCoreVersion>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -72,18 +73,18 @@ xcopy /y "$(ProjectDir)\..\..\gfx" /S "$(TargetDir)\gfx\"</PostBuildEvent>
   <ItemGroup>
     <None Include="App.config" />
     <Content Include="packages.config" />
+    <Compile Include="Destination.fs" />
     <Compile Include="VectorHelper.fs" />
     <Compile Include="Human.fs" />
     <Compile Include="Storage.fs" />
     <Compile Include="CrewList.fs" />
-    <Compile Include="Ship.fs" />
     <Compile Include="StarSystem.fs" />
+    <Compile Include="Ship.fs" />
     <Compile Include="GameState.fs" />
     <Compile Include="Events.fs" />
     <Compile Include="GalaxyGenerator.fs" />
     <Compile Include="SystemRenderer.fs" />
     <Compile Include="GameEngine.fs" />
-    <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
