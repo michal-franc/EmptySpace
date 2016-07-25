@@ -14,11 +14,11 @@ let changeSpeed state value  =
     {state with GameSpeed = newValue}
 
 
-let startTravel state dest = 
+let startTravel state dest =
     // TODO: move to ship logic
     { state with Ship = { state.Ship with Destination = dest } }
 
-let updateSystem id list f = 
+let updateSystem id list f =
     let rec loop acc = function
         | [] -> acc
         | elem::rest when elem.Id = id -> loop ( f elem :: acc ) rest
@@ -27,13 +27,19 @@ let updateSystem id list f =
     loop [] list
 
 let setExplored state id =
-    let newSystems = updateSystem id state.Universe.Systems (fun x -> { x with Explored = true })
-    // Optimize: looping same collection twice 
-    let system = List.find (fun x -> x.Id = id) state.Universe.Systems 
+    let system = List.find (fun x -> x.Id = id) state.Universe.Systems
+    if system.Explored then
+       { state with Alerts = List.append [sprintf "%s Arrived to %s " (state.Date.ToShortDateString()) system.Sun.Name] state.Alerts }
+    else
+        let newSystems = updateSystem id state.Universe.Systems (fun x -> { x with Explored = true })
+        // Optimize: looping same collection twice
+        {
+            state with
+                    Universe = { state.Universe with Systems = newSystems };
+                    Alerts = List.append [sprintf "%s %s explored" (state.Date.ToShortDateString()) system.Sun.Name] state.Alerts
+        }
 
-    { state with Universe = { state.Universe with Systems = newSystems }; Alerts = [sprintf "%s %s explored" (state.Date.ToShortDateString()) system.Sun.Name ]}
-
-type Event = 
+type Event =
     | ChangeGameSpeed of factor : int
     | TravelDest of dest: (Vector2f * int)
     | NoStateChange
@@ -42,5 +48,3 @@ let apply state = function
     | ChangeGameSpeed(factor) -> changeSpeed state factor
     | TravelDest(dest) -> startTravel state (OnRoute(snd dest, fst dest))
     | NoStateChange -> state
-
-
