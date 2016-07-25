@@ -7,12 +7,12 @@ open Storage
 [<Fact>] 
 let ``Newly created storage is empty`` ()=
     let sut = createEmpty
-    sut.Objects.Count |> should equal 0.0f
+    sut.Objects.Count |> should equal 0
     
 [<Fact>] 
 let ``I can create storage with predefined objects`` ()=
     let sut = create (Map.ofList[("a", 1.0f);("b", 2.0f)])
-    sut.Objects.Count |> should equal 2.0f
+    sut.Objects.Count |> should equal 2
 
 [<Fact>] 
 let ``I can get number of items i have requested for if there are enough of them`` ()=
@@ -46,10 +46,10 @@ let ``I can use update function to add new objects`` ()=
     let sut = createEmpty
     let updatesList = Map.ofList[("a", 1.0f);("b", 2.0f)]
 
-    sut.Objects.Count |> should equal 0.0f
+    sut.Objects.Count |> should equal 0
 
     let newSut = addItems updatesList sut
-    newSut.Objects.Count |> should equal 2.0f
+    newSut.Objects.Count |> should equal 2
     newSut.Objects.["a"] |> should equal 1.0f
 
 [<Fact>]
@@ -64,7 +64,7 @@ let ``I can use update function to update existing objects`` ()=
     (Map.find "a" newSut.Objects) |> should equal 3.0f
     (Map.find "b" newSut.Objects) |> should equal 1.0f
     (Map.find "c" newSut.Objects) |> should equal 1.0f
-    newSut.Objects.Count |> should equal 3.0f
+    newSut.Objects.Count |> should equal 3
 
 [<Fact>]
 let ``I can an item from the list`` ()=
@@ -77,7 +77,7 @@ let ``I can an item from the list`` ()=
     let newSut = removeItems newUpdate sut
     (Map.find "a" newSut.Objects) |> should equal 0.0f
     (Map.find "b" newSut.Objects) |> should equal 1.0f
-    newSut.Objects.Count |> should equal 2.0f
+    newSut.Objects.Count |> should equal 2
 
 
 [<Fact>]

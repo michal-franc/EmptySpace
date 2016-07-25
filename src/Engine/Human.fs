@@ -18,7 +18,7 @@ type Human = {
 } with
     member this.tick = 
         let tiredRate = match this.Action with
-                        | Nothing -> 0.0f
+                        | Nothing -> -0.01f
                         |  _ -> 0.01f
         let tiredValue = this.Tired + tiredRate 
 

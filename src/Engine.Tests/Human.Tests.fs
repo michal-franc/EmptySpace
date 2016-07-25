@@ -18,8 +18,8 @@ let ``Each created human has incremented id`` ()=
 let ``I can create default Human with Name and all value set to default`` ()=
     let sut = create "Steve"
     sut.Name |> should equal "Steve"
-    sut.Hunger |> should equal 0
-    sut.Thirst |> should equal 0
+    sut.Hunger |> should equal 0.0f
+    sut.Thirst |> should equal 0.0f
 
 [<Fact>] 
 let ``On each tick hunger and thirst is modified`` ()=
@@ -36,15 +36,15 @@ let ``Each tick if there is an action increse Tired`` ()=
 
     let newHuman = sut.tick
 
-    newHuman.Tired |> should equal 1
+    newHuman.Tired |> should equal 0.01f
 
-//[<Fact>] 
-//let ``Each tick if there is no action decrease Tired`` ()=
-//    let sut = { create "Steve" with Action = Nothing; Tired = 50 }
-//
-//    let newHuman = sut.tick
-//
-//    newHuman.Tired |> should equal 49
+[<Fact>] 
+let ``Each tick if there is no action decrease Tired`` ()=
+    let sut = { create "Steve" with Action = Nothing; Tired = 50.0f }
+
+    let newHuman = sut.tick
+
+    newHuman.Tired |> should equal 49.99f
 
 [<Fact>] 
 let ``Min Tired value is 0`` ()=
@@ -52,4 +52,4 @@ let ``Min Tired value is 0`` ()=
 
     let newHuman = sut.tick
 
-    newHuman.Tired |> should equal 0 
+    newHuman.Tired |> should equal 0.0f
