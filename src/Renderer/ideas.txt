@@ -40,3 +40,6 @@
 // - soldier - different skillset
 //    - specs - marine
 //    - weapon specialist 
+
+// Automata how to generate history of the world ideas
+// http://gamedev.stackexchange.com/questions/31877/how-do-history-generation-algorithms-work
